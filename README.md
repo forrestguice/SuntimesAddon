@@ -1,7 +1,7 @@
-# Suntimes Addon #
+# Suntimes Addon
 An Android Library for the development of Suntimes addons.  
 
-To use:
+### To use:
 * Create a new Android project; `File -> New Project`
 * Add Jitpack to the root `build.gradle`.
 ```
@@ -78,3 +78,15 @@ private SuntimesInfo suntimesInfo = null;
         cursor.close();  // don't forget to close the cursor when finished
     }
 ```
+
+### Legal Stuff
+
+Copyright © 2020 Forrest Guice
+
+Source code is available under GPLv3 (https://github.com/forrestguice/SuntimesAddon).
+
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+**Using this library in your project means that your addon must also be licensed GPLv3.** 
+
+This library is intended to assist addon development, however its use is not required. You should call the Suntimes public interfaces directly if your project is licensed differently.      
