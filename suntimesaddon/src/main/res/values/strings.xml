@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SuntimesAddon</string>
+
+    <string name="missing_dependency"><![CDATA[
+        This app requires<br />
+        <b><u>%s</u></b> or greater!
+    ]]></string>
+    <string name="missing_permission"><![CDATA[
+        Permission Denied!<br />
+        Unable to access the provider. The necessary permissions may have been revoked (or never granted).<br />
+        <br />
+        <b>Re-installing <u>%s</u> should fix this.</b>
+    ]]></string>
+</resources>

@@ -16,7 +16,7 @@
     along with Suntimes.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.forrestguice.suntimes.addon.ui;
+package com.forrestguice.suntimes.addonexample;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +29,7 @@ import com.forrestguice.suntimes.addon.LocaleHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 
 import com.forrestguice.suntimes.addon.R;
+import com.forrestguice.suntimes.addon.ui.Messages;
 
 public class MainActivity extends AppCompatActivity
 {
