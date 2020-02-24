@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="activity_margin">8dp</dimen>
+
     <dimen name="sunIcon_height">9dip</dimen>
     <dimen name="sunIcon_width">24dip</dimen>
     <dimen name="sunIcon_inset">-9dip</dimen> <!-- this should be the same as sunicon_height to produce a half circle -->
     <dimen name="sunIcon_stroke">2dp</dimen>
-
 </resources>

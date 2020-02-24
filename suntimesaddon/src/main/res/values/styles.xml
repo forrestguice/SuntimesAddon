@@ -5,9 +5,18 @@
         <item name="colorPrimary">@color/colorPrimary_dark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
         <item name="colorAccent">@color/colorAccent_dark</item>
+        <item name="colorAction">@color/colorAction_dark</item>
+        <item name="colorDisabled">@color/colorDisabled_dark</item>
+
+        <item name="suntimesCardBackground">@color/card_dark</item>
 
         <item name="sunriseColor">@color/sun_rising_dark</item>
         <item name="sunsetColor">@color/sun_setting_dark</item>
+
+        <item name="noonColor">@color/sun_noon_dark</item>
+        <item name="noonBorderColor">@color/sun_noon_border_dark</item>
+        <item name="noonIcon">@drawable/ic_noon_dark</item>
+
         <item name="moonriseColor">@color/moon_rising_dark</item>
         <item name="moonsetColor">@color/moon_setting_dark</item>
 
@@ -22,9 +31,18 @@
         <item name="colorPrimary">@color/colorPrimary_light</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_light</item>
         <item name="colorAccent">@color/colorAccent_light</item>
+        <item name="colorAction">@color/colorAction_light</item>
+        <item name="colorDisabled">@color/colorDisabled_light</item>
+
+        <item name="suntimesCardBackground">@color/card_light</item>
 
         <item name="sunriseColor">@color/sun_rising_light</item>
         <item name="sunsetColor">@color/sun_setting_light</item>
+
+        <item name="noonColor">@color/sun_noon_light</item>
+        <item name="noonBorderColor">@color/sun_noon_border_light</item>
+        <item name="noonIcon">@drawable/ic_noon_light</item>
+
         <item name="moonriseColor">@color/moon_rising_light</item>
         <item name="moonsetColor">@color/moon_setting_light</item>
 
@@ -35,10 +53,23 @@
     </style>
 
 
+
+
+
     <style name="SunIconImageView">
         <item name="android:gravity">center</item>
         <item name="android:layout_width">@dimen/sunIcon_width</item>
         <item name="android:layout_height">@dimen/sunIcon_height</item>
+    </style>
+
+    <style name="SuntimesCard">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/suntimesCardBackground</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">8dp</item>
     </style>
 
 </resources>

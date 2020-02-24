@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="sunriseColor" format="reference" />
-    <attr name="sunriseIconSmall" format="reference" />
 
+    <attr name="colorAction" format="reference" />
+    <attr name="colorDisabled" format="reference" />
+    <attr name="suntimesCardBackground" format="reference" />
+
+    <!-- sunrise, sunset -->
+    <attr name="sunriseColor" format="reference" />
     <attr name="sunsetColor" format="reference" />
+    <attr name="sunriseIconSmall" format="reference" />
     <attr name="sunsetIconSmall" format="reference" />
 
+    <!-- noon -->
+    <attr name="noonColor" format="reference" />
+    <attr name="noonBorderColor" format="reference" />
+    <attr name="noonIcon" format="reference" />
+
+    <!-- moonrise, moonset -->
     <attr name="moonriseColor" format="reference" />
     <attr name="moonriseIconSmall" format="reference" />
-
     <attr name="moonsetColor" format="reference" />
     <attr name="moonsetIconSmall" format="reference" />
+
 </resources>
