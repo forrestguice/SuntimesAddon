@@ -21,6 +21,15 @@ dependencies {
 }
 ``` 
 
+* (optional) Override `values/suntimes.xml` to define your project's Suntimes version requirements. The default looks like:
+``` 
+<resources>
+    <integer name="min_provider_version">1</integer>
+    <string name="min_suntimes_version">Suntimes v0.10.3</string>
+    <string name="min_suntimes_url">https://forrestguice.github.io/SuntimesWidget/</string>
+</resources>
+``` 
+
 * Override `attachBaseContext` to obtain Suntimes info when your activity first starts. Optionally override the locale to match the one used by Suntimes.
 ```
 private SuntimesInfo suntimesInfo = null;
