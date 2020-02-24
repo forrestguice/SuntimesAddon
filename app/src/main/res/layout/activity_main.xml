@@ -42,34 +42,76 @@
 
         <LinearLayout
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal" android:layout_margin="4dp">
 
             <ImageView
                 android:id="@+id/icon_sunrise"
                 style="@style/SunIconImageView" android:background="?attr/sunriseIconSmall"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_margin="0dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_margin="4dp"
                 tools:ignore="contentDescription"/>
 
             <ImageView
                 android:id="@+id/icon_sunset"
                 style="@style/SunIconImageView" android:background="?attr/sunsetIconSmall"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_margin="0dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_margin="4dp"
                 tools:ignore="contentDescription"/>
 
             <ImageView
                 android:id="@+id/icon_moonrise"
                 style="@style/SunIconImageView" android:background="?attr/moonriseIconSmall"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_margin="0dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_margin="4dp"
                 tools:ignore="contentDescription"/>
 
             <ImageView
                 android:id="@+id/icon_moonset"
                 style="@style/SunIconImageView" android:background="?attr/moonsetIconSmall"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_margin="0dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_margin="4dp"
+                tools:ignore="contentDescription"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:layout_margin="4dp">
+
+            <ImageView
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                android:background="@drawable/ic_moon_new"
+                tools:ignore="contentDescription"/>
+
+            <ImageView
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                android:background="@drawable/ic_moon_waxing_crescent"
+                tools:ignore="contentDescription"/>
+
+            <ImageView
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                android:background="@drawable/ic_moon_waxing_quarter"
+                tools:ignore="contentDescription"/>
+
+            <ImageView
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                android:background="@drawable/ic_moon_waxing_gibbous"
+                tools:ignore="contentDescription"/>
+
+            <ImageView
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                android:background="@drawable/ic_moon_full"
+                tools:ignore="contentDescription"/>
+
+            <ImageView
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                android:background="@drawable/ic_moon_waning_gibbous"
+                tools:ignore="contentDescription"/>
+
+            <ImageView
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                android:background="@drawable/ic_moon_waning_quarter"
+                tools:ignore="contentDescription"/>
+
+            <ImageView
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                android:background="@drawable/ic_moon_waning_crescent"
                 tools:ignore="contentDescription"/>
 
         </LinearLayout>

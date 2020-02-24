@@ -3,46 +3,20 @@
     <style name="AppTheme" parent="AppTheme.Dark" />
 
     <!-- Dark Theme -->
-    <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme.Dark" parent="SuntimesAddonTheme.Dark">
         <item name="colorPrimary">@color/colorPrimary_dark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
         <item name="colorAccent">@color/colorAccent_dark</item>
-
-        <item name="sunriseColor">@color/sun_rising_dark</item>
-        <item name="sunsetColor">@color/sun_setting_dark</item>
-        <item name="moonriseColor">@color/moon_rising_dark</item>
-        <item name="moonsetColor">@color/moon_setting_dark</item>
-
-        <item name="sunriseIconSmall">@drawable/ic_sunrise_dark</item>
-        <item name="sunsetIconSmall">@drawable/ic_sunset_dark</item>
-        <item name="moonriseIconSmall">@drawable/ic_moonrise_dark</item>
-        <item name="moonsetIconSmall">@drawable/ic_moonset_dark</item>
     </style>
 
     <!-- Light Theme -->
-    <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Light" parent="SuntimesAddonTheme.Light">
         <item name="colorPrimary">@color/colorPrimary_light</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_light</item>
         <item name="colorAccent">@color/colorAccent_light</item>
-
-        <item name="sunriseColor">@color/sun_rising_light</item>
-        <item name="sunsetColor">@color/sun_setting_light</item>
-        <item name="moonriseColor">@color/moon_rising_light</item>
-        <item name="moonsetColor">@color/moon_setting_light</item>
-
-        <item name="sunriseIconSmall">@drawable/ic_sunrise_light</item>
-        <item name="sunsetIconSmall">@drawable/ic_sunset_light</item>
-        <item name="moonriseIconSmall">@drawable/ic_moonrise_light</item>
-        <item name="moonsetIconSmall">@drawable/ic_moonset_light</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="SunIconImageView">
-        <item name="android:gravity">center</item>
-        <item name="android:layout_width">@dimen/sunIcon_width</item>
-        <item name="android:layout_height">@dimen/sunIcon_height</item>
-    </style>
 
 </resources>

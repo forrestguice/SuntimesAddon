@@ -7,8 +7,16 @@
 
     <color name="sun_rising_dark">#ffd500</color>
     <color name="sun_setting_dark">#ff9900</color>
+
     <color name="moon_rising_dark">@color/grey_50</color>
     <color name="moon_setting_dark">@color/grey_500l</color>
+
+    <color name="moon_waxing_dark">@color/grey_300</color>
+    <color name="moon_waning_dark">@color/grey_500l</color>
+    <color name="moon_new_dark">@color/grey_850</color>
+    <color name="moon_new_border_dark">@color/grey_500l</color>
+    <color name="moon_full_dark">@color/grey_100</color>
+    <color name="moon_full_border_dark">@color/grey_500l</color>
 
 
     <!-- light theme colors -->
@@ -18,8 +26,16 @@
 
     <color name="sun_rising_light">#3277C7</color>
     <color name="sun_setting_light">#CF4800</color>
+
     <color name="moon_rising_light">#537794</color>
     <color name="moon_setting_light">#6B5256</color>
+
+    <color name="moon_waxing_light">@color/grey_300</color>
+    <color name="moon_waning_light">@color/grey_500l</color>
+    <color name="moon_new_light">@color/grey_850</color>
+    <color name="moon_new_border_light">@color/grey_600</color>
+    <color name="moon_full_light">@color/grey_100</color>
+    <color name="moon_full_border_light">@color/grey_600</color>
 
 
     <!-- misc -->
