@@ -21,11 +21,59 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <TextView android:id="@+id/text_suntimes_version"
+
+
+    <LinearLayout
         android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/icon_suntimes"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_suntimes"
+            tools:ignore="contentDescription"/>
+
+        <TextView android:id="@+id/text_suntimes_version"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/icon_sunrise"
+                style="@style/SunIconImageView" android:background="?attr/sunriseIconSmall"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_margin="0dp"
+                tools:ignore="contentDescription"/>
+
+            <ImageView
+                android:id="@+id/icon_sunset"
+                style="@style/SunIconImageView" android:background="?attr/sunsetIconSmall"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_margin="0dp"
+                tools:ignore="contentDescription"/>
+
+            <ImageView
+                android:id="@+id/icon_moonrise"
+                style="@style/SunIconImageView" android:background="?attr/moonriseIconSmall"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_margin="0dp"
+                tools:ignore="contentDescription"/>
+
+            <ImageView
+                android:id="@+id/icon_moonset"
+                style="@style/SunIconImageView" android:background="?attr/moonsetIconSmall"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_margin="0dp"
+                tools:ignore="contentDescription"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

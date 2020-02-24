@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="sunriseColor" format="reference" />
+    <attr name="sunriseIconSmall" format="reference" />
+
+    <attr name="sunsetColor" format="reference" />
+    <attr name="sunsetIconSmall" format="reference" />
+
+    <attr name="moonriseColor" format="reference" />
+    <attr name="moonriseIconSmall" format="reference" />
+
+    <attr name="moonsetColor" format="reference" />
+    <attr name="moonsetIconSmall" format="reference" />
+</resources>

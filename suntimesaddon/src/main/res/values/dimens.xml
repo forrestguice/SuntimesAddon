@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sunIcon_height">9dip</dimen>
+    <dimen name="sunIcon_width">24dip</dimen>
+    <dimen name="sunIcon_inset">-9dip</dimen> <!-- this should be the same as sunicon_height to produce a half circle -->
+
+</resources>

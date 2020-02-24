@@ -5,10 +5,22 @@
     <color name="colorPrimaryDark_dark">#ff9900</color>
     <color name="colorAccent_dark">#ff80cbc4</color>
 
+    <color name="sun_rising_dark">#ffd500</color>
+    <color name="sun_setting_dark">#ff9900</color>
+    <color name="moon_rising_dark">@color/grey_50</color>
+    <color name="moon_setting_dark">@color/grey_500l</color>
+
+
     <!-- light theme colors -->
     <color name="colorPrimary_light">#3F51B5</color>
     <color name="colorPrimaryDark_light">#303F9F</color>
     <color name="colorAccent_light">#ff009688</color>
+
+    <color name="sun_rising_light">#3277C7</color>
+    <color name="sun_setting_light">#CF4800</color>
+    <color name="moon_rising_light">#537794</color>
+    <color name="moon_setting_light">#6B5256</color>
+
 
     <!-- misc -->
     <color name="transparent">#00000000</color>
