@@ -73,18 +73,11 @@ public class MainActivity extends AppCompatActivity
         TextView text_suntimesVersion = findViewById(R.id.text_suntimes_version);
         if (suntimesInfo != null && text_suntimesVersion != null)
         {
-            text_suntimesVersion.setText(
-                    suntimesInfo.appName + "(" + suntimesInfo.providerCode + ")" +" \n"
-                    + "permission: " + suntimesInfo.hasPermission + "\n"
-                    + "locale: " + suntimesInfo.appLocale + "\n"
-                    + "theme: " + suntimesInfo.appTheme + "\n"
-                    + "timezone: " + suntimesInfo.timezone + "\n"
-                    + "location: " + suntimesInfo.location[0] + "\n" + suntimesInfo.location[1] + ", " + suntimesInfo.location[2] + " [" + suntimesInfo.location[3] +"]"
-            );
+            text_suntimesVersion.setText(suntimesInfo.toString());
             text_suntimesVersion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AddonHelper.startSuntimesAlarmsActivity(MainActivity.this);
+                    AddonHelper.startSuntimesActivity(MainActivity.this);
                 }
             });
         }

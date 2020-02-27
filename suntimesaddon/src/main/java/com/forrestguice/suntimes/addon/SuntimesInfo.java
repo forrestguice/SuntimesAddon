@@ -31,7 +31,7 @@ import com.forrestguice.suntimes.calculator.core.CalculatorProviderContract;
 /**
  * SuntimesInfo
  */
-public final class SuntimesInfo
+public class SuntimesInfo
 {
     public Integer providerCode = null;
     public String providerName = null;
@@ -45,13 +45,15 @@ public final class SuntimesInfo
 
     public String timezone = null;
     public String[] location = null;    // [0]label, [1]latitude (dd), [2]longitude (dd), [3]altitude (meters)
+    public SuntimesOptions options = new SuntimesOptions();
 
     public static final String[] projection = new String[] { CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE, CalculatorProviderContract.COLUMN_CONFIG_APP_VERSION_CODE,
                                                              CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION,      CalculatorProviderContract.COLUMN_CONFIG_APP_VERSION,
                                                              CalculatorProviderContract.COLUMN_CONFIG_LOCALE,                CalculatorProviderContract.COLUMN_CONFIG_APP_THEME,
                                                              CalculatorProviderContract.COLUMN_CONFIG_TIMEZONE,
                                                              CalculatorProviderContract.COLUMN_CONFIG_LOCATION, CalculatorProviderContract.COLUMN_CONFIG_LATITUDE,
-                                                             CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE };
+                                                             CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE
+    };
     public static final String THEME_LIGHT = "light", THEME_DARK = "dark";
 
     public void initFromCursor(@NonNull Cursor cursor)
@@ -68,7 +70,7 @@ public final class SuntimesInfo
         location[0] = (!cursor.isNull(7)) ? cursor.getString(7) : null;
         location[1] = (!cursor.isNull(8)) ? cursor.getString(8) : null;
         location[2] = (!cursor.isNull(9)) ? cursor.getString(9) : null;
-        location[3] = (!cursor.isNull(9)) ? cursor.getString(10) : null;
+        location[3] = (!cursor.isNull(10)) ? cursor.getString(10) : null;
         hasPermission = isInstalled = (providerCode != null);
     }
 
@@ -94,6 +96,7 @@ public final class SuntimesInfo
                 {
                     info.initFromCursor(cursor);
                     cursor.close();
+                    info.options = SuntimesOptions.queryInfo(resolver);
 
                 } else {               // null cursor but no SecurityException.. Suntimes isn't installed at all
                     info.isInstalled = false;
@@ -121,4 +124,103 @@ public final class SuntimesInfo
     public static int minProviderVersion(@NonNull Context context) {
         return context.getResources().getInteger(R.integer.min_provider_version);
     }
+
+    /**
+     * @return additional Suntimes config info
+     */
+    public SuntimesOptions getOptions() {
+        return options;
+    }
+
+    public String toString()
+    {
+        return getClass().getSimpleName() + " [" +
+                appName + "(" + providerCode + ")" +" \n"
+                + "permission: " + hasPermission + "\n"
+                + "locale: " + appLocale + "\n"
+                + "theme: " + appTheme + "\n"
+                + "timezone: " + timezone + "\n"
+                + "location: " + location[0] + "\n" + location[1] + ", " + location[2] + " [" + location[3] +"]" + "\n\n"
+                + getOptions().toString();
+    }
+
+    /**
+     * SuntimesOptions
+     */
+    public static class SuntimesOptions
+    {
+        public boolean time_is24 = true;
+        public boolean time_showSeconds = false;
+        public boolean time_showHours = true;
+        public boolean time_showWeeks = false;
+        public boolean time_showDateTime = true;
+        public boolean use_altitude = true;
+        public boolean show_warnings = true;
+        public boolean verbose_talkback = false;
+        public String length_units = UNITS_METRIC;
+
+        public static final String UNITS_METRIC = "METRIC";
+        public static final String UNITS_IMPERIAL = "IMPERIAL";
+
+        public void initFromCursor(@NonNull Cursor cursor)
+        {
+            Log.d("DEBUG", "queryInfo: cursor: " + cursor.getCount());
+
+            cursor.moveToFirst();
+            time_is24 = (!cursor.isNull(0)) ? (cursor.getInt(0) == 1) : time_is24;
+            time_showSeconds = (!cursor.isNull(1)) ? (cursor.getInt(1) == 1) : time_showSeconds;
+            time_showHours = (!cursor.isNull(2)) ? (cursor.getInt(2) == 1) : time_showHours;
+            time_showWeeks = (!cursor.isNull(3)) ? (cursor.getInt(3) == 1) : time_showWeeks;
+            time_showDateTime = (!cursor.isNull(4)) ? (cursor.getInt(4) == 1) : time_showDateTime;
+            use_altitude = (!cursor.isNull(5)) ? (cursor.getInt(5) == 1) : use_altitude;
+            show_warnings = (!cursor.isNull(6)) ? (cursor.getInt(6) == 1) : show_warnings;
+            verbose_talkback = (!cursor.isNull(7)) ? (cursor.getInt(7) == 1) : verbose_talkback;
+            length_units = (!cursor.isNull(8)) ? cursor.getString(8) : length_units;
+            Log.d("DEBUG", "initFromCursor: col0 is null?" + cursor.isNull(0) );
+        }
+
+        public static SuntimesOptions queryInfo(@Nullable ContentResolver resolver)
+        {
+            SuntimesOptions options = new SuntimesOptions();
+            if (resolver != null)
+            {
+                Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG);
+                try {
+                    Cursor cursor = resolver.query(uri, SuntimesOptions.projection, null, null, null);
+                    if (cursor != null) {
+                        options.initFromCursor(cursor);
+                        cursor.close();
+                    } else {
+                        Log.e(SuntimesOptions.class.getSimpleName(), "queryInfo: null cursor! defaults will be used.");
+                    }
+                } catch (SecurityException e) {
+                    Log.e(SuntimesOptions.class.getSimpleName(), "queryInfo: Unable to access " + CalculatorProviderContract.AUTHORITY + "! " + e);
+                }
+            }
+            return options;
+        }
+
+        public static final String[] projection = new String[] {
+                CalculatorProviderContract.COLUMN_CONFIG_OPTION_TIME_IS24, CalculatorProviderContract.COLUMN_CONFIG_OPTION_TIME_SECONDS,
+                CalculatorProviderContract.COLUMN_CONFIG_OPTION_TIME_HOURS, CalculatorProviderContract.COLUMN_CONFIG_OPTION_TIME_WEEKS,
+                CalculatorProviderContract.COLUMN_CONFIG_OPTION_TIME_DATETIME, CalculatorProviderContract.COLUMN_CONFIG_OPTION_ALTITUDE,
+                CalculatorProviderContract.COLUMN_CONFIG_OPTION_WARNINGS, CalculatorProviderContract.COLUMN_CONFIG_OPTION_TALKBACK,
+                CalculatorProviderContract.COLUMN_CONFIG_OPTION_LENGTH_UNITS
+        };
+
+        public String toString()
+        {
+            return getClass().getSimpleName() + "\n" +
+                    "time_is24: " + time_is24 + "\n" +
+                    "time_showSeconds: " + time_showSeconds + "\n" +
+                    "time_showHours: " + time_showHours + "\n" +
+                    "time_showWeeks: " + time_showWeeks + "\n" +
+                    "time_showDateTime: " + time_showDateTime + "\n" +
+                    "use_altitude: " + use_altitude + "\n" +
+                    "show_warnings: " + show_warnings + "\n" +
+                    "verbose_talkback: " + verbose_talkback + "\n" +
+                    "length units: " + length_units;
+        }
+    }
+
 }
