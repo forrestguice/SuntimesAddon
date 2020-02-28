@@ -110,6 +110,25 @@ public class SuntimesInfo
         return info;
     }
 
+    public static String queryAppTheme(@Nullable ContentResolver resolver)
+    {
+        String theme = THEME_DARK;
+        if (resolver != null) {
+            Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG );
+            try {
+                Cursor cursor = resolver.query(uri, new String[] { CalculatorProviderContract.COLUMN_CONFIG_APP_THEME } , null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    theme = (cursor.isNull(0) ? THEME_DARK : cursor.getString(0));
+                    cursor.close();
+                }
+            } catch (SecurityException e) {
+                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + CalculatorProviderContract.AUTHORITY + "! " + e);
+            }
+        }
+        return theme;
+    }
+
     /**
      * checkVersion
      * @return true Suntimes installed >= min_provider_version, or false < min_provider_version (or Suntimes missing)
