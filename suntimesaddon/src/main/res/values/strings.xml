@@ -16,4 +16,16 @@
         <br />
         <b>Re-installing <u>%s</u> should fix this.</b>
     ]]></string>
+
+    <!-- moon phases -->
+    <string name="timeMode_moon">Moon</string>
+    <string name="timeMode_moon_new">New Moon</string>
+    <string name="timeMode_moon_waxingcrescent">Waxing Crescent</string>
+    <string name="timeMode_moon_firstquarter">First Quarter</string>
+    <string name="timeMode_moon_waxinggibbous">Waxing Gibbous</string>
+    <string name="timeMode_moon_full">Full Moon</string>
+    <string name="timeMode_moon_waninggibbous">Waning Gibbous</string>
+    <string name="timeMode_moon_thirdquarter">Third Quarter</string>
+    <string name="timeMode_moon_waningcrescent">Waning Crescent</string>
+    <string name="time_none">none</string>
 </resources>
