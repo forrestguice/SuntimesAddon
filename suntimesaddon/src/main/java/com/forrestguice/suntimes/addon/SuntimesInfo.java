@@ -28,6 +28,8 @@ import android.util.Log;
 
 import com.forrestguice.suntimes.calculator.core.CalculatorProviderContract;
 
+import java.util.Calendar;
+
 /**
  * SuntimesInfo
  */
@@ -54,7 +56,9 @@ public class SuntimesInfo
                                                              CalculatorProviderContract.COLUMN_CONFIG_LOCATION, CalculatorProviderContract.COLUMN_CONFIG_LATITUDE,
                                                              CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE
     };
-    public static final String THEME_LIGHT = "light", THEME_DARK = "dark";
+    public static final String THEME_LIGHT = "light";
+    public static final String THEME_DARK = "dark";
+    public static final String THEME_DAYNIGHT = "daynight";
 
     public void initFromCursor(@NonNull Cursor cursor)
     {
@@ -96,6 +100,10 @@ public class SuntimesInfo
                 {
                     info.initFromCursor(cursor);
                     cursor.close();
+
+                    if (info.appTheme.equals(THEME_DAYNIGHT)) {
+                        info.appTheme = queryDayNightTheme(resolver);
+                    }
                     info.options = SuntimesOptions.queryInfo(resolver);
 
                 } else {               // null cursor but no SecurityException.. Suntimes isn't installed at all
@@ -126,7 +134,49 @@ public class SuntimesInfo
                 Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + CalculatorProviderContract.AUTHORITY + "! " + e);
             }
         }
+        if (theme.equals(THEME_DAYNIGHT)) {
+            theme = queryDayNightTheme(resolver);
+        }
         return theme;
+    }
+
+    public static String queryDayNightTheme(@Nullable ContentResolver resolver)
+    {
+        long now = Calendar.getInstance().getTimeInMillis();
+        Long[] sun = querySunriseSunset(resolver, null);
+        if (sun[0] != null && sun[1] != null &&
+                sun[0] < now && now < sun[1]) {
+            return THEME_LIGHT;
+        } else {
+            return THEME_DARK;
+        }
+    }
+
+    /**
+     * @param resolver ContentResolver
+     * @param date (optiona) date of sunrise/sunset (defaults to now)
+     * @return [sunriseMillis, sunsetMillis] .. may contain nulls if event does not occur
+     */
+    public static Long[] querySunriseSunset(@Nullable ContentResolver resolver, @Nullable Calendar date)
+    {
+        Long[] sun = new Long[2];
+        if (resolver != null)
+        {
+            long dateMillis = (date != null ? date.getTimeInMillis() : Calendar.getInstance().getTimeInMillis());
+            Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + dateMillis );
+            try {
+                Cursor cursor = resolver.query(uri, new String[] { CalculatorProviderContract.COLUMN_SUN_ACTUAL_RISE, CalculatorProviderContract.COLUMN_SUN_ACTUAL_SET } , null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    sun[0] = (cursor.isNull(0) ? null : cursor.getLong(0));
+                    sun[1] = (cursor.isNull(1) ? null : cursor.getLong(1));
+                    cursor.close();
+                }
+            } catch (SecurityException e) {
+                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + CalculatorProviderContract.AUTHORITY + "! " + e);
+            }
+        }
+        return sun;
     }
 
     /**
