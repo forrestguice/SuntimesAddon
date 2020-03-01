@@ -66,6 +66,16 @@ public class MainActivity extends AppCompatActivity
         updateViews();
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        String appTheme = SuntimesInfo.queryAppTheme(getContentResolver());
+        if (appTheme != null && !appTheme.equals(suntimesInfo.appTheme)) {
+            recreate();
+        }
+    }
+
     protected void updateViews()
     {
         checkVersion();    // check dependencies and display warnings
