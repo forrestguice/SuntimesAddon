@@ -1,21 +1,32 @@
 <resources>
     <string name="app_name">SuntimesAddon</string>
+    <string name="app_url"><![CDATA[
+        <a href="https://forrestguice.github.io/SuntimesWidget/">forrestguice.github.io/SuntimesWidget</a>
+    ]]></string>    <!-- formatted link -->
 
-    <string name="format_year">yyyy</string>
-    <string name="format_date">MMMM d</string>
-    <string name="format_time12">h:mm a</string>
-    <string name="format_time24">HH:mm</string>
 
+    <string name="app_provider_version_missing"><![CDATA[<font color="#e65100"><b>Missing!</b></font>]]></string>
     <string name="missing_dependency"><![CDATA[
         This app requires<br />
         <b><u>%s</u></b> or greater!
     ]]></string>
+
+    <string name="app_provider_version_denied"><![CDATA[<font color="#e65100"><b>Permission Denied!</b></font>]]></string>
     <string name="missing_permission"><![CDATA[
         Permission Denied!<br />
         Unable to access the provider. The necessary permissions may have been revoked (or never granted).<br />
         <br />
         <b>Re-installing <u>%s</u> should fix this.</b>
     ]]></string>
+
+
+    <!-- time & date formats -->
+    <string name="format_year">yyyy</string>                      <!-- 2020 -->
+    <string name="format_date">MMMM d</string>                    <!-- Thursday, February 27 -->
+    <string name="format_date_long">EEEE\nMMMM d, yyyy</string>   <!-- Thursday, February 27, 2020 -->
+    <string name="format_time12">h:mm a</string>                  <!-- 2:30 PM -->
+    <string name="format_time24">HH:mm</string>                   <!-- 14:30 -->
+
 
     <!-- moon phases -->
     <string name="timeMode_moon">Moon</string>
