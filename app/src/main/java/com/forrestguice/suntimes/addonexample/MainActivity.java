@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
     {
         checkVersion();    // check dependencies and display warnings
 
-        TextView text_suntimesVersion = findViewById(R.id.text_suntimes_version);
+        TextView text_suntimesVersion = (TextView)findViewById(R.id.text_suntimes_version);
         if (suntimesInfo != null && text_suntimesVersion != null)
         {
             text_suntimesVersion.setText(suntimesInfo.toString());
