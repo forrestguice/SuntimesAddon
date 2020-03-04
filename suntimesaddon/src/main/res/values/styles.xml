@@ -9,6 +9,11 @@
         <item name="colorDisabled">@color/colorDisabled_dark</item>
 
         <item name="suntimesCardBackground">@color/card_dark</item>
+        <item name="dialogBackground">@color/dialog_dark</item>
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
+        <item name="actionBarPopupTheme">@style/PopupMenuStyleDark</item>
+        <item name="fab_backgroundColor">@color/fab_background_dark</item>
+        <item name="fab_rippleColor">@color/fab_ripple_dark</item>
 
         <item name="sunriseColor">@color/sun_rising_dark</item>
         <item name="sunsetColor">@color/sun_setting_dark</item>
@@ -35,6 +40,11 @@
         <item name="colorDisabled">@color/colorDisabled_light</item>
 
         <item name="suntimesCardBackground">@color/card_light</item>
+        <item name="dialogBackground">@color/dialog_light</item>
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="actionBarPopupTheme">@style/PopupMenuStyleLight</item>
+        <item name="fab_backgroundColor">@color/fab_background_light</item>
+        <item name="fab_rippleColor">@color/fab_ripple_light</item>
 
         <item name="sunriseColor">@color/sun_rising_light</item>
         <item name="sunsetColor">@color/sun_setting_light</item>
@@ -52,8 +62,8 @@
         <item name="moonsetIconSmall">@drawable/ic_moonset_light</item>
     </style>
 
-
-
+    <style name="PopupMenuStyleLight" parent="Theme.AppCompat.Light" />
+    <style name="PopupMenuStyleDark" parent="Theme.AppCompat" />
 
 
     <style name="SunIconImageView">

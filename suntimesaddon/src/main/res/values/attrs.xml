@@ -3,7 +3,13 @@
 
     <attr name="colorAction" format="reference" />
     <attr name="colorDisabled" format="reference" />
+
     <attr name="suntimesCardBackground" format="reference" />
+    <attr name="dialogBackground" format="reference" />
+
+    <attr name="toolbarTheme" format="reference" />
+    <attr name="fab_backgroundColor" format="reference" />
+    <attr name="fab_rippleColor" format="reference" />
 
     <!-- sunrise, sunset -->
     <attr name="sunriseColor" format="reference" />
