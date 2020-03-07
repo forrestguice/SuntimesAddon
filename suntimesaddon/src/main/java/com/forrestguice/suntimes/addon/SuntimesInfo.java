@@ -112,7 +112,6 @@ public class SuntimesInfo
                     if (info.appTheme.equals(THEME_DAYNIGHT)) {
                         info.appTheme = queryDayNightTheme(resolver);
                     }
-                    info.options = SuntimesOptions.queryInfo(resolver);
 
                 } else {               // null cursor but no SecurityException.. Suntimes isn't installed at all
                     info.isInstalled = false;
@@ -203,9 +202,12 @@ public class SuntimesInfo
     }
 
     /**
-     * @return additional Suntimes config info
+     * @return additional Suntimes config info (may be null if not supported by provider)
      */
-    public SuntimesOptions getOptions() {
+    public SuntimesOptions getOptions(@Nullable ContentResolver resolver) {
+        if (options == null) {
+            options = SuntimesOptions.queryInfo(resolver);
+        }
         return options;
     }
 
@@ -218,7 +220,7 @@ public class SuntimesInfo
                 + "theme: " + appTheme + "\n"
                 + "timezone: " + timezone + "\n"
                 + "location: " + location[0] + "\n" + location[1] + ", " + location[2] + " [" + location[3] +"]" + "\n\n"
-                + getOptions().toString();
+                + (options != null ? options.toString() : "null options");
     }
 
     /**
