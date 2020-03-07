@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity
         if (!SuntimesInfo.checkVersion(this, suntimesInfo))
         {
             View view = getWindow().getDecorView().findViewById(android.R.id.content);
-            if (!suntimesInfo.hasPermission)
+            if (!suntimesInfo.hasPermission && suntimesInfo.isInstalled)
                 Messages.showPermissionDeniedMessage(this, view);
             else Messages.showMissingDependencyMessage(this, view);
         }

@@ -49,16 +49,19 @@ public class SuntimesInfo
     public String[] location = null;    // [0]label, [1]latitude (dd), [2]longitude (dd), [3]altitude (meters)
     public SuntimesOptions options = new SuntimesOptions();
 
-    public static final String[] projection = new String[] { CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE, CalculatorProviderContract.COLUMN_CONFIG_APP_VERSION_CODE,
-                                                             CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION,      CalculatorProviderContract.COLUMN_CONFIG_APP_VERSION,
-                                                             CalculatorProviderContract.COLUMN_CONFIG_LOCALE,                CalculatorProviderContract.COLUMN_CONFIG_APP_THEME,
-                                                             CalculatorProviderContract.COLUMN_CONFIG_TIMEZONE,
-                                                             CalculatorProviderContract.COLUMN_CONFIG_LOCATION, CalculatorProviderContract.COLUMN_CONFIG_LATITUDE,
-                                                             CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE
-    };
     public static final String THEME_LIGHT = "light";
     public static final String THEME_DARK = "dark";
     public static final String THEME_DAYNIGHT = "daynight";
+
+    private static final String[] projection = new String[] {
+            CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE, CalculatorProviderContract.COLUMN_CONFIG_APP_VERSION_CODE,
+            CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION,      CalculatorProviderContract.COLUMN_CONFIG_APP_VERSION,
+            CalculatorProviderContract.COLUMN_CONFIG_LOCALE,                CalculatorProviderContract.COLUMN_CONFIG_APP_THEME,
+            CalculatorProviderContract.COLUMN_CONFIG_TIMEZONE,
+            CalculatorProviderContract.COLUMN_CONFIG_LOCATION, CalculatorProviderContract.COLUMN_CONFIG_LATITUDE,
+            CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE,
+            CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE_V2    // legacy support
+    };
 
     public void initFromCursor(@NonNull Cursor cursor)
     {
@@ -75,6 +78,11 @@ public class SuntimesInfo
         location[1] = (!cursor.isNull(8)) ? cursor.getString(8) : null;
         location[2] = (!cursor.isNull(9)) ? cursor.getString(9) : null;
         location[3] = (!cursor.isNull(10)) ? cursor.getString(10) : null;
+
+        if (providerCode == null) {    // is this an older provider? limited support
+            providerCode = (!cursor.isNull(11)) ? cursor.getInt(11) : null;
+        }
+
         hasPermission = isInstalled = (providerCode != null);
     }
 
@@ -92,7 +100,7 @@ public class SuntimesInfo
             Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG );
 
             try {
-                Cursor cursor = resolver.query(uri, SuntimesInfo.projection, null, null, null);
+                Cursor cursor = resolver.query(uri, projection, null, null, null);
                 info.isInstalled = true;
                 info.hasPermission = true;
 
