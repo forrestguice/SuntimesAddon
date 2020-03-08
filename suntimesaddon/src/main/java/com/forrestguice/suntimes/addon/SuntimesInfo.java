@@ -47,11 +47,15 @@ public class SuntimesInfo
 
     public String timezone = null;
     public String[] location = null;    // [0]label, [1]latitude (dd), [2]longitude (dd), [3]altitude (meters)
-    public SuntimesOptions options = new SuntimesOptions();
+    public SuntimesOptions options;
 
     public static final String THEME_LIGHT = "light";
     public static final String THEME_DARK = "dark";
     public static final String THEME_DAYNIGHT = "daynight";
+
+    public SuntimesInfo(@NonNull Context context) {
+        options = new SuntimesOptions(context);
+    }
 
     private static final String[] projection = new String[] {
             CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE, CalculatorProviderContract.COLUMN_CONFIG_APP_VERSION_CODE,
@@ -88,15 +92,16 @@ public class SuntimesInfo
 
     /**
      * querySuntimesInfo
-     * @param resolver ContentResolver
+     * @param context Context
      * @return a SuntimesInfo obj with version info, or null if resolver is null
      */
-    public static SuntimesInfo queryInfo(@Nullable ContentResolver resolver)
+    public static SuntimesInfo queryInfo(@NonNull Context context)
     {
         SuntimesInfo info = null;
+        ContentResolver resolver = context.getContentResolver();
         if (resolver != null)
         {
-            info = new SuntimesInfo();
+            info = new SuntimesInfo(context);
             Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG );
 
             try {
@@ -204,9 +209,9 @@ public class SuntimesInfo
     /**
      * @return additional Suntimes config info (may be null if not supported by provider)
      */
-    public SuntimesOptions getOptions(@Nullable ContentResolver resolver) {
+    public SuntimesOptions getOptions(@NonNull Context context) {
         if (options == null) {
-            options = SuntimesOptions.queryInfo(resolver);
+            options = SuntimesOptions.queryInfo(context);
         }
         return options;
     }
@@ -241,6 +246,10 @@ public class SuntimesInfo
         public static final String UNITS_METRIC = "METRIC";
         public static final String UNITS_IMPERIAL = "IMPERIAL";
 
+        public SuntimesOptions(Context context)
+        {
+        }
+
         public void initFromCursor(@NonNull Cursor cursor)
         {
             Log.d("DEBUG", "queryInfo: cursor: " + cursor.getCount());
@@ -258,9 +267,10 @@ public class SuntimesInfo
             Log.d("DEBUG", "initFromCursor: col0 is null?" + cursor.isNull(0) );
         }
 
-        public static SuntimesOptions queryInfo(@Nullable ContentResolver resolver)
+        public static SuntimesOptions queryInfo(@NonNull Context context)
         {
-            SuntimesOptions options = new SuntimesOptions();
+            SuntimesOptions options = new SuntimesOptions(context);
+            ContentResolver resolver = context.getContentResolver();
             if (resolver != null)
             {
                 Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG);
