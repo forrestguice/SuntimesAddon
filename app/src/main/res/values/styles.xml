@@ -7,6 +7,7 @@
         <item name="colorPrimary">@color/colorPrimary_dark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
         <item name="colorAccent">@color/colorAccent_dark</item>
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
 
     <!-- Light Theme -->
@@ -14,6 +15,7 @@
         <item name="colorPrimary">@color/colorPrimary_light</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_light</item>
         <item name="colorAccent">@color/colorAccent_light</item>
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
