@@ -39,4 +39,16 @@
     <string name="timeMode_moon_thirdquarter">Third Quarter</string>
     <string name="timeMode_moon_waningcrescent">Waning Crescent</string>
     <string name="time_none">none</string>
+
+
+    <!-- localized default settings -->
+    <string name="def_time_is24" translatable="false">true</string>
+    <string name="def_time_showweeks" translatable="false">false</string>
+    <string name="def_time_showhours" translatable="false">true</string>
+    <string name="def_time_showseconds" translatable="false">false</string>
+    <string name="def_time_showtimedate" translatable="false">true</string>
+    <string name="def_use_altitude" translatable="false">true</string>
+    <string name="def_show_warnings" translatable="false">true</string>
+    <string name="def_verbose_talkback" translatable="false">false</string>
+    <string name="def_length_units" translatable="false">METRIC</string>
 </resources>

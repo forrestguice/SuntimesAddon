@@ -1,0 +1,4 @@
+<resources>
+    <string name="def_time_is24" translatable="false">false</string>
+    <string name="def_length_units" translatable="false">IMPERIAL</string>
+</resources>

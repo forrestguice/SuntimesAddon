@@ -20,6 +20,7 @@ package com.forrestguice.suntimes.addon;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -233,27 +234,38 @@ public class SuntimesInfo
      */
     public static class SuntimesOptions
     {
-        public boolean time_is24 = true;
-        public boolean time_showSeconds = false;
-        public boolean time_showHours = true;
-        public boolean time_showWeeks = false;
-        public boolean time_showDateTime = true;
-        public boolean use_altitude = true;
-        public boolean show_warnings = true;
-        public boolean verbose_talkback = false;
-        public String length_units = UNITS_METRIC;
+        public boolean time_is24;
+        public boolean time_showSeconds;
+        public boolean time_showHours;
+        public boolean time_showWeeks;
+        public boolean time_showDateTime;
+        public boolean use_altitude;
+        public boolean show_warnings;
+        public boolean verbose_talkback;
+        public String length_units;
 
         public static final String UNITS_METRIC = "METRIC";
         public static final String UNITS_IMPERIAL = "IMPERIAL";
 
-        public SuntimesOptions(Context context)
+        public SuntimesOptions(Context context) {
+            initFromContext(context);
+        }
+
+        public void initFromContext(@NonNull Context context)
         {
+            time_is24 = Boolean.parseBoolean(context.getString(R.string.def_time_is24));
+            time_showSeconds = Boolean.parseBoolean(context.getString(R.string.def_time_showseconds));
+            time_showHours = Boolean.parseBoolean(context.getString(R.string.def_time_showhours));
+            time_showWeeks = Boolean.parseBoolean(context.getString(R.string.def_time_showweeks));
+            time_showDateTime = Boolean.parseBoolean(context.getString(R.string.def_time_showtimedate));
+            use_altitude = Boolean.parseBoolean(context.getString(R.string.def_use_altitude));
+            show_warnings = Boolean.parseBoolean(context.getString(R.string.def_show_warnings));
+            verbose_talkback = Boolean.parseBoolean(context.getString(R.string.def_verbose_talkback));
+            length_units = context.getString(R.string.def_length_units);
         }
 
         public void initFromCursor(@NonNull Cursor cursor)
         {
-            Log.d("DEBUG", "queryInfo: cursor: " + cursor.getCount());
-
             cursor.moveToFirst();
             time_is24 = (!cursor.isNull(0)) ? (cursor.getInt(0) == 1) : time_is24;
             time_showSeconds = (!cursor.isNull(1)) ? (cursor.getInt(1) == 1) : time_showSeconds;
@@ -264,7 +276,6 @@ public class SuntimesInfo
             show_warnings = (!cursor.isNull(6)) ? (cursor.getInt(6) == 1) : show_warnings;
             verbose_talkback = (!cursor.isNull(7)) ? (cursor.getInt(7) == 1) : verbose_talkback;
             length_units = (!cursor.isNull(8)) ? cursor.getString(8) : length_units;
-            Log.d("DEBUG", "initFromCursor: col0 is null?" + cursor.isNull(0) );
         }
 
         public static SuntimesOptions queryInfo(@NonNull Context context)
