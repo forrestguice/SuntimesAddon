@@ -18,9 +18,11 @@
 
 package com.forrestguice.suntimes.addon;
 
+import android.appwidget.AppWidgetManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 public class AddonHelper
@@ -28,20 +30,33 @@ public class AddonHelper
     public static final String SUNTIMES_PACKAGE = "com.forrestguice.suntimeswidget";
 
     public static final void startSuntimesActivity(Context context) {
-        startActivity(context, SUNTIMES_PACKAGE, SUNTIMES_PACKAGE + ".SuntimesActivity");
+        startActivity(context, SUNTIMES_PACKAGE, SUNTIMES_PACKAGE + ".SuntimesActivity", null);
     }
 
     public static final void startSuntimesAlarmsActivity(Context context) {
-        startActivity(context, SUNTIMES_PACKAGE, SUNTIMES_PACKAGE + ".alarmclock.ui.AlarmClockActivity");
+        startActivity(context, SUNTIMES_PACKAGE, SUNTIMES_PACKAGE + ".alarmclock.ui.AlarmClockActivity", null);
     }
 
+    public static final void reconfigureWidget(Context context, int appWidgetID) {
+        reconfigureWidget(context, appWidgetID, SUNTIMES_PACKAGE + ".SuntimesConfigActivity0");
+    }
+    
+    public static final void reconfigureWidget(Context context, int appWidgetID, String widgetClassName)
+    {
+        Bundle extras = new Bundle();
+        extras.putInt(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetID);
+        extras.putBoolean("ONTAP_LAUNCH_CONFIG", true);
+        startActivity(context, SUNTIMES_PACKAGE, widgetClassName, extras);
+    }
 
-
-    public static final void startActivity(Context context, String packageName, String className)
+    public static final void startActivity(Context context, String packageName, String className, Bundle extras)
     {
         Intent intent = new Intent();
         intent.setClassName(packageName, className);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (extras != null) {
+            intent.putExtras(extras);
+        }
 
         try {
             context.startActivity(intent);
