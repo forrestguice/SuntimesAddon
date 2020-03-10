@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity
             actionBar.setHomeAsUpIndicator(R.drawable.ic_action_suntimes);
         }
 
+        suntimesInfo.getOptions(this);
         updateViews();
     }
 

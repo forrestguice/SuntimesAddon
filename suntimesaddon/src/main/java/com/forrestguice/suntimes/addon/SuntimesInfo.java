@@ -242,9 +242,20 @@ public class SuntimesInfo
         public boolean show_warnings;
         public boolean verbose_talkback;
         public String length_units;
+        public float object_height;
+        public byte show_fields;
 
         public static final String UNITS_METRIC = "METRIC";
         public static final String UNITS_IMPERIAL = "IMPERIAL";
+
+        public static final int FIELD_ACTUAL = 0;  // bit positions
+        public static final int FIELD_CIVIL = 1;
+        public static final int FIELD_NAUTICAL = 2;
+        public static final int FIELD_ASTRO = 3;
+        public static final int FIELD_NOON = 4;
+        public static final int FIELD_GOLD = 5;
+        public static final int FIELD_BLUE = 6;
+        public static final int NUM_FIELDS = 7;
 
         public SuntimesOptions(Context context) {
             initFromContext(context);
@@ -261,6 +272,8 @@ public class SuntimesInfo
             show_warnings = Boolean.parseBoolean(context.getString(R.string.def_show_warnings));
             verbose_talkback = Boolean.parseBoolean(context.getString(R.string.def_verbose_talkback));
             length_units = context.getString(R.string.def_length_units);
+            object_height = Float.parseFloat(context.getString(R.string.def_object_height));
+            show_fields = (byte)Integer.parseInt(context.getString(R.string.def_show_fields), 2);
         }
 
         public void initFromCursor(@NonNull Cursor cursor)
@@ -275,6 +288,8 @@ public class SuntimesInfo
             show_warnings = (!cursor.isNull(6)) ? (cursor.getInt(6) == 1) : show_warnings;
             verbose_talkback = (!cursor.isNull(7)) ? (cursor.getInt(7) == 1) : verbose_talkback;
             length_units = (!cursor.isNull(8)) ? cursor.getString(8) : length_units;
+            object_height = (!cursor.isNull(9)) ? cursor.getFloat(9) : object_height;
+            show_fields = (byte)((!cursor.isNull(10)) ? cursor.getInt(10) : show_fields);
         }
 
         public static SuntimesOptions queryInfo(@NonNull Context context)
@@ -304,8 +319,17 @@ public class SuntimesInfo
                 CalculatorProviderContract.COLUMN_CONFIG_OPTION_TIME_HOURS, CalculatorProviderContract.COLUMN_CONFIG_OPTION_TIME_WEEKS,
                 CalculatorProviderContract.COLUMN_CONFIG_OPTION_TIME_DATETIME, CalculatorProviderContract.COLUMN_CONFIG_OPTION_ALTITUDE,
                 CalculatorProviderContract.COLUMN_CONFIG_OPTION_WARNINGS, CalculatorProviderContract.COLUMN_CONFIG_OPTION_TALKBACK,
-                CalculatorProviderContract.COLUMN_CONFIG_OPTION_LENGTH_UNITS
+                CalculatorProviderContract.COLUMN_CONFIG_LENGTH_UNITS, CalculatorProviderContract.COLUMN_CONFIG_OBJECT_HEIGHT,
+                CalculatorProviderContract.COLUMN_CONFIG_OPTION_FIELDS
         };
+
+        /**
+         * @param field FIELD_ACTUAL, FIELD_CIVIL, FIELD_NAUTICAL, ...
+         * @return true show field
+         */
+        public boolean showField( int field ) {
+            return (((show_fields >> field) & 1) == 1);
+        }
 
         public String toString()
         {
@@ -318,7 +342,16 @@ public class SuntimesInfo
                     "use_altitude: " + use_altitude + "\n" +
                     "show_warnings: " + show_warnings + "\n" +
                     "verbose_talkback: " + verbose_talkback + "\n" +
-                    "length units: " + length_units;
+                    "length units: " + length_units + "\n" +
+                    "object height: " + object_height + "\n" +
+                    "fields: " + show_fields + ": " + "\n" +
+                    "\tActual: " + showField(FIELD_ACTUAL) + "\n" +
+                    "\tCivil: " + showField(FIELD_CIVIL) + "\n" +
+                    "\tNautical: " + showField(FIELD_NAUTICAL) + "\n" +
+                    "\tAstro: " + showField(FIELD_ASTRO) + "\n" +
+                    "\tNoon: " + showField(FIELD_NOON) + "\n" +
+                    "\tGold: " + showField(FIELD_GOLD) + "\n" +
+                    "\tBlue: " + showField(FIELD_BLUE);
         }
     }
 
