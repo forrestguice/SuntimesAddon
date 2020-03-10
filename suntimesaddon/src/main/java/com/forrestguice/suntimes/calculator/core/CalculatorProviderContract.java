@@ -1,20 +1,20 @@
 /**
- Copyright (C) 2018-2020 Forrest Guice
- This file is part of SuntimesWidget.
+    Copyright (C) 2018-2020 Forrest Guice
+    This file is part of SuntimesWidget.
 
- SuntimesWidget is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+    SuntimesWidget is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
- SuntimesWidget is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+    SuntimesWidget is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with SuntimesWidget.  If not, see <http://www.gnu.org/licenses/>.
- */
+    You should have received a copy of the GNU General Public License
+    along with SuntimesWidget.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 package com.forrestguice.suntimes.calculator.core;
 
@@ -44,7 +44,7 @@ package com.forrestguice.suntimes.calculator.core;
  *       COLUMN_CONFIG_OPTION_TIME_IS24, COLUMN_CONFIG_OPTION_TIME_SECONDS, COLUMN_CONFIG_OPTION_TIME_HOURS,
  *       COLUMN_CONFIG_OPTION_TIME_WEEKS, COLUMN_CONFIG_OPTION_TIME_DATETIME,
  *       COLUMN_CONFIG_OPTION_ALTITUDE, COLUMN_CONFIG_OPTION_WARNINGS, COLUMN_CONFIG_OPTION_TALKBACK
- *       COLUMN_CONFIG_OPTION_LENGTH_UNITS
+ *       COLUMN_CONFIG_LENGTH_UNITS, COLUMN_CONFIG_OBJECT_HEIGHT, COLUMN_CONFIG_OPTION_FIELDS
  *
  * ------------------------------------------------------------------------------------------------*
  * QUERY_SUN (sun)
@@ -214,7 +214,8 @@ package com.forrestguice.suntimes.calculator.core;
  *   1 adds COLUMN_CONFIG_LOCATION; fixes return type of SUN and MOON queries; permission changed to suntimes.permission.READ_CALCULATOR
  *   2 adds COLUMN_MOONPOS_PERIGEE, APOGEE, and COLUMN_MOON_*_DISTANCE
  *   3 adds COLUMN_CONFIG_OPTION_IS24, COLUMN_CONFIG_OPTION_TIME_SECONDS, COLUMN_CONFIG_OPTION_TIME_HOURS, COLUMN_CONFIG_OPTION_TIME_WEEKS
- *     adds COLUMN_CONFIG_OPTION_ALTITUDE, COLUMN_CONFIG_OPTION_WARNINGS, COLUMN_CONFIG_OPTION_TALKBACK
+ *     adds COLUMN_CONFIG_OPTION_ALTITUDE, COLUMN_CONFIG_OPTION_WARNINGS, COLUMN_CONFIG_OPTION_TALKBACK, COLUMN_CONFIG_OPTION_FIELDS
+ *     adds COLUMN_CONFIG_LENGTH_UNITS, COLUMN_CONFIG_OBJECT_HEIGHT
  *     fixes typo in COLUMN_CONFIG_PROVIDER_VERSION_CODE
  */
 public interface CalculatorProviderContract
@@ -251,7 +252,11 @@ public interface CalculatorProviderContract
     String COLUMN_CONFIG_OPTION_ALTITUDE = "option_altitude";                      // int (boolean) use altitude based refinements
     String COLUMN_CONFIG_OPTION_WARNINGS = "option_warnings";                      // int (boolean) show config warnings
     String COLUMN_CONFIG_OPTION_TALKBACK = "option_talkback";                      // int (boolean) announce ui changes
-    String COLUMN_CONFIG_OPTION_LENGTH_UNITS = "distance_units";                   // String (enum) METRIC, IMPERIAL
+    String COLUMN_CONFIG_OPTION_FIELDS = "option_fields";                          // byte (bit positions) field visibility (see AppSettings.PREF_KEY_UI_SHOWFIELDS)
+
+    String COLUMN_CONFIG_LENGTH_UNITS = "distance_units";                          // String (enum) METRIC, IMPERIAL
+    String COLUMN_CONFIG_OBJECT_HEIGHT = "object_height";                          // float (meters)
+
 
     String QUERY_CONFIG = "config";
     String[] QUERY_CONFIG_PROJECTION = new String[] {
@@ -262,7 +267,7 @@ public interface CalculatorProviderContract
             COLUMN_CONFIG_LOCATION, COLUMN_CONFIG_LATITUDE, COLUMN_CONFIG_LONGITUDE, COLUMN_CONFIG_ALTITUDE,
             COLUMN_CONFIG_TIMEZONE, COLUMN_CONFIG_APPWIDGETID,
             COLUMN_CONFIG_OPTION_TIME_IS24, COLUMN_CONFIG_OPTION_TIME_SECONDS, COLUMN_CONFIG_OPTION_TIME_HOURS, COLUMN_CONFIG_OPTION_TIME_WEEKS, COLUMN_CONFIG_OPTION_TIME_DATETIME,
-            COLUMN_CONFIG_OPTION_ALTITUDE, COLUMN_CONFIG_OPTION_WARNINGS, COLUMN_CONFIG_OPTION_TALKBACK, COLUMN_CONFIG_OPTION_LENGTH_UNITS
+            COLUMN_CONFIG_OPTION_ALTITUDE, COLUMN_CONFIG_OPTION_WARNINGS, COLUMN_CONFIG_OPTION_TALKBACK, COLUMN_CONFIG_LENGTH_UNITS, COLUMN_CONFIG_OBJECT_HEIGHT, COLUMN_CONFIG_OPTION_FIELDS
     };
 
     /**
