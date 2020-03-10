@@ -48,14 +48,13 @@ public class SuntimesInfo
 
     public String timezone = null;
     public String[] location = null;    // [0]label, [1]latitude (dd), [2]longitude (dd), [3]altitude (meters)
-    public SuntimesOptions options;
+    protected SuntimesOptions options = null;
 
     public static final String THEME_LIGHT = "light";
     public static final String THEME_DARK = "dark";
     public static final String THEME_DAYNIGHT = "daynight";
 
     public SuntimesInfo(@NonNull Context context) {
-        options = new SuntimesOptions(context);
     }
 
     private static final String[] projection = new String[] {
