@@ -1,5 +1,7 @@
 # Suntimes Addon
-An Android Library for the development of Suntimes addons.  
+An Android Library that assists the development of [Suntimes](https://github.com/forrestguice/SuntimesWidget/) add-ons.  
+
+This library is used by the [Solunar Periods](https://github.com/forrestguice/SolunarPeriods) add-on.
 
 ### To use:
 * Create a new Android project; `File -> New Project`
@@ -17,7 +19,7 @@ allprojects {
 ```
 dependencies {
     ...
-    implementation 'com.github.forrestguice:SuntimesAddon:-SNAPSHOT'
+    implementation 'com.github.forrestguice:SuntimesAddon:v0.1.0'
 }
 ``` 
 
@@ -96,6 +98,6 @@ Source code is available under GPLv3 (https://github.com/forrestguice/SuntimesAd
 
     This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-**Using this library in your project means that your addon must also be licensed GPLv3.** 
+**Using this library means your project must also be licensed GPLv3.** 
 
-This library is intended to assist addon development, however its use is not required. You should call the Suntimes public interfaces directly if your project is licensed differently.      
+This library is intended to assist add-on development but its use is not required. You should call the Suntimes public interfaces directly if your project is licensed differently.      
