@@ -96,7 +96,7 @@ Copyright © 2020 Forrest Guice
 
 Source code is available under GPLv3 (https://github.com/forrestguice/SuntimesAddon).
 
-    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+> This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 **Using this library means your project must also be licensed GPLv3.** 
 
