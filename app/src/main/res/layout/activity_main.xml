@@ -16,109 +16,131 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-
-
-            <LinearLayout style="@style/SuntimesCard" android:layout_margin="@dimen/activity_margin"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical"
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:orientation="horizontal" android:layout_margin="4dp">
+                <LinearLayout style="@style/SuntimesCard" android:layout_margin="@dimen/activity_margin"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:id="@+id/icon_noon" android:background="?attr/noonIcon"
+                    <LinearLayout
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_gravity="center" android:layout_margin="4dp"
-                        tools:ignore="contentDescription"/>
+                        android:orientation="horizontal" android:layout_margin="4dp">
 
-                    <ImageView
-                        android:id="@+id/icon_sunrise"
-                        style="@style/SunIconImageView" android:background="?attr/sunriseIconSmall"
-                        android:layout_gravity="bottom|center_horizontal" android:layout_margin="4dp"
-                        tools:ignore="contentDescription"/>
+                        <ImageView
+                            android:id="@+id/icon_noon" android:background="?attr/noonIcon"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:layout_gravity="center" android:layout_margin="4dp"
+                            tools:ignore="contentDescription"/>
 
-                    <ImageView
-                        android:id="@+id/icon_sunset"
-                        style="@style/SunIconImageView" android:background="?attr/sunsetIconSmall"
-                        android:layout_gravity="bottom|center_horizontal" android:layout_margin="4dp"
-                        tools:ignore="contentDescription"/>
+                        <ImageView
+                            android:id="@+id/icon_sunrise"
+                            style="@style/SunIconImageView" android:background="?attr/sunriseIconSmall"
+                            android:layout_gravity="bottom|center_horizontal" android:layout_margin="4dp"
+                            tools:ignore="contentDescription"/>
 
-                    <ImageView
-                        android:id="@+id/icon_moonrise"
-                        style="@style/SunIconImageView" android:background="?attr/moonriseIconSmall"
-                        android:layout_gravity="bottom|center_horizontal" android:layout_margin="4dp"
-                        tools:ignore="contentDescription"/>
+                        <ImageView
+                            android:id="@+id/icon_sunset"
+                            style="@style/SunIconImageView" android:background="?attr/sunsetIconSmall"
+                            android:layout_gravity="bottom|center_horizontal" android:layout_margin="4dp"
+                            tools:ignore="contentDescription"/>
 
-                    <ImageView
-                        android:id="@+id/icon_moonset"
-                        style="@style/SunIconImageView" android:background="?attr/moonsetIconSmall"
-                        android:layout_gravity="bottom|center_horizontal" android:layout_margin="4dp"
-                        tools:ignore="contentDescription"/>
+                        <ImageView
+                            android:id="@+id/icon_moonrise"
+                            style="@style/SunIconImageView" android:background="?attr/moonriseIconSmall"
+                            android:layout_gravity="bottom|center_horizontal" android:layout_margin="4dp"
+                            tools:ignore="contentDescription"/>
 
-                    <ImageView
-                        android:id="@+id/icon_suntimes"
+                        <ImageView
+                            android:id="@+id/icon_moonset"
+                            style="@style/SunIconImageView" android:background="?attr/moonsetIconSmall"
+                            android:layout_gravity="bottom|center_horizontal" android:layout_margin="4dp"
+                            tools:ignore="contentDescription"/>
+
+                        <ImageView
+                            android:id="@+id/icon_suntimes"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:src="@drawable/ic_action_suntimes"
+                            tools:ignore="contentDescription"/>
+
+                    </LinearLayout>
+
+                    <TextView android:id="@+id/text_suntimes_version"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+                    <LinearLayout
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:src="@drawable/ic_action_suntimes"
-                        tools:ignore="contentDescription"/>
+                        android:orientation="horizontal" android:layout_margin="4dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                            android:background="@drawable/ic_moon_new"
+                            tools:ignore="contentDescription"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                            android:background="@drawable/ic_moon_waxing_crescent"
+                            tools:ignore="contentDescription"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                            android:background="@drawable/ic_moon_waxing_quarter"
+                            tools:ignore="contentDescription"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                            android:background="@drawable/ic_moon_waxing_gibbous"
+                            tools:ignore="contentDescription"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                            android:background="@drawable/ic_moon_full"
+                            tools:ignore="contentDescription"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                            android:background="@drawable/ic_moon_waning_gibbous"
+                            tools:ignore="contentDescription"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                            android:background="@drawable/ic_moon_waning_quarter"
+                            tools:ignore="contentDescription"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
+                            android:background="@drawable/ic_moon_waning_crescent"
+                            tools:ignore="contentDescription"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Spinner android:id="@+id/spinner_theme"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"/>
+
+                        <ImageButton android:id="@+id/button_theme"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/ic_action_suntimes" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-                <TextView android:id="@+id/text_suntimes_version"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:orientation="horizontal" android:layout_margin="4dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
-                        android:background="@drawable/ic_moon_new"
-                        tools:ignore="contentDescription"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
-                        android:background="@drawable/ic_moon_waxing_crescent"
-                        tools:ignore="contentDescription"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
-                        android:background="@drawable/ic_moon_waxing_quarter"
-                        tools:ignore="contentDescription"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
-                        android:background="@drawable/ic_moon_waxing_gibbous"
-                        tools:ignore="contentDescription"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
-                        android:background="@drawable/ic_moon_full"
-                        tools:ignore="contentDescription"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
-                        android:background="@drawable/ic_moon_waning_gibbous"
-                        tools:ignore="contentDescription"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
-                        android:background="@drawable/ic_moon_waning_quarter"
-                        tools:ignore="contentDescription"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp"
-                        android:background="@drawable/ic_moon_waning_crescent"
-                        tools:ignore="contentDescription"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
+            </ScrollView>
 
         </android.support.constraint.ConstraintLayout>
 

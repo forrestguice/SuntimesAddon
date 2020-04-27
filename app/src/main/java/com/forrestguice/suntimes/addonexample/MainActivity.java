@@ -19,12 +19,18 @@
 package com.forrestguice.suntimes.addonexample;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.forrestguice.suntimes.addon.AddonHelper;
@@ -32,6 +38,7 @@ import com.forrestguice.suntimes.addon.LocaleHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 
 import com.forrestguice.suntimes.addon.ui.Messages;
+import com.forrestguice.suntimes.themes.SuntimesThemeContract;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -64,7 +71,13 @@ public class MainActivity extends AppCompatActivity
         }
 
         suntimesInfo.getOptions(this);
+        initViews();
         updateViews();
+    }
+
+    protected void initViews()
+    {
+        initThemeViews();
     }
 
     @Override
@@ -117,6 +130,104 @@ public class MainActivity extends AppCompatActivity
 
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode)
+        {
+            case REQUEST_THEME:
+                onPickThemeResult(resultCode, data);
+                break;
+
+            default:
+                Log.w("SuntimesAddon", "unhandled result: " + requestCode);
+                break;
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    private static final int REQUEST_THEME = 100;
+
+    private Spinner spin_themes;
+    private SimpleCursorAdapter themeAdapter;
+
+    private void initThemeViews()
+    {
+        spin_themes = (Spinner)findViewById(R.id.spinner_theme);
+        if (spin_themes != null)
+        {
+            if (suntimesInfo != null && suntimesInfo.appCode >= 59)    // v0.12.8 (60)
+            {
+                initThemeAdapter();
+                spin_themes.setAdapter(themeAdapter);
+
+            } else {
+                spin_themes.setVisibility(View.GONE);
+            }
+        }
+
+        ImageButton button_themes = (ImageButton)findViewById(R.id.button_theme);
+        if (button_themes != null)
+        {
+            button_themes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickTheme();
+                }
+            });
+        }
+    }
+
+    private void initThemeAdapter()
+    {
+        Cursor cursor = SuntimesInfo.queryThemes(getContentResolver());
+        themeAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor,
+                new String[] { SuntimesThemeContract.THEME_DISPLAYSTRING }, new int[] { android.R.id.text1 }, 0 );
+    }
+
+    private void selectTheme(String themeName)
+    {
+        if (spin_themes != null)
+        {
+            Cursor cursor = (Cursor) spin_themes.getItemAtPosition(0);
+            for (int i=0; i<spin_themes.getCount(); i++)
+            {
+                cursor.moveToPosition(i);
+                String itemName = cursor.getString(cursor.getColumnIndex(SuntimesThemeContract.THEME_NAME));
+                if (itemName.equals(themeName)) {
+                    spin_themes.setSelection(i);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void pickTheme()
+    {
+        Cursor cursor = (Cursor)spin_themes.getSelectedItem();
+        String selected = cursor.getString(cursor.getColumnIndex(SuntimesThemeContract.THEME_NAME));
+        AddonHelper.startSuntimesThemesActivityForResult(MainActivity.this, REQUEST_THEME, selected);
+    }
+
+    protected void onPickThemeResult(int resultCode, Intent data)
+    {
+        Log.d("SuntimesAddon", "onPickThemeResult: " + resultCode);
+        if (resultCode == RESULT_OK)
+        {
+            if (data.getBooleanExtra("isModified", false)) {
+                initThemeAdapter();
+                spin_themes.setAdapter(themeAdapter);
+            }
+
+            String themeName = data.getStringExtra(SuntimesThemeContract.THEME_NAME);
+            if (themeName != null) {
+                selectTheme(themeName);
+            }
         }
     }
 }
