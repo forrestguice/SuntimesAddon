@@ -127,16 +127,18 @@
                         android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
+                        <TextView android:id="@+id/text_theme" android:clickable="true" android:focusable="true"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@android:color/secondary_text_dark"
+                            android:text="Theme:" />
+
                         <Spinner android:id="@+id/spinner_theme"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"/>
 
-                        <ImageButton android:id="@+id/button_theme"
-                            android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:background="@drawable/ic_action_suntimes" />
-
                     </LinearLayout>
+
 
                 </LinearLayout>
 

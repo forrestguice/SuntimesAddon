@@ -21,6 +21,7 @@ package com.forrestguice.suntimes.addonexample;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity
     protected void initViews()
     {
         initThemeViews();
+        selectTheme(suntimesInfo.appThemeOverride);
     }
 
     @Override
@@ -171,10 +173,10 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        ImageButton button_themes = (ImageButton)findViewById(R.id.button_theme);
-        if (button_themes != null)
+        TextView text_theme = (TextView)findViewById(R.id.text_theme);
+        if (text_theme != null)
         {
-            button_themes.setOnClickListener(new View.OnClickListener() {
+            text_theme.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     pickTheme();
@@ -190,9 +192,9 @@ public class MainActivity extends AppCompatActivity
                 new String[] { SuntimesThemeContract.THEME_DISPLAYSTRING }, new int[] { android.R.id.text1 }, 0 );
     }
 
-    private void selectTheme(String themeName)
+    private void selectTheme(@Nullable String themeName)
     {
-        if (spin_themes != null)
+        if (spin_themes != null && themeName != null)
         {
             Cursor cursor = (Cursor) spin_themes.getItemAtPosition(0);
             for (int i=0; i<spin_themes.getCount(); i++)
