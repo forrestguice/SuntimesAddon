@@ -18,6 +18,7 @@
 
 package com.forrestguice.suntimes.addon;
 
+import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -35,6 +36,17 @@ public class AddonHelper
 
     public static final void startSuntimesAlarmsActivity(Context context) {
         startActivity(context, SUNTIMES_PACKAGE, SUNTIMES_PACKAGE + ".alarmclock.ui.AlarmClockActivity", null);
+    }
+
+    public static final void startSuntimesThemesActivity(Context context) {
+        startActivity(context, SUNTIMES_PACKAGE, SUNTIMES_PACKAGE + ".themes.WidgetThemeListActivity", null);
+    }
+
+    public static final void startSuntimesThemesActivityForResult(Activity activity, int requestCode, String selected) {
+
+        Bundle extras = new Bundle();
+        extras.putString("selected", selected);
+        startActivityForResult(activity, SUNTIMES_PACKAGE, SUNTIMES_PACKAGE + ".themes.WidgetThemeListActivity", extras, 0, requestCode);
     }
 
     public static final void reconfigureWidget(Context context, int appWidgetID) {
@@ -60,6 +72,23 @@ public class AddonHelper
 
         try {
             context.startActivity(intent);
+
+        } catch (SecurityException | ActivityNotFoundException e) {
+            Log.e("AddonHelper", "unable to startActivity: " + e);
+        }
+    }
+
+    public static final void startActivityForResult(Activity activity, String packageName, String className, Bundle extras, int flags, int requestCode)
+    {
+        Intent intent = new Intent();
+        intent.setClassName(packageName, className);
+        intent.setFlags(flags);
+        if (extras != null) {
+            intent.putExtras(extras);
+        }
+
+        try {
+            activity.startActivityForResult(intent, requestCode);
 
         } catch (SecurityException | ActivityNotFoundException e) {
             Log.e("AddonHelper", "unable to startActivity: " + e);
