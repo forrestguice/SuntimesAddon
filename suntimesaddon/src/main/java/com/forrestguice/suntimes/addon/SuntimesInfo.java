@@ -46,6 +46,7 @@ public class SuntimesInfo
     public String appName = null;
     public String appLocale = null;
     public String appTheme = null;
+    public String appThemeOverride = null;
 
     public String timezone = null;
     public String[] location = null;    // [0]label, [1]latitude (dd), [2]longitude (dd), [3]altitude (meters)
@@ -61,7 +62,8 @@ public class SuntimesInfo
     private static final String[] projection = new String[] {
             CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE, CalculatorProviderContract.COLUMN_CONFIG_APP_VERSION_CODE,
             CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION,      CalculatorProviderContract.COLUMN_CONFIG_APP_VERSION,
-            CalculatorProviderContract.COLUMN_CONFIG_LOCALE,                CalculatorProviderContract.COLUMN_CONFIG_APP_THEME,
+            CalculatorProviderContract.COLUMN_CONFIG_LOCALE,
+            CalculatorProviderContract.COLUMN_CONFIG_APP_THEME, CalculatorProviderContract.COLUMN_CONFIG_APP_THEME_OVERRIDE,
             CalculatorProviderContract.COLUMN_CONFIG_TIMEZONE,
             CalculatorProviderContract.COLUMN_CONFIG_LOCATION, CalculatorProviderContract.COLUMN_CONFIG_LATITUDE,
             CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE,
@@ -77,15 +79,16 @@ public class SuntimesInfo
         appName = (!cursor.isNull(3)) ? cursor.getString(3) : null;
         appLocale = (!cursor.isNull(4)) ? cursor.getString(4) : null;
         appTheme = (!cursor.isNull(5)) ? cursor.getString(5) : null;
-        timezone = (!cursor.isNull(6)) ? cursor.getString(6) : null;
+        appThemeOverride = (!cursor.isNull(6)) ? cursor.getString(6) : null;
+        timezone = (!cursor.isNull(7)) ? cursor.getString(7) : null;
         location = new String[4];
-        location[0] = (!cursor.isNull(7)) ? cursor.getString(7) : null;
-        location[1] = (!cursor.isNull(8)) ? cursor.getString(8) : null;
-        location[2] = (!cursor.isNull(9)) ? cursor.getString(9) : null;
-        location[3] = (!cursor.isNull(10)) ? cursor.getString(10) : null;
+        location[0] = (!cursor.isNull(8)) ? cursor.getString(8) : null;
+        location[1] = (!cursor.isNull(9)) ? cursor.getString(9) : null;
+        location[2] = (!cursor.isNull(10)) ? cursor.getString(10) : null;
+        location[3] = (!cursor.isNull(11)) ? cursor.getString(11) : null;
 
         if (providerCode == null) {    // is this an older provider? limited support
-            providerCode = (!cursor.isNull(11)) ? cursor.getInt(11) : null;
+            providerCode = (!cursor.isNull(12)) ? cursor.getInt(12) : null;
         }
 
         hasPermission = isInstalled = (providerCode != null);
@@ -255,7 +258,7 @@ public class SuntimesInfo
                 appName + "(" + providerCode + ")" +" \n"
                 + "permission: " + hasPermission + "\n"
                 + "locale: " + appLocale + "\n"
-                + "theme: " + appTheme + "\n"
+                + "theme: " + appTheme + " (" + appThemeOverride + ")\n"
                 + "timezone: " + timezone + "\n"
                 + "location: " + location[0] + "\n" + location[1] + ", " + location[2] + " [" + location[3] +"]" + "\n\n"
                 + (options != null ? options.toString() : "null options");
