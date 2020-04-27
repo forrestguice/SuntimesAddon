@@ -208,6 +208,22 @@ public class SuntimesInfo
         return null;
     }
 
+    public static Cursor queryTheme(@Nullable ContentResolver resolver, @NonNull String themeName)
+    {
+        if (resolver != null)
+        {
+            Uri uri = Uri.parse("content://" + SuntimesThemeContract.AUTHORITY + "/" + SuntimesThemeContract.QUERY_THEME + "/" + themeName);
+            try {
+                return resolver.query(uri, SuntimesThemeContract.QUERY_THEME_PROJECTION, null, null, null);
+
+            } catch (SecurityException e) {
+                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + SuntimesThemeContract.AUTHORITY + "! " + e);
+                return null;
+            }
+        }
+        return null;
+    }
+
     /**
      * checkVersion
      * @return true Suntimes installed >= min_provider_version, or false < min_provider_version (or Suntimes missing)
