@@ -31,18 +31,18 @@ import java.util.Calendar;
 @TargetApi(14)
 public class CalendarHelper
 {
-    public static String COLUMN_CALENDAR_NAME = "calendar_name";             // String (calendar ID)
-    public static String COLUMN_CALENDAR_TITLE = "calendar_title";           // String (display string)
-    public static String COLUMN_CALENDAR_SUMMARY = "calendar_summary";       // String (display string)
-    public static String COLUMN_CALENDAR_COLOR = "calendar_color";           // int (color)
+    public static final String COLUMN_CALENDAR_NAME = "calendar_name";             // String (calendar ID)
+    public static final String COLUMN_CALENDAR_TITLE = "calendar_title";           // String (display string)
+    public static final String COLUMN_CALENDAR_SUMMARY = "calendar_summary";       // String (display string)
+    public static final String COLUMN_CALENDAR_COLOR = "calendar_color";           // int (color)
 
-    public static String QUERY_CALENDAR_INFO = "calendarInfo";
-    public static String[] QUERY_CALENDAR_INFO_PROJECTION = new String[] {
+    public static final String QUERY_CALENDAR_INFO = "calendarInfo";
+    public static final String[] QUERY_CALENDAR_INFO_PROJECTION = new String[] {
             COLUMN_CALENDAR_NAME, COLUMN_CALENDAR_TITLE, COLUMN_CALENDAR_SUMMARY, COLUMN_CALENDAR_COLOR
     };
 
-    public static String QUERY_CALENDAR_CONTENT = "calendarContent";
-    public static String[] QUERY_CALENDAR_CONTENT_PROJECTION = new String[] {
+    public static final String QUERY_CALENDAR_CONTENT = "calendarContent";
+    public static final String[] QUERY_CALENDAR_CONTENT_PROJECTION = new String[] {
             CalendarContract.Events.TITLE, CalendarContract.Events.DESCRIPTION, CalendarContract.Events.EVENT_TIMEZONE,
             CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND, CalendarContract.Events.EVENT_LOCATION,
             CalendarContract.Events.AVAILABILITY, CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, CalendarContract.Events.GUESTS_CAN_SEE_GUESTS, CalendarContract.Events.GUESTS_CAN_MODIFY
@@ -57,7 +57,7 @@ public class CalendarHelper
      * @return a ContentValues containing the CalendarContract values describing the event
      */
     @TargetApi(14)
-    public static ContentValues createEventContentValues(String title, String description, @Nullable String location, Calendar... time)
+    public static ContentValues createEventValues(String title, String description, @Nullable String location, Calendar... time)
     {
         ContentValues v = new ContentValues();
         v.put(CalendarContract.Events.TITLE, title);
@@ -96,8 +96,13 @@ public class CalendarHelper
      * @return a reference to the cursor passed to this method
      */
     @TargetApi(14)
-    public static MatrixCursor addEventContentValuesToCursor(MatrixCursor cursor, ArrayList<ContentValues> values)
+    public static MatrixCursor addEventValuesToCursor(MatrixCursor cursor, ArrayList<ContentValues> values)
     {
+        if (cursor == null || values == null) {
+            Log.w(CalendarHelper.class.getSimpleName(), "addEventValues: null cursor of values! skipping");
+            return cursor;
+        }
+
         for (int i=0; i<values.size(); i++)
         {
             ContentValues v = values.get(i);
@@ -109,4 +114,5 @@ public class CalendarHelper
         }
         return cursor;
     }
+
 }
