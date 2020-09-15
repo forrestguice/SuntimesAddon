@@ -41,8 +41,8 @@ public class CalendarHelper
             COLUMN_CALENDAR_NAME, COLUMN_CALENDAR_TITLE, COLUMN_CALENDAR_SUMMARY, COLUMN_CALENDAR_COLOR
     };
 
-    String QUERY_CALENDAR_CONTENT = "calendarContent";
-    String[] QUERY_CALENDAR_CONTENT_PROJECTION = new String[] {
+    public static String QUERY_CALENDAR_CONTENT = "calendarContent";
+    public static String[] QUERY_CALENDAR_CONTENT_PROJECTION = new String[] {
             CalendarContract.Events.TITLE, CalendarContract.Events.DESCRIPTION, CalendarContract.Events.EVENT_TIMEZONE,
             CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND, CalendarContract.Events.EVENT_LOCATION,
             CalendarContract.Events.AVAILABILITY, CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, CalendarContract.Events.GUESTS_CAN_SEE_GUESTS, CalendarContract.Events.GUESTS_CAN_MODIFY
@@ -57,7 +57,7 @@ public class CalendarHelper
      * @return a ContentValues containing the CalendarContract values describing the event
      */
     @TargetApi(14)
-    public ContentValues createEventContentValues(String title, String description, @Nullable String location, Calendar... time)
+    public static ContentValues createEventContentValues(String title, String description, @Nullable String location, Calendar... time)
     {
         ContentValues v = new ContentValues();
         v.put(CalendarContract.Events.TITLE, title);
@@ -75,7 +75,7 @@ public class CalendarHelper
                 v.put(CalendarContract.Events.DTEND, time[0].getTimeInMillis());
             }
         } else {
-            Log.w(getClass().getSimpleName(), "createEventContentValues: missing time arg (empty array); creating event without start or end time.");
+            Log.w(CalendarHelper.class.getSimpleName(), "createEventContentValues: missing time arg (empty array); creating event without start or end time.");
         }
 
         if (location != null) {
@@ -96,7 +96,7 @@ public class CalendarHelper
      * @return a reference to the cursor passed to this method
      */
     @TargetApi(14)
-    public MatrixCursor addEventContentValuesToCursor(MatrixCursor cursor, ArrayList<ContentValues> values)
+    public static MatrixCursor addEventContentValuesToCursor(MatrixCursor cursor, ArrayList<ContentValues> values)
     {
         for (int i=0; i<values.size(); i++)
         {
