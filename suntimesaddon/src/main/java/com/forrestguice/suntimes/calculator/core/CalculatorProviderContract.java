@@ -218,7 +218,7 @@ package com.forrestguice.suntimes.calculator.core;
  *     adds COLUMN_CONFIG_LENGTH_UNITS, COLUMN_CONFIG_OBJECT_HEIGHT
  *     fixes typo in COLUMN_CONFIG_PROVIDER_VERSION_CODE
  *   4 adds COLUMN_CONFIG_APP_THEME_OVERRIDE
- *   5 adds COLUMN_SUNPOS_EOT, COLUMN_CONFIG_TIMEZONEMODE
+ *   5 adds COLUMN_SUNPOS_EOT, COLUMN_CONFIG_TIMEZONEMODE, COLUMN_CONFIG_SOLARTIMEMODE
  */
 public interface CalculatorProviderContract
 {
@@ -244,6 +244,7 @@ public interface CalculatorProviderContract
     String COLUMN_CONFIG_ALTITUDE = "altitude";                                    // String (meters)
     String COLUMN_CONFIG_TIMEZONE = "timezone";                                    // String (timezoneID)
     String COLUMN_CONFIG_TIMEZONEMODE = "timezonemode";                            // String (modeID)
+    String COLUMN_CONFIG_SOLARTIMEMODE = "solartimemode";                          // String (modeID)
     String COLUMN_CONFIG_APPWIDGETID = "appwidgetid";                              // int
     String COLUMN_CONFIG_CALCULATOR = "calculator";                                // String (calculatorName)
     String COLUMN_CONFIG_CALCULATOR_FEATURES = "calculator_features";              // int[] (SuntimesCalculator.FEATURE flags)
@@ -269,7 +270,7 @@ public interface CalculatorProviderContract
             COLUMN_CONFIG_LOCALE, COLUMN_CONFIG_APP_THEME, COLUMN_CONFIG_APP_THEME_OVERRIDE,
             COLUMN_CONFIG_CALCULATOR, COLUMN_CONFIG_CALCULATOR_FEATURES,
             COLUMN_CONFIG_LOCATION, COLUMN_CONFIG_LATITUDE, COLUMN_CONFIG_LONGITUDE, COLUMN_CONFIG_ALTITUDE,
-            COLUMN_CONFIG_TIMEZONE, COLUMN_CONFIG_TIMEZONEMODE, COLUMN_CONFIG_APPWIDGETID,
+            COLUMN_CONFIG_TIMEZONE, COLUMN_CONFIG_TIMEZONEMODE, COLUMN_CONFIG_SOLARTIMEMODE, COLUMN_CONFIG_APPWIDGETID,
             COLUMN_CONFIG_OPTION_TIME_IS24, COLUMN_CONFIG_OPTION_TIME_SECONDS, COLUMN_CONFIG_OPTION_TIME_HOURS, COLUMN_CONFIG_OPTION_TIME_WEEKS, COLUMN_CONFIG_OPTION_TIME_DATETIME,
             COLUMN_CONFIG_OPTION_ALTITUDE, COLUMN_CONFIG_OPTION_WARNINGS, COLUMN_CONFIG_OPTION_TALKBACK, COLUMN_CONFIG_LENGTH_UNITS, COLUMN_CONFIG_OBJECT_HEIGHT, COLUMN_CONFIG_OPTION_FIELDS
     };

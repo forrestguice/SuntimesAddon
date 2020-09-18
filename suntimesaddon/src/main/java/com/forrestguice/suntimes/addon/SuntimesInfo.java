@@ -50,7 +50,8 @@ public class SuntimesInfo
     public String appThemeOverride = null;
 
     public String timezone = null;
-    public String timezoneMode = "CUSTOM_TIMEZONE";    // "SOLAR_TIME", "CURRENT_TIMEZONE", "CUSTOM_TIMEZONE";
+    public String timezoneMode = "CUSTOM_TIMEZONE";        // "SOLAR_TIME", "CURRENT_TIMEZONE", "CUSTOM_TIMEZONE";
+    public String solartimeMode = "APPARENT_SOLAR_TIME";   // "APPARENT_SOLAR_TIME", "LOCAL_MEAN_TIME"
 
     public String[] location = null;    // [0]label, [1]latitude (dd), [2]longitude (dd), [3]altitude (meters)
     protected SuntimesOptions options = null;
@@ -67,7 +68,7 @@ public class SuntimesInfo
             CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION,      CalculatorProviderContract.COLUMN_CONFIG_APP_VERSION,
             CalculatorProviderContract.COLUMN_CONFIG_LOCALE,
             CalculatorProviderContract.COLUMN_CONFIG_APP_THEME, CalculatorProviderContract.COLUMN_CONFIG_APP_THEME_OVERRIDE,
-            CalculatorProviderContract.COLUMN_CONFIG_TIMEZONE, CalculatorProviderContract.COLUMN_CONFIG_TIMEZONEMODE,
+            CalculatorProviderContract.COLUMN_CONFIG_TIMEZONE, CalculatorProviderContract.COLUMN_CONFIG_TIMEZONEMODE, CalculatorProviderContract.COLUMN_CONFIG_SOLARTIMEMODE,
             CalculatorProviderContract.COLUMN_CONFIG_LOCATION, CalculatorProviderContract.COLUMN_CONFIG_LATITUDE,
             CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE,
             CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE_V2    // legacy support
@@ -85,20 +86,15 @@ public class SuntimesInfo
         appThemeOverride = (!cursor.isNull(6)) ? cursor.getString(6) : null;
         timezone = (!cursor.isNull(7)) ? cursor.getString(7) : null;
         timezoneMode = (!cursor.isNull(8)) ? cursor.getString(8) : null;
+        solartimeMode = (!cursor.isNull(9)) ? cursor.getString(9) : null;
         location = new String[4];
-        location[0] = (!cursor.isNull(9)) ? cursor.getString(9) : null;
-        location[1] = (!cursor.isNull(10)) ? cursor.getString(10) : null;
-        location[2] = (!cursor.isNull(11)) ? cursor.getString(11) : null;
-        location[3] = (!cursor.isNull(12)) ? cursor.getString(12) : null;
+        location[0] = (!cursor.isNull(10)) ? cursor.getString(10) : null;
+        location[1] = (!cursor.isNull(11)) ? cursor.getString(11) : null;
+        location[2] = (!cursor.isNull(12)) ? cursor.getString(12) : null;
+        location[3] = (!cursor.isNull(13)) ? cursor.getString(13) : null;
 
         if (providerCode == null) {    // is this an older provider? limited support
-            providerCode = (!cursor.isNull(13)) ? cursor.getInt(13) : null;
-        }
-
-        if (timezoneMode.equals("CURRENT_TIMEZONE")) {
-            timezone = TimeZone.getDefault().getID();
-        } else if (timezoneMode.equals("SOLAR_TIME")) {
-            timezone = TimeZoneHelper.ApparentSolarTime.TIMEZONEID;
+            providerCode = (!cursor.isNull(14)) ? cursor.getInt(14) : null;
         }
 
         hasPermission = isInstalled = (providerCode != null);
