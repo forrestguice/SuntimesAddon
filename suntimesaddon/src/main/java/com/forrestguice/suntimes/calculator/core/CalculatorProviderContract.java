@@ -14,13 +14,13 @@
 
     You should have received a copy of the GNU General Public License
     along with SuntimesWidget.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 package com.forrestguice.suntimes.calculator.core;
 
 /**
  * CalculatorProviderContract
- * @version 4 (0.4.1)
+ * @version 5 (0.5.0)
  *
  * Supported URIs have the form: "content://AUTHORITY/query"
  * ..where [AUTHORITY] is "suntimeswidget.calculator.provider"
@@ -218,13 +218,14 @@ package com.forrestguice.suntimes.calculator.core;
  *     adds COLUMN_CONFIG_LENGTH_UNITS, COLUMN_CONFIG_OBJECT_HEIGHT
  *     fixes typo in COLUMN_CONFIG_PROVIDER_VERSION_CODE
  *   4 adds COLUMN_CONFIG_APP_THEME_OVERRIDE
+ *   5 adds COLUMN_SUNPOS_EOT
  */
 public interface CalculatorProviderContract
 {
     String AUTHORITY = "suntimeswidget.calculator.provider";
     String READ_PERMISSION = "suntimes.permission.READ_CALCULATOR";
-    String VERSION_NAME = "v0.4.1";
-    int VERSION_CODE = 4;
+    String VERSION_NAME = "v0.5.0";
+    int VERSION_CODE = 5;
 
     /**
      * CONFIG
@@ -314,6 +315,7 @@ public interface CalculatorProviderContract
     String COLUMN_SUNPOS_RA = "sunpos_ra";                 // double
     String COLUMN_SUNPOS_DEC = "sunpos_dec";               // double
     String COLUMN_SUNPOS_ISDAY = "sunpos_isday";           // boolean
+    String COLUMN_SUNPOS_EOT = "sunpos_eot";               // double (seconds)
     String COLUMN_SUNPOS_DATE = "sunpos_date";             // long (timestamp)
 
     String QUERY_SUNPOS = "sunpos";
