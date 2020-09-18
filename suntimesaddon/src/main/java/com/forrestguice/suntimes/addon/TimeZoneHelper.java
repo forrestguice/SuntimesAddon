@@ -108,10 +108,8 @@ public class TimeZoneHelper
     {
         public static final String TIMEZONEID = "Apparent Solar Time";
 
-        public ApparentSolarTime(double longitude, String name, ContentResolver resolver)
-        {
+        public ApparentSolarTime(double longitude, String name) {
             super(longitude, name);
-            this.resolver = resolver;
         }
 
         @Override
@@ -129,7 +127,7 @@ public class TimeZoneHelper
         @Override
         public int getOffset( long date )
         {
-            eotOffset = lookupEquationOfTimeOffset(resolver, date);
+            eotOffset = equationOfTimeOffset(date);
             return getRawOffset() + eotOffset;
         }
 
@@ -163,7 +161,6 @@ public class TimeZoneHelper
             }
             return eot;
         }
-
 
         /**
          * @param date a given date
@@ -221,6 +218,5 @@ public class TimeZoneHelper
             return eotOffset;
         }
         private int eotOffset = 0;
-        private ContentResolver resolver = null;
     }
 }
