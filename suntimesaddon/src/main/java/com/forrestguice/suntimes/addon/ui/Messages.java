@@ -18,10 +18,14 @@
 
 package com.forrestguice.suntimes.addon.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.util.TypedValue;
 import android.view.View;
@@ -53,6 +57,7 @@ public class Messages
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             }
 
+            themeSnackbar(context, snackbar, null);
             snackbar.show();
             return snackbar;
         }
@@ -78,6 +83,36 @@ public class Messages
     {
         CharSequence message = Html.fromHtml(context.getString(R.string.missing_permission, context.getString(R.string.app_name)));
         return showMessage(context, view, message, 12, 7, Snackbar.LENGTH_INDEFINITE, null);
+    }
+
+    @SuppressLint("ResourceType")
+    public static void themeSnackbar(Context context, Snackbar snackbar, Integer[] colorOverrides)
+    {
+        Integer[] colors = new Integer[] {null, null, null};
+        int[] colorAttrs = { R.attr.snackbar_textColor, R.attr.snackbar_accentColor, R.attr.snackbar_backgroundColor };
+        TypedArray a = context.obtainStyledAttributes(colorAttrs);
+        colors[0] = ContextCompat.getColor(context, a.getResourceId(0, android.R.color.primary_text_dark));
+        colors[1] = ContextCompat.getColor(context, a.getResourceId(1, R.color.colorAccent_dark));
+        colors[2] = ContextCompat.getColor(context, a.getResourceId(2, R.color.card_dark));
+        a.recycle();
+
+        if (colorOverrides != null && colorOverrides.length == colors.length) {
+            for (int i=0; i<colors.length; i++) {
+                if (colorOverrides[i] != null) {
+                    colors[i] = colorOverrides[i];
+                }
+            }
+        }
+
+        View snackbarView = snackbar.getView();
+        snackbarView.setBackgroundColor(colors[2]);
+        snackbar.setActionTextColor(colors[1]);
+
+        TextView snackbarText = (TextView)snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+        if (snackbarText != null) {
+            snackbarText.setTextColor(colors[0]);
+            snackbarText.setMaxLines(3);
+        }
     }
 }
 
