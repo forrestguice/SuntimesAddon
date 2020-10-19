@@ -33,30 +33,77 @@ import java.util.ArrayList;
 public class AddonHelper
 {
     public static final String SUNTIMES_PACKAGE = "com.forrestguice.suntimeswidget";
+    public static final String ACTIVITY_MAIN = SUNTIMES_PACKAGE + ".SuntimesActivity";
+    public static final String ACTIVITY_ALARMCLOCK = SUNTIMES_PACKAGE + ".alarmclock.ui.AlarmClockActivity";
+    public static final String ACTIVITY_COLOR = SUNTIMES_PACKAGE + ".settings.colors.ColorActivity";
+    public static final String ACTIVITY_THEMES = SUNTIMES_PACKAGE + ".themes.WidgetThemeListActivity";
+    public static final String ACTIVITY_PLACES = SUNTIMES_PACKAGE + ".getfix.PlacesActivity";
+    public static final String ACTIVITY_WIDGETS = SUNTIMES_PACKAGE + ".SuntimesWidgetListActivity";
+    public static final String ACTIVITY_WIDGETCONFIG = SUNTIMES_PACKAGE + ".SuntimesConfigActivity0";
 
-    public static final void startSuntimesActivity(Context context) {
-        startActivity(context, SUNTIMES_PACKAGE, SUNTIMES_PACKAGE + ".SuntimesActivity", null, null, null);
+    /**
+     * Main Activity
+     */
+    public static void startSuntimesActivity(Context context) {
+        startActivity(context, intentForMainActivity());
+    }
+    public static Intent intentForMainActivity() {
+        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_MAIN, null, null, null, 0);
     }
 
-    public static final void startSuntimesAlarmsActivity(Context context) {
-        startActivity(context, SUNTIMES_PACKAGE, SUNTIMES_PACKAGE + ".alarmclock.ui.AlarmClockActivity", null, null, null);
+    /**
+     * Alarms Activity
+     */
+    public static void startSuntimesAlarmsActivity(Context context) {
+        startActivity(context, intentForAlarmsActivity());
+    }
+    public static Intent intentForAlarmsActivity() {
+        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_ALARMCLOCK, null, null, null, 0);
     }
 
-    public static final void startSuntimesThemesActivity(Context context) {
-        startActivity(context, SUNTIMES_PACKAGE, SUNTIMES_PACKAGE + ".themes.WidgetThemeListActivity", null, null, null);
+    /**
+     * Themes Activity
+     */
+    public static void startSuntimesThemesActivity(Context context) {
+        startActivity(context, intentForThemesActivity(null));
     }
-
-    public static final void startSuntimesThemesActivityForResult(Activity activity, int requestCode, String selected) {
-
+    public static void startSuntimesThemesActivityForResult(Activity activity, int requestCode, String selected) {
+        startActivityForResult(activity, intentForThemesActivity(selected), requestCode);
+    }
+    public static Intent intentForThemesActivity(String selected)
+    {
         Bundle extras = new Bundle();
         extras.putString("selected", selected);
-        startActivityForResult(activity, SUNTIMES_PACKAGE, SUNTIMES_PACKAGE + ".themes.WidgetThemeListActivity", null, extras, null, 0, requestCode);
+        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_THEMES, null, extras, null, 0);
     }
 
+    /**
+     * Places Activity
+     */
+    public static void startSuntimesPlacesActivity(Context context) {
+        startActivity(context, intentForPlacesActivity(-1, false));
+    }
+    public static void startSuntimesPlacesActivityForResult(Activity activity, int requestCode, long selected) {
+        startActivityForResult(activity, intentForPlacesActivity(selected, true), requestCode);
+    }
+    public static Intent intentForPlacesActivity(long selected, boolean allowPick)
+    {
+        Bundle extras = new Bundle();
+        extras.putLong("selectedRowID", selected);
+        extras.putBoolean("allowPick", allowPick);
+        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_PLACES, null, extras, null, 0);
+    }
+
+    /**
+     * Color Activity
+     */
     public static final void startSuntimesColorActivityForResult(Activity activity, int requestCode, int selectedColor) {
         startSuntimesColorActivityForResult(activity, requestCode, selectedColor, null, false);
     }
-    public static final void startSuntimesColorActivityForResult(Activity activity, int requestCode, int selectedColor, @Nullable ArrayList<Integer> recentColors, boolean showAlpha)
+    public static final void startSuntimesColorActivityForResult(Activity activity, int requestCode, int selectedColor, @Nullable ArrayList<Integer> recentColors, boolean showAlpha) {
+        startActivityForResult(activity, intentForColorActivity(selectedColor, showAlpha, recentColors), requestCode);
+    }
+    public static Intent intentForColorActivity(int selectedColor, boolean showAlpha, @Nullable ArrayList<Integer> recentColors)
     {
         Uri data = Uri.parse("color://" + String.format("#%08X", selectedColor));
         Bundle extras = new Bundle();
@@ -65,51 +112,62 @@ public class AddonHelper
         if (recentColors != null) {
             extras.putIntegerArrayList("recentColors", recentColors);
         }
-        startActivityForResult(activity, SUNTIMES_PACKAGE, SUNTIMES_PACKAGE + ".settings.colors.ColorActivity", Intent.ACTION_PICK, extras, data, 0, requestCode);
+        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_COLOR, Intent.ACTION_PICK, extras, data, 0);
     }
 
-    public static final void reconfigureWidget(Context context, int appWidgetID) {
-        reconfigureWidget(context, appWidgetID, SUNTIMES_PACKAGE + ".SuntimesConfigActivity0");
+    /**
+     * WidgetList Activity
+     */
+    public static void startSuntimesWidgetListActivity(Context context) {
+        startActivity(context, intentForPlacesActivity(-1, false));
     }
-    
-    public static final void reconfigureWidget(Context context, int appWidgetID, String widgetClassName)
+    public static void startSuntimesWidgetListActivityForResult(Activity activity, int requestCode, long selected) {
+        startActivityForResult(activity, intentForPlacesActivity(selected, true), requestCode);
+    }
+    public static Intent intentForWidgetListActivity(long selected, boolean allowPick) {
+        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_WIDGETS, null, null, null, 0);
+    }
+
+    /**
+     * WidgetConfig Activity
+     */
+    public static void reconfigureWidget(Context context, int appWidgetID) {
+        reconfigureWidget(context, appWidgetID, ACTIVITY_WIDGETCONFIG);
+    }
+    public static void reconfigureWidget(Context context, int appWidgetID, String widgetConfigClassName) {
+        startActivity(context, intentForWidgetConfigActivity(appWidgetID, widgetConfigClassName));
+    }
+    public static Intent intentForWidgetConfigActivity(int appWidgetID, String widgetConfigClassName)
     {
         Bundle extras = new Bundle();
         extras.putInt(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetID);
         extras.putBoolean("ONTAP_LAUNCH_CONFIG", true);
-        startActivity(context, SUNTIMES_PACKAGE, widgetClassName, null, extras, null);
+        return createIntent(SUNTIMES_PACKAGE, widgetConfigClassName, null, extras, null, Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
-    public static final void startActivity(Context context, String packageName, String className, @Nullable Bundle extras) {
-        startActivity(context, packageName, className, null, extras, null);
-    }
-    public static final void startActivity(Context context, String packageName, String className, @Nullable String action, @Nullable Bundle extras, @Nullable Uri data)
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static void startActivity(Context context, Intent intent)
     {
-        Intent intent = new Intent();
-        intent.setClassName(packageName, className);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (action != null) {
-            intent.setAction(action);
-        }
-        if (extras != null) {
-            intent.putExtras(extras);
-        }
-        if (data != null) {
-            intent.setData(data);
-        }
-
         try {
+            intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-
         } catch (SecurityException | ActivityNotFoundException e) {
             Log.e("AddonHelper", "unable to startActivity: " + e);
         }
     }
 
-    public static final void startActivityForResult(Activity activity, String packageName, String className, @Nullable Bundle extras, int flags, int requestCode) {
-        startActivityForResult(activity, packageName, className, null, extras, null, flags, requestCode);
+    public static void startActivityForResult(Activity activity, Intent intent, int requestCode)
+    {
+        try {
+            activity.startActivityForResult(intent, requestCode);
+        } catch (SecurityException | ActivityNotFoundException e) {
+            Log.e("AddonHelper", "unable to startActivity: " + e);
+        }
     }
-    public static final void startActivityForResult(Activity activity, String packageName, String className, @Nullable String action, @Nullable Bundle extras, @Nullable Uri data, int flags, int requestCode)
+
+    public static Intent createIntent(String packageName, String className, @Nullable String action, @Nullable Bundle extras, @Nullable Uri data, int flags)
     {
         Intent intent = new Intent();
         intent.setClassName(packageName, className);
@@ -123,13 +181,7 @@ public class AddonHelper
         if (data != null) {
             intent.setData(data);
         }
-
-        try {
-            activity.startActivityForResult(intent, requestCode);
-
-        } catch (SecurityException | ActivityNotFoundException e) {
-            Log.e("AddonHelper", "unable to startActivity: " + e);
-        }
+        return intent;
     }
 
 }
