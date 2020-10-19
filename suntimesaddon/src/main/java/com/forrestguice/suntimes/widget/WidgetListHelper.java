@@ -30,15 +30,30 @@ import android.support.v4.content.ContextCompat;
 
 import java.io.ByteArrayOutputStream;
 
+/**
+ * Addons can use this helper to implement a ContentProvider that supplies info about running widgets.
+ * The main app's WidgetListActivity queries available providers to display a single list of all widgets.
+ *
+ * Addon providers should respond to QUERY_WIDGET (i.e. content://<providerURI>/widgets) with a cursor
+ * containing rows of widget info (e.g. COLUMN_WIDGET_APPWIDGETID, COLUMN_WIDGET_CLASS, etc).
+ *
+ * Addons should declare the availability of their provider in the manifest using meta-data "WidgetInfoProvider"
+ * containing the provider's URI.
+ * e.g. <meta-data android:name="WidgetInfoProvider" android:value="content://suntimes.addon.provider.uri.goes.here" />
+ *
+ * To permit the main app to trigger reconfiguration, widget configuration activities should be exported (and protected
+ * with suntimes permission).
+ * e.g. <activity ... android:exported="true" android:permission="suntimes.permission.READ_CALCULATOR" />
+ */
 public class WidgetListHelper
 {
-    public static final String COLUMN_WIDGET_PACKAGENAME = "packagename";
-    public static final String COLUMN_WIDGET_APPWIDGETID = "appwidgetid";
-    public static final String COLUMN_WIDGET_CLASS = "widgetclass";
-    public static final String COLUMN_WIDGET_CONFIGCLASS = "configclass";
-    public static final String COLUMN_WIDGET_LABEL = "label";
-    public static final String COLUMN_WIDGET_SUMMARY = "summary";
-    public static final String COLUMN_WIDGET_ICON = "icon";
+    public static final String COLUMN_WIDGET_PACKAGENAME = "packagename";    // String
+    public static final String COLUMN_WIDGET_APPWIDGETID = "appwidgetid";    // int
+    public static final String COLUMN_WIDGET_CLASS = "widgetclass";          // String (fully qualified class name)
+    public static final String COLUMN_WIDGET_CONFIGCLASS = "configclass";    // String (fully qualified class name)
+    public static final String COLUMN_WIDGET_LABEL = "label";                // String
+    public static final String COLUMN_WIDGET_SUMMARY = "summary";            // String
+    public static final String COLUMN_WIDGET_ICON = "icon";                  // BloB (png byte[])
 
     public static final String QUERY_WIDGET = "widgets";
     public static final String[] QUERY_WIDGET_PROJECTION = new String[] {
@@ -46,6 +61,14 @@ public class WidgetListHelper
             COLUMN_WIDGET_LABEL, COLUMN_WIDGET_SUMMARY, COLUMN_WIDGET_ICON
     };
 
+    /**
+     * Creates a Cursor for return by ContentProvider (a suitable response to QUERY_WIDGET).
+     * @param context Context
+     * @param widgetClass array of Class (widget types)
+     * @param summary array of summary strings (for each widgetClass)
+     * @param iconResID array of iconResID (for each widgetClass)
+     * @return a Cursor containing rows for each running widget (of the supplied widget type)
+     */
     public static MatrixCursor createWidgetListCursor(Context context, Class[] widgetClass, String[] summary, int[] iconResID) {
         return createWidgetListCursor(context, QUERY_WIDGET_PROJECTION, widgetClass, summary, iconResID);
     }
