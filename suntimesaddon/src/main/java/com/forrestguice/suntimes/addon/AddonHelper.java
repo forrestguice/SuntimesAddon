@@ -39,6 +39,7 @@ public class AddonHelper
     public static final String SUNTIMES_PACKAGE = "com.forrestguice.suntimeswidget";
     public static final String ACTIVITY_MAIN = SUNTIMES_PACKAGE + ".SuntimesActivity";
     public static final String ACTIVITY_ALARMCLOCK = SUNTIMES_PACKAGE + ".alarmclock.ui.AlarmClockActivity";
+    public static final String ACTIVITY_ACTIONS = SUNTIMES_PACKAGE + ".actions.ActionListActivity";
     public static final String ACTIVITY_COLOR = SUNTIMES_PACKAGE + ".settings.colors.ColorActivity";
     public static final String ACTIVITY_THEMES = SUNTIMES_PACKAGE + ".themes.WidgetThemeListActivity";
     public static final String ACTIVITY_PLACES = SUNTIMES_PACKAGE + ".getfix.PlacesActivity";
@@ -90,21 +91,53 @@ public class AddonHelper
     }
 
     /**
+     * Actions Activity
+     */
+    public static void startSuntimesActionsActivity(Context context) {
+        Intent intent = intentForActionsActivity(null);
+        intent.putExtra("noselect", true);
+        startActivity(context, intent);
+    }
+    public static void startSuntimesActionsActivityForResult(Activity activity, int requestCode, String selected) {
+        startActivityForResult(activity, intentForActionsActivity(selected), requestCode);
+    }
+    public static String resultForActionsActivity(@NonNull Intent data) {
+        //boolean isModified = data.getBooleanExtra("isModified", false);    // list was modified
+        return data.getStringExtra("actionID");    // selected actionID
+    }
+    public static boolean supportForActionsActivity(SuntimesInfo suntimesInfo) {
+        return (suntimesInfo != null && suntimesInfo.appCode >= 66);    // access to Actions added v0.13.2 (66)
+    }
+    public static Intent intentForActionsActivity(String selected)
+    {
+        Bundle extras = new Bundle();
+        extras.putBoolean("noselect", false);
+        extras.putString("selected", selected);
+        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_ACTIONS, null, extras, null, 0);
+    }
+
+    /**
      * Themes Activity
      */
     public static void startSuntimesThemesActivity(Context context) {
-        startActivity(context, intentForThemesActivity(null));
+        Intent intent = intentForThemesActivity(null);
+        intent.putExtra("noselect", true);
+        startActivity(context, intent);
     }
     public static void startSuntimesThemesActivityForResult(Activity activity, int requestCode, String selected) {
         startActivityForResult(activity, intentForThemesActivity(selected), requestCode);
     }
     public static String resultForThemesActivity(@NonNull Intent data) {
-        boolean isModified = data.getBooleanExtra("isModified", false);    // list was modified
+        //boolean isModified = data.getBooleanExtra("isModified", false);    // list was modified
         return data.getStringExtra("name");    // selected theme name
+    }
+    public static boolean supportForThemesActivity(SuntimesInfo suntimesInfo) {
+        return (suntimesInfo != null && suntimesInfo.appCode >= 59);    // access to Themes added v0.12.8 (59)
     }
     public static Intent intentForThemesActivity(String selected)
     {
         Bundle extras = new Bundle();
+        extras.putBoolean("noselect", false);
         extras.putString("selected", selected);
         return createIntent(SUNTIMES_PACKAGE, ACTIVITY_THEMES, null, extras, null, 0);
     }
@@ -119,8 +152,11 @@ public class AddonHelper
         startActivityForResult(activity, intentForPlacesActivity(selected, true), requestCode);
     }
     public static long resultForPlacesActivity(@NonNull Intent data) {
-        boolean isModified = data.getBooleanExtra("isModified", false);    // list was modified
+        //boolean isModified = data.getBooleanExtra("isModified", false);    // list was modified
         return data.getLongExtra("selectedRowID", -1);
+    }
+    public static boolean supportForPlacesActivity(SuntimesInfo suntimesInfo) {
+        return (suntimesInfo != null && suntimesInfo.appCode >= 64);    // access to Places added v0.13.0 (64)
     }
     public static Intent intentForPlacesActivity(long selected, boolean allowPick)
     {
@@ -142,6 +178,9 @@ public class AddonHelper
     public static int resultForColorActivity(Intent data, int defaultColor) {
         return data.getIntExtra("color", defaultColor);
     }
+    public static boolean supportForColorActivity(SuntimesInfo suntimesInfo) {
+        return (suntimesInfo != null && suntimesInfo.appCode >= 64);    // access to Colors added v0.13.0 (64)
+    }
     public static Intent intentForColorActivity(int selectedColor, boolean showAlpha, @Nullable ArrayList<Integer> recentColors)
     {
         Uri data = Uri.parse("color://" + String.format("#%08X", selectedColor));
@@ -159,6 +198,9 @@ public class AddonHelper
      */
     public static void startSuntimesWidgetListActivity(Context context) {
         startActivity(context, intentForPlacesActivity(-1, false));
+    }
+    public static boolean supportForWidgetListActivity(SuntimesInfo suntimesInfo) {
+        return (suntimesInfo != null && suntimesInfo.appCode >= 66);    // access to WidgetList added v0.13.2 (66)
     }
     public static Intent intentForWidgetListActivity() {
         return createIntent(SUNTIMES_PACKAGE, ACTIVITY_WIDGETS, null, null, null, 0);
