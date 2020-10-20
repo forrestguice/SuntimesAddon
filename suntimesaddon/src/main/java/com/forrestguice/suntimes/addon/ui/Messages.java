@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.forrestguice.suntimes.addon.R;
 
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public class Messages
 {
     public static Snackbar showMessage(final Activity context, View view, CharSequence message, int textSize, int maxLines, int displayLength, View.OnClickListener onClickListener)

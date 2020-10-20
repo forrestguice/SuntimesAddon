@@ -45,6 +45,7 @@ import java.io.ByteArrayOutputStream;
  * with suntimes permission).
  * e.g. <activity ... android:exported="true" android:permission="suntimes.permission.READ_CALCULATOR" />
  */
+@SuppressWarnings("WeakerAccess")
 public class WidgetListHelper
 {
     public static final String COLUMN_WIDGET_PACKAGENAME = "packagename";    // String

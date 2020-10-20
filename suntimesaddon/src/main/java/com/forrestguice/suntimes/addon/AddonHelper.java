@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+@SuppressWarnings("WeakerAccess")
 public class AddonHelper
 {
     public static final String SUNTIMES_PACKAGE = "com.forrestguice.suntimeswidget";

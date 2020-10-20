@@ -41,6 +41,7 @@ import java.util.Locale;
  * }
  * ```
  */
+@SuppressWarnings("WeakerAccess")
 public class LocaleHelper
 {
     protected static String systemLocale = null;  // null until locale is overridden w/ loadLocale

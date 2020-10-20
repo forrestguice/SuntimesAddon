@@ -84,6 +84,7 @@ import static com.forrestguice.suntimes.themes.SuntimesThemeContract.THEME_TITLE
 import static com.forrestguice.suntimes.themes.SuntimesThemeContract.THEME_VERSION;
 import static com.forrestguice.suntimes.themes.SuntimesThemeContract.THEME_WINTERCOLOR;
 
+@SuppressWarnings("WeakerAccess")
 public class ThemeHelper
 {
     /**

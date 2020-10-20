@@ -32,6 +32,7 @@ import java.util.TimeZone;
 
 public class TimeZoneHelper
 {
+    @SuppressWarnings("WeakerAccess")
     public static class LocalMeanTime extends TimeZone
     {
         public static final String TIMEZONEID = "Local Mean Time";
@@ -104,6 +105,7 @@ public class TimeZoneHelper
     /**
      * ApparentSolarTime : TimeZone
      */
+    @SuppressWarnings("WeakerAccess")
     public static class ApparentSolarTime extends LocalMeanTime
     {
         public static final String TIMEZONEID = "Apparent Solar Time";
