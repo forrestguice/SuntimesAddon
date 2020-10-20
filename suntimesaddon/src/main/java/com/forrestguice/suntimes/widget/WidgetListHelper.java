@@ -32,14 +32,19 @@ import java.io.ByteArrayOutputStream;
 
 /**
  * Addons can use this helper to implement a ContentProvider that supplies info about running widgets.
- * The main app's WidgetListActivity queries available providers to display a single list of all widgets.
+ * The main app's WidgetListActivity queries available providers to display a list of all widgets.
  *
  * Addon providers should respond to QUERY_WIDGET (i.e. content://<providerURI>/widgets) with a cursor
- * containing rows of widget info (e.g. COLUMN_WIDGET_APPWIDGETID, COLUMN_WIDGET_CLASS, etc).
+ * containing one or more rows of widget info (e.g. COLUMN_WIDGET_APPWIDGETID, COLUMN_WIDGET_CLASS, etc).
  *
- * Addons should declare the availability of their provider in the manifest using meta-data "WidgetInfoProvider"
- * containing the provider's URI.
- * e.g. <meta-data android:name="WidgetInfoProvider" android:value="content://suntimes.addon.provider.uri.goes.here" />
+ * Addons should declare the availability of their provider in the manifest using an intent-filter
+ * and meta-data ("WidgetInfoProvider" containing the provider's URI).
+ *
+ *    <meta-data android:name="WidgetInfoProvider" android:value="content://provider.uri.goes.here" />
+ *    <intent-filter>
+ *        <action android:name="suntimes.action.LIST_WIDGETS" />
+ *        <category android:name="suntimes.SUNTIMES_ADDON" />
+  *    </intent-filter>
  *
  * To permit the main app to trigger reconfiguration, widget configuration activities should be exported (and protected
  * with suntimes permission).

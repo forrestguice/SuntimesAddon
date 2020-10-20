@@ -28,6 +28,19 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Addons can use this helper to implement a ContentProvider to supply calendar events to SuntimesCalendar.
+ *
+ * Addons should declare the availability of their provider(s) in the manifest with an intent-filter
+ * and with meta-data (containing a | delimited list of provider's URI).
+ *
+ *     <meta-data android:name="SuntimesCalendarReference" android:value="content://calendar.provider1|content://calendar.provider2|..." />
+ *     <intent-filter>
+ *         <action android:name="suntimes.action.ADD_CALENDAR" />
+ *         <category android:name="suntimes.SUNTIMES_CALENDAR" />
+ *     </intent-filter>
+ *
+ */
 @SuppressWarnings("WeakerAccess")
 @TargetApi(14)
 public class CalendarHelper

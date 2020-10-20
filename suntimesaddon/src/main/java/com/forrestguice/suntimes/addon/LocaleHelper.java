@@ -34,12 +34,12 @@ import java.util.Locale;
  * A helper class for loading or resetting an activity's locale.
  *
  * To use, add the following to your activity:
- * ```
- * @Override
- * protected void attachBaseContext(Context context){
- *     super.attachBaseContext( LocaleHelper.loadLocale(context, "es") );    // e.g. load Spanish (es)
- * }
- * ```
+ *
+ *     @Override
+ *     protected void attachBaseContext(Context context){
+ *         super.attachBaseContext( LocaleHelper.loadLocale(context, "es") );    // e.g. load Spanish (es)
+ *     }
+ *
  */
 @SuppressWarnings("WeakerAccess")
 public class LocaleHelper
