@@ -90,18 +90,16 @@ public class WidgetListHelper
                 for (int appWidgetID : widgetIDs)
                 {
                     Drawable icon = ContextCompat.getDrawable(context, iconResID[i]);
-                    cursor.addRow(createWidgetListRow(context, widgetManager, columns, appWidgetID, summary[i], icon));
+                    cursor.addRow(createWidgetListRow(context, widgetManager, columns, appWidgetID, widgetClass[i].getName(), summary[i], icon));
                 }
             }
         }
         return cursor;
     }
 
-    public static Object[] createWidgetListRow(Context context, AppWidgetManager widgetManager, String[] columns, int appWidgetID, String summary, Drawable icon)
+    public static Object[] createWidgetListRow(Context context, AppWidgetManager widgetManager, String[] columns, int appWidgetID, String widgetClass, String summary, Drawable icon)
     {
         AppWidgetProviderInfo info = widgetManager.getAppWidgetInfo(appWidgetID);
-        Class widgetClass = info.getClass();
-        Class configClass = (info.configure != null ? info.configure.getClass() : null);
         Object[] row = new Object[columns.length];
         for (int i=0; i<columns.length; i++)
         {
@@ -116,11 +114,11 @@ public class WidgetListHelper
                     break;
 
                 case COLUMN_WIDGET_CLASS:
-                    row[i] = widgetClass.getName();
+                    row[i] = widgetClass;
                     break;
 
                 case COLUMN_WIDGET_CONFIGCLASS:
-                    row[i] = configClass != null ? configClass.getName() : null;
+                    row[i] = (info.configure != null ? info.configure.getClassName() : null);
                     break;
 
                 case COLUMN_WIDGET_LABEL:
