@@ -30,6 +30,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class AddonHelper
 {
@@ -56,10 +58,34 @@ public class AddonHelper
      * Alarms Activity
      */
     public static void startSuntimesAlarmsActivity(Context context) {
-        startActivity(context, intentForAlarmsActivity());
+        startActivity(context, intentForAlarmsActivity(null));
     }
-    public static Intent intentForAlarmsActivity() {
-        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_ALARMCLOCK, null, null, null, 0);
+    public static Intent intentForAlarmsActivity(@Nullable String action) {
+        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_ALARMCLOCK, action, null, null, 0);
+    }
+    public static Intent scheduleNotification(String label, int hour, int minutes, @Nullable TimeZone timezone, @Nullable String solarEvent) {
+        return scheduleAlarm("NOTIFICATION", label, hour, minutes, timezone, solarEvent);
+    }
+    public static Intent scheduleAlarm(String label, int hour, int minutes, @Nullable TimeZone timezone, @Nullable String solarEvent) {
+        return scheduleAlarm("ALARM", label, hour, minutes, timezone, solarEvent);
+    }
+    public static Intent scheduleAlarm(String alarmType, String label, int hour, int minutes, @Nullable TimeZone timezone, @Nullable String solarEvent)
+    {
+        Calendar calendar0 = Calendar.getInstance(timezone);
+        Calendar calendar1 = Calendar.getInstance(TimeZone.getDefault());
+        calendar0.set(Calendar.HOUR_OF_DAY, hour);
+        calendar0.set(Calendar.MINUTE, minutes);
+        calendar1.setTimeInMillis(calendar0.getTimeInMillis());
+
+        Intent intent = intentForAlarmsActivity("android.intent.action.SET_ALARM");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("android.intent.extra.alarm.MESSAGE", label);
+        intent.putExtra("android.intent.extra.alarm.HOUR", ((timezone == null) ? hour : calendar1.get(Calendar.HOUR_OF_DAY)));
+        intent.putExtra("android.intent.extra.alarm.MINUTES", ((timezone == null) ? minutes : calendar1.get(Calendar.MINUTE)));
+        intent.putExtra("timezone", ((timezone == null) ? (String) null : timezone.getID()));
+        intent.putExtra("solarevent", solarEvent);
+        intent.putExtra("alarmtype", alarmType);
+        return intent;
     }
 
     /**
@@ -72,6 +98,7 @@ public class AddonHelper
         startActivityForResult(activity, intentForThemesActivity(selected), requestCode);
     }
     public static String resultForThemesActivity(@NonNull Intent data) {
+        boolean isModified = data.getBooleanExtra("isModified", false);    // list was modified
         return data.getStringExtra("name");    // selected theme name
     }
     public static Intent intentForThemesActivity(String selected)
@@ -91,6 +118,7 @@ public class AddonHelper
         startActivityForResult(activity, intentForPlacesActivity(selected, true), requestCode);
     }
     public static long resultForPlacesActivity(@NonNull Intent data) {
+        boolean isModified = data.getBooleanExtra("isModified", false);    // list was modified
         return data.getLongExtra("selectedRowID", -1);
     }
     public static Intent intentForPlacesActivity(long selected, boolean allowPick)
