@@ -20,7 +20,6 @@ package com.forrestguice.suntimes.addon;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -28,10 +27,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.forrestguice.suntimes.calculator.core.CalculatorProviderContract;
-import com.forrestguice.suntimes.themes.SuntimesThemeContract;
 
 import java.util.Calendar;
-import java.util.TimeZone;
 
 /**
  * SuntimesInfo
@@ -199,38 +196,6 @@ public class SuntimesInfo
             }
         }
         return sun;
-    }
-
-    public static Cursor queryThemes(@Nullable ContentResolver resolver)
-    {
-        if (resolver != null)
-        {
-            Uri uri = Uri.parse("content://" + SuntimesThemeContract.AUTHORITY + "/" + SuntimesThemeContract.QUERY_THEMES);
-            try {
-                return resolver.query(uri, SuntimesThemeContract.QUERY_THEMES_PROJECTION, null, null, null);
-
-            } catch (SecurityException e) {
-                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + SuntimesThemeContract.AUTHORITY + "! " + e);
-                return null;
-            }
-        }
-        return null;
-    }
-
-    public static Cursor queryTheme(@Nullable ContentResolver resolver, @NonNull String themeName)
-    {
-        if (resolver != null)
-        {
-            Uri uri = Uri.parse("content://" + SuntimesThemeContract.AUTHORITY + "/" + SuntimesThemeContract.QUERY_THEME + "/" + themeName);
-            try {
-                return resolver.query(uri, SuntimesThemeContract.QUERY_THEME_PROJECTION, null, null, null);
-
-            } catch (SecurityException e) {
-                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + SuntimesThemeContract.AUTHORITY + "! " + e);
-                return null;
-            }
-        }
-        return null;
     }
 
     /**

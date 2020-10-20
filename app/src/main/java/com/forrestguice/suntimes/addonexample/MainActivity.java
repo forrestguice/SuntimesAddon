@@ -40,6 +40,7 @@ import com.forrestguice.suntimes.addon.SuntimesInfo;
 
 import com.forrestguice.suntimes.addon.ui.Messages;
 import com.forrestguice.suntimes.themes.SuntimesThemeContract;
+import com.forrestguice.suntimes.themes.ThemeHelper;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -187,9 +188,7 @@ public class MainActivity extends AppCompatActivity
 
     private void initThemeAdapter()
     {
-        Cursor cursor = SuntimesInfo.queryThemes(getContentResolver());
-        themeAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor,
-                new String[] { SuntimesThemeContract.THEME_DISPLAYSTRING }, new int[] { android.R.id.text1 }, 0 );
+        themeAdapter = ThemeHelper.createThemeListCursorAdapter(this);
     }
 
     private void selectTheme(@Nullable String themeName)
