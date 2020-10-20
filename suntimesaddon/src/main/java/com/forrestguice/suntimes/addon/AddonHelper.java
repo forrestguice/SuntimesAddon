@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -70,6 +71,9 @@ public class AddonHelper
     public static void startSuntimesThemesActivityForResult(Activity activity, int requestCode, String selected) {
         startActivityForResult(activity, intentForThemesActivity(selected), requestCode);
     }
+    public static String resultForThemesActivity(@NonNull Intent data) {
+        return data.getStringExtra("name");    // selected theme name
+    }
     public static Intent intentForThemesActivity(String selected)
     {
         Bundle extras = new Bundle();
@@ -86,6 +90,9 @@ public class AddonHelper
     public static void startSuntimesPlacesActivityForResult(Activity activity, int requestCode, long selected) {
         startActivityForResult(activity, intentForPlacesActivity(selected, true), requestCode);
     }
+    public static long resultForPlacesActivity(@NonNull Intent data) {
+        return data.getLongExtra("selectedRowID", -1);
+    }
     public static Intent intentForPlacesActivity(long selected, boolean allowPick)
     {
         Bundle extras = new Bundle();
@@ -97,11 +104,14 @@ public class AddonHelper
     /**
      * Color Activity
      */
-    public static final void startSuntimesColorActivityForResult(Activity activity, int requestCode, int selectedColor) {
+    public static void startSuntimesColorActivityForResult(Activity activity, int requestCode, int selectedColor) {
         startSuntimesColorActivityForResult(activity, requestCode, selectedColor, null, false);
     }
-    public static final void startSuntimesColorActivityForResult(Activity activity, int requestCode, int selectedColor, @Nullable ArrayList<Integer> recentColors, boolean showAlpha) {
+    public static void startSuntimesColorActivityForResult(Activity activity, int requestCode, int selectedColor, @Nullable ArrayList<Integer> recentColors, boolean showAlpha) {
         startActivityForResult(activity, intentForColorActivity(selectedColor, showAlpha, recentColors), requestCode);
+    }
+    public static int resultForColorActivity(Intent data, int defaultColor) {
+        return data.getIntExtra("color", defaultColor);
     }
     public static Intent intentForColorActivity(int selectedColor, boolean showAlpha, @Nullable ArrayList<Integer> recentColors)
     {
@@ -121,10 +131,7 @@ public class AddonHelper
     public static void startSuntimesWidgetListActivity(Context context) {
         startActivity(context, intentForPlacesActivity(-1, false));
     }
-    public static void startSuntimesWidgetListActivityForResult(Activity activity, int requestCode, long selected) {
-        startActivityForResult(activity, intentForPlacesActivity(selected, true), requestCode);
-    }
-    public static Intent intentForWidgetListActivity(long selected, boolean allowPick) {
+    public static Intent intentForWidgetListActivity() {
         return createIntent(SUNTIMES_PACKAGE, ACTIVITY_WIDGETS, null, null, null, 0);
     }
 
