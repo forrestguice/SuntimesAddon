@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity
 
     protected void checkVersion()
     {
+        Messages.showPermissionDeniedMessage(this,  getWindow().getDecorView().findViewById(android.R.id.content));
         if (!SuntimesInfo.checkVersion(this, suntimesInfo))
         {
             View view = getWindow().getDecorView().findViewById(android.R.id.content);

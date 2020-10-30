@@ -24,6 +24,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
@@ -41,7 +43,29 @@ import java.lang.reflect.Method;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public class Messages
 {
-    public static Snackbar showMessage(final Activity context, View view, CharSequence message, int textSize, int maxLines, int displayLength, View.OnClickListener onClickListener)
+    @NonNull
+    public static Snackbar createMessage(Context context, @NonNull View view, @NonNull CharSequence message, int textSize, int maxLines, int displayLength, @Nullable View.OnClickListener onClickListener)
+    {
+        Snackbar snackbar = Snackbar.make(view, message, displayLength);
+        View snackbarView = snackbar.getView();
+        themeSnackbar(context, snackbar, null);
+
+        //snackbarView.setBackgroundColor(ContextCompat.getColor(context, R.color.snackbarError_background));   // TODO
+        snackbarView.setOnClickListener(onClickListener);
+
+        TextView textView = (TextView)snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+        if (textView != null)
+        {
+            //textView.setTextColor(ContextCompat.getColor(context, R.color.snackbarError_text));    // TODO
+            textView.setMaxLines(maxLines);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+        }
+
+        return snackbar;
+    }
+
+    @Nullable
+    public static Snackbar showMessage(final Activity context, @Nullable View view, @NonNull CharSequence message, int textSize, int maxLines, int displayLength, @Nullable View.OnClickListener onClickListener)
     {
         if (view == null)
         {
@@ -49,20 +73,7 @@ public class Messages
             return null;
 
         } else {
-            Snackbar snackbar = Snackbar.make(view, message, displayLength);
-            View snackbarView = snackbar.getView();
-            //snackbarView.setBackgroundColor(ContextCompat.getColor(context, R.color.snackbarError_background));   // TODO
-            snackbarView.setOnClickListener(onClickListener);
-
-            TextView textView = (TextView)snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-            if (textView != null)
-            {
-                //textView.setTextColor(ContextCompat.getColor(context, R.color.snackbarError_text));    // TODO
-                textView.setMaxLines(maxLines);
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-            }
-
-            themeSnackbar(context, snackbar, null);
+            Snackbar snackbar = createMessage(context, view, message, textSize, maxLines, displayLength, onClickListener);
             snackbar.show();
             return snackbar;
         }
@@ -87,11 +98,11 @@ public class Messages
     public static Snackbar showPermissionDeniedMessage(final Activity context, View view)
     {
         CharSequence message = Html.fromHtml(context.getString(R.string.missing_permission, context.getString(R.string.app_name)));
-        return showMessage(context, view, message, 12, 7, Snackbar.LENGTH_INDEFINITE, null);
+        return showMessage(context, view, message, 12, 9, Snackbar.LENGTH_INDEFINITE, null);
     }
 
     @SuppressLint("ResourceType")
-    public static void themeSnackbar(Context context, Snackbar snackbar, Integer[] colorOverrides)
+    public static void themeSnackbar(Context context, @NonNull Snackbar snackbar, @Nullable Integer[] colorOverrides)
     {
         Integer[] colors = new Integer[] {null, null, null};
         int[] colorAttrs = { R.attr.snackbar_textColor, R.attr.snackbar_accentColor, R.attr.snackbar_backgroundColor };
