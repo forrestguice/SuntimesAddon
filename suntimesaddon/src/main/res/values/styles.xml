@@ -9,7 +9,9 @@
         <item name="colorDisabled">@color/colorDisabled_dark</item>
 
         <item name="suntimesCardBackground">@color/card_dark</item>
+        <item name="dialogFrame">@color/grey_800</item>
         <item name="dialogBackground">@color/dialog_dark</item>
+        <item name="dialogBackgroundAlt">@color/grey_900</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="actionBarPopupTheme">@style/PopupMenuStyleDark</item>
         <item name="fab_backgroundColor">@color/fab_background_dark</item>
@@ -44,7 +46,9 @@
         <item name="colorDisabled">@color/colorDisabled_light</item>
 
         <item name="suntimesCardBackground">@color/card_light</item>
+        <item name="dialogFrame">@android:color/white</item>
         <item name="dialogBackground">@color/dialog_light</item>
+        <item name="dialogBackgroundAlt">@color/grey_300</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="actionBarPopupTheme">@style/PopupMenuStyleLight</item>
         <item name="fab_backgroundColor">@color/fab_background_light</item>

@@ -6,6 +6,8 @@
 
     <attr name="suntimesCardBackground" format="reference" />
     <attr name="dialogBackground" format="reference" />
+    <attr name="dialogBackgroundAlt" format="reference" />
+    <attr name="dialogFrame" format="reference" />
 
     <attr name="toolbarTheme" format="reference" />
     <attr name="fab_backgroundColor" format="reference" />
