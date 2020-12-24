@@ -197,7 +197,7 @@ public class AddonHelper
      * WidgetList Activity
      */
     public static void startSuntimesWidgetListActivity(Context context) {
-        startActivity(context, intentForPlacesActivity(-1, false));
+        startActivity(context, intentForWidgetListActivity());
     }
     public static boolean supportForWidgetListActivity(SuntimesInfo suntimesInfo) {
         return (suntimesInfo != null && suntimesInfo.appCode >= 66);    // access to WidgetList added v0.13.2 (66)
