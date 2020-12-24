@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -45,6 +46,15 @@ public class AddonHelper
     public static final String ACTIVITY_PLACES = SUNTIMES_PACKAGE + ".getfix.PlacesActivity";
     public static final String ACTIVITY_WIDGETS = SUNTIMES_PACKAGE + ".SuntimesWidgetListActivity";
     public static final String ACTIVITY_WIDGETCONFIG = SUNTIMES_PACKAGE + ".SuntimesConfigActivity0";
+
+    public static final String ACTIVITY_SETTINGS = SUNTIMES_PACKAGE + ".SuntimesSettingsActivity";
+    public static final String FRAGMENT_SETTINGS_GENERAL = ACTIVITY_SETTINGS + "$GeneralPrefsFragment";
+    public static final String FRAGMENT_SETTINGS_ALARMS = ACTIVITY_SETTINGS + "$AlarmPrefsFragment";
+    public static final String FRAGMENT_SETTINGS_CALENDARS = ACTIVITY_SETTINGS + "$CalendarPrefsFragment";
+    public static final String FRAGMENT_SETTINGS_LOCALE = ACTIVITY_SETTINGS + "$LocalePrefsFragment";
+    public static final String FRAGMENT_SETTINGS_PLACES = ACTIVITY_SETTINGS + "$PlacesPrefsFragment";
+    public static final String FRAGMENT_SETTINGS_UI = ACTIVITY_SETTINGS + "$UIPrefsFragment";
+
 
     /**
      * Main Activity
@@ -221,6 +231,30 @@ public class AddonHelper
         extras.putInt(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetID);
         extras.putBoolean("ONTAP_LAUNCH_CONFIG", true);
         return createIntent(SUNTIMES_PACKAGE, widgetConfigClassName, null, extras, null, Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+
+
+    /**
+     * Settings Activity
+     */
+    public static void startSuntimesSettingsActivity(Context context) {
+        startActivity(context, intentForSettingsActivity(null));
+    }
+    public static void startSuntimesSettingsActivity(Context context, @Nullable String fragment) {
+        startActivity(context, intentForSettingsActivity(fragment));
+    }
+    public static boolean supportForSettingsActivity(SuntimesInfo suntimesInfo) {
+        return (suntimesInfo != null && suntimesInfo.appCode >= 66);    // access to SettingsActivity added v0.13.2 (66)
+    }
+    public static Intent intentForSettingsActivity(@Nullable String fragment)
+    {
+        Bundle extras = new Bundle();
+        if (fragment != null)
+        {
+            extras.putString(PreferenceActivity.EXTRA_SHOW_FRAGMENT, fragment);
+            extras.putBoolean(PreferenceActivity.EXTRA_NO_HEADERS, true);
+        }
+        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_SETTINGS, null, extras, null, 0);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
