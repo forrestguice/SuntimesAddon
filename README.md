@@ -19,7 +19,7 @@ allprojects {
 ```
 dependencies {
     ...
-    implementation 'com.github.forrestguice:SuntimesAddon:v0.1.0'
+    implementation 'com.github.forrestguice:SuntimesAddon:v0.2.0'
 }
 ``` 
 
