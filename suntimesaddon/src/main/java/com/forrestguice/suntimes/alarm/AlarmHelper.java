@@ -45,7 +45,8 @@ import java.util.HashMap;
  *      android:syncable="false" />
  *
  * Addons can also declare the availability of AlarmPicker activities in their manifest by including an intent-filter
- * in that activity's definition. The picker is responsible for returning a valid URI into its alarm provider.
+ * in that activity's definition. The picker is responsible for returning a valid URI into its alarm provider; the
+ * currently selected uri is provided by the `alarm_event` extra.
  *
  *   <activity>
  *      <meta-data android:name="SuntimesAlarmPickerTitle" android:value="Custom Alarm Picker" />
@@ -55,7 +56,7 @@ import java.util.HashMap;
  *      </intent-filter>
  *   </activity>
  *
- * Addons can select their custom alarms by including `EXTRA_ALARM_EVENT` with a valid URI when
+ * Addons can select their custom alarms by including the `solarevent` extra with a valid URI when
  * starting the AlarmClockActivity (@see AddonHelper.scheduleAlarm).
  *
  * PERMISSIONS
@@ -66,29 +67,31 @@ import java.util.HashMap;
  */
 public class AlarmHelper
 {
-    public static String COLUMN_ALARM_NAME = "alarm_name";            // String (alarm/event ID)
-    public static String COLUMN_ALARM_TITLE = "alarm_title";          // String (display string)
-    public static String COLUMN_ALARM_SUMMARY = "alarm_summary";      // String (extended display string)
-    public static String COLUMN_ALARM_TIMEMILLIS = "alarm_time";      // long (timestamp millis)
+    public static final String ACTION_PICK_ALARM = "suntimes.action.PICK_ALARM";
 
-    public static String EXTRA_ALARM_NOW = "alarm_now";                  // long (millis)
-    public static String EXTRA_ALARM_REPEAT = "alarm_repeat";            // boolean
-    public static String EXTRA_ALARM_REPEAT_DAYS = "alarm_repeat_days";  // Integer[] .. [1,2,3,4,..]
-    public static String EXTRA_ALARM_OFFSET = "alarm_offset";            // long (millis)
-    public static String EXTRA_ALARM_EVENT = "alarm_event";              // eventID
+    public static final String EXTRA_ALARM_NOW = "alarm_now";                  // long (millis)
+    public static final String EXTRA_ALARM_REPEAT = "alarm_repeat";            // boolean
+    public static final String EXTRA_ALARM_REPEAT_DAYS = "alarm_repeat_days";  // Integer[] .. [1,2,3,4,..]
+    public static final String EXTRA_ALARM_OFFSET = "alarm_offset";            // long (millis)
+    public static final String EXTRA_ALARM_EVENT = "alarm_event";              // eventID
 
-    public static String EXTRA_LOCATION_LABEL = "location_label";        // String
-    public static String EXTRA_LOCATION_LAT = "latitude";                // double (DD)
-    public static String EXTRA_LOCATION_LON = "longitude";               // double (DD)
-    public static String EXTRA_LOCATION_ALT = "altitude";                // double (meters)
+    public static final String EXTRA_LOCATION_LABEL = "location_label";        // String
+    public static final String EXTRA_LOCATION_LAT = "latitude";                // double (DD)
+    public static final String EXTRA_LOCATION_LON = "longitude";               // double (DD)
+    public static final String EXTRA_LOCATION_ALT = "altitude";                // double (meters)
 
-    public static String QUERY_ALARM_INFO = "alarmInfo";
-    public static String[] QUERY_ALARM_INFO_PROJECTION = new String[] {
+    public static final String COLUMN_ALARM_NAME = "alarm_name";            // String (alarm/event ID)
+    public static final String COLUMN_ALARM_TITLE = "alarm_title";          // String (display string)
+    public static final String COLUMN_ALARM_SUMMARY = "alarm_summary";      // String (extended display string)
+    public static final String COLUMN_ALARM_TIMEMILLIS = "alarm_time";      // long (timestamp millis)
+
+    public static final String QUERY_ALARM_INFO = "alarmInfo";
+    public static final String[] QUERY_ALARM_INFO_PROJECTION = new String[] {
             COLUMN_ALARM_NAME, COLUMN_ALARM_TITLE, COLUMN_ALARM_SUMMARY
     };
 
-    public static String QUERY_ALARM_CALC = "alarmCalc";
-    public static String[] QUERY_ALARM_CALC_PROJECTION = new String[] {
+    public static final String QUERY_ALARM_CALC = "alarmCalc";
+    public static final String[] QUERY_ALARM_CALC_PROJECTION = new String[] {
             COLUMN_ALARM_NAME, COLUMN_ALARM_TIMEMILLIS
     };
 
