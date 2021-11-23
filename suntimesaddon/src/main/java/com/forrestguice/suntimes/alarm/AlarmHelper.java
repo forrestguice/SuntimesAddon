@@ -180,4 +180,15 @@ public class AlarmHelper
         return now;
     }
 
+    /**
+     * getAlarmUri
+     */
+    public static String getAlarmInfoUri(String authority, String alarmID) {
+        return "content://" + authority + "/" + QUERY_ALARM_INFO + "/" + alarmID;
+    }
+
+    public static String getAlarmCalcUri(String authority, String alarmID) {
+        return "content://" + authority + "/" + QUERY_ALARM_CALC + "/" + alarmID;
+    }
+
 }
