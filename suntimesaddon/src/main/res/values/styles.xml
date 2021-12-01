@@ -21,6 +21,9 @@
         <item name="snackbar_accentColor">?colorAccent</item>
         <item name="snackbar_backgroundColor">?attr/colorPrimary</item>
 
+        <item name="chipBackground">@drawable/chip_dark</item>
+        <item name="chipTrayBackground">@drawable/chip_tray_dark</item>
+
         <item name="sunriseColor">@color/sun_rising_dark</item>
         <item name="sunsetColor">@color/sun_setting_dark</item>
 
@@ -58,6 +61,9 @@
         <item name="snackbar_accentColor">?colorAccent</item>
         <item name="snackbar_backgroundColor">?attr/colorPrimary</item>
 
+        <item name="chipBackground">@drawable/chip_light</item>
+        <item name="chipTrayBackground">@drawable/chip_tray_light</item>
+
         <item name="sunriseColor">@color/sun_rising_light</item>
         <item name="sunsetColor">@color/sun_setting_light</item>
 
@@ -77,6 +83,7 @@
     <style name="PopupMenuStyleLight" parent="Theme.AppCompat.Light" />
     <style name="PopupMenuStyleDark" parent="Theme.AppCompat" />
 
+    <style name="ActionButton" parent="@android:style/Widget.Button.Small" />
 
     <style name="SunIconImageView">
         <item name="android:gravity">center</item>
@@ -92,6 +99,52 @@
         <item name="android:paddingRight">10dp</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <!-- Chip Based UI -->
+    <style name="ChipTray">
+        <item name="android:background">?attr/chipTrayBackground</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">6dp</item>
+    </style>
+
+    <style name="ChipArea">
+        <item name="android:maxWidth">250dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:background">?attr/chipBackground</item>
+    </style>
+
+    <style name="ChipTextBase" parent="android:TextAppearance.Small">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="ChipText0" parent="ChipTextBase">
+        <item name="android:maxWidth">250dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="ChipText" parent="ChipText0">
+        <item name="android:background">?attr/chipBackground</item>
+    </style>
+    <style name="ChipText1" parent="ChipText0">
+        <item name="android:background">?attr/chipBackground</item>
+        <item name="android:drawableRight">@drawable/ic_transparent</item>
     </style>
 
 </resources>

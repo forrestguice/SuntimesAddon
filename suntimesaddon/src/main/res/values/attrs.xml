@@ -17,6 +17,9 @@
     <attr name="snackbar_accentColor" format="reference" />
     <attr name="snackbar_backgroundColor" format="reference" />
 
+    <attr name="chipBackground" format="reference" />
+    <attr name="chipTrayBackground" format="reference" />
+
     <!-- sunrise, sunset -->
     <attr name="sunriseColor" format="reference" />
     <attr name="sunsetColor" format="reference" />
