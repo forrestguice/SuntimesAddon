@@ -21,18 +21,40 @@
 
 
     <!-- time & date formats -->
+    <string name="format_day">EEEE</string>                       <!-- Thursday -->
     <string name="format_year">yyyy</string>                      <!-- 2020 -->
-    <string name="format_date">MMMM d</string>                    <!-- Thursday, February 27 -->
-    <string name="format_date_long">EEEE\nMMMM d, yyyy</string>   <!-- Thursday, February 27, 2020 -->
-    <string name="format_time12">h:mm a</string>                  <!-- 2:30 PM -->
-    <string name="format_time24">HH:mm</string>                   <!-- 14:30 -->
+    <string name="format_date">MMMM d</string>                    <!-- February 27 -->
+    <string name="format_date_long">MMMM d, yyyy</string>         <!-- February 27, 2020 -->
+    <string name="format_datetime_short"><xliff:g id="month">%1$s</xliff:g>, <xliff:g id="time">%2$s</xliff:g></string>           <!-- shortDate, time ... e.g. December 3, 11:00 am -->
+    <string name="format_datetime_long"><xliff:g id="monthYear">%1$s</xliff:g>, <xliff:g id="time">%2$s</xliff:g></string>        <!-- longDate, time ... e.g. December 3, 2017, 11:00 am -->
 
+    <string name="format_time12">h:mm a</string>                           <!-- 2:30 PM -->
+    <string name="format_time12_withseconds">h:mm:ss a</string>            <!-- 2:30:15 PM -->
+    <string name="format_time12_veryshort">h:mm</string>                 <!-- shortest 12hr time format; should omit am/pm -->
+    <string name="format_time12_veryshort_withseconds">h:mm:ss</string>  <!-- shortest 12hr time format (w/ seconds); should omit am/pm -->
+    <string name="format_time12_short"><xliff:g id="hoursMinutes">%1$s</xliff:g> <xliff:g id="suffix">%2$s</xliff:g></string>
+    <string name="format_time24">HH:mm</string>                   <!-- 14:30 -->
+    <string name="format_time24_withseconds">HH:mm:ss</string>  <!-- 24hr time format (w/ seconds) -->
+
+    <string name="time_lmst">Local Sidereal Time</string>
+    <string name="time_gmst">Greenwich Sidereal Time</string>
     <string name="time_utc">Coordinated Universal Time</string>
     <string name="time_localMean">Local Mean Time</string>
     <string name="time_apparent">Apparent Solar Time</string>
 
+    <string name="timeFormatMode_system">System format</string>
     <string name="timeFormatMode_12hr">12-hour</string>
     <string name="timeFormatMode_24hr">24-hour</string>
+
+    <string name="delta_format"><xliff:g id="value" example="3">%1$s</xliff:g><xliff:g id="units" example="m">%2$s</xliff:g></string>
+    <string name="delta_years">y</string>    <!-- e.g. 1y -->
+    <string name="delta_weeks">w</string>    <!-- e.g. 2w -->
+    <string name="delta_days">d</string>     <!-- e.g. 1d -->
+    <string name="delta_hours">h</string>    <!-- e.g. 2h -->
+    <string name="delta_minutes">m</string>  <!-- e.g. 3m -->
+    <string name="delta_seconds">s</string>  <!-- e.g. 4s -->
+    <string name="delta_day_shorter">shorter</string>
+    <string name="delta_day_longer">longer</string>
 
     <!-- position formats -->
     <string name="degrees_format"><xliff:g id="value" example="45">%1$s</xliff:g>°</string>  <!-- e.g. 45° -->
@@ -41,6 +63,50 @@
     <string name="rightascension_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="raSymbol" example="δ">%2$s</xliff:g></string>  <!-- e.g. 5° α -->
     <string name="direction_format"><xliff:g id="degrees" example="180°">%1$s</xliff:g>&#160;<xliff:g id="directions_short" example="S">%2$s</xliff:g></string>  <!-- e.g. 180°S -->
     <string name="distance_format"><xliff:g id="value" example="6">%1$s</xliff:g>&#160;<xliff:g id="units_short" example="ft">%2$s</xliff:g></string>  <!-- e.g. 6 ft (shadow length), 250,000 mi (distance to moon) -->
+
+    <string name="widgetLabel_altitude_symbol">∠</string>
+    <string name="widgetLabel_rightAscension_symbol">α</string>
+    <string name="widgetLabel_declination_symbol">δ</string>
+
+    <!-- distances -->
+    <string name="lengthUnits_metric">Metric</string>
+    <string name="lengthUnits_imperial">Imperial</string>
+    <string-array name="lengthUnits_values" translatable="false">
+        <item>METRIC</item>
+        <item>IMPERIAL</item>
+    </string-array>
+    <string-array name="lengthUnits_display"> <!-- one-to-one with lengthUnits_values -->
+        <item>@string/lengthUnits_metric</item>
+        <item>@string/lengthUnits_imperial</item>
+    </string-array>
+
+    <string name="units_feet">feet</string>
+    <string name="units_feet_short">ft</string>
+    <plurals name="units_feet_long">
+        <item quantity="one">%s foot</item>
+        <item quantity="other">%s feet</item>
+    </plurals>
+
+    <string name="units_miles">miles</string>
+    <string name="units_miles_short">mi</string>
+    <plurals name="units_miles_long">
+        <item quantity="one">%s mile</item>
+        <item quantity="other">%s miles</item>
+    </plurals>
+
+    <string name="units_meters">meters</string>
+    <string name="units_meters_short">m</string>
+    <plurals name="units_meters_long">
+        <item quantity="one">%s meter</item>
+        <item quantity="other">%s meters</item>
+    </plurals>
+
+    <string name="units_kilometers">kilometers</string>
+    <string name="units_kilometers_short">km</string>
+    <plurals name="units_kilometers_long">
+        <item quantity="one">%s kilometer</item>
+        <item quantity="other">%s kilometers</item>
+    </plurals>
 
     <!-- cardinal directions -->
     <string-array name="directions_short">  <!-- one-to-one with directions_long -->
@@ -81,7 +147,6 @@
         <item>North North West</item>
         <item>North</item>
     </string-array>
-
 
     <!-- events -->
     <string name="sunrise">Sunrise</string>
@@ -124,6 +189,7 @@
     <string name="timeMode_moon_thirdquarter">Third Quarter</string>
     <string name="timeMode_moon_waningcrescent">Waning Crescent</string>
     <string name="time_none">none</string>
+    <string name="time_loading">…</string>
 
     <string name="timeMode_moon_super">Supermoon</string>
     <string name="timeMode_moon_micro">Micromoon</string>
