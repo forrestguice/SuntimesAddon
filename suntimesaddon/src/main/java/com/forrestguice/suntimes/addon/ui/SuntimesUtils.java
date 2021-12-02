@@ -33,6 +33,7 @@ import android.graphics.drawable.InsetDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.text.Html;
 import android.text.Spannable;
@@ -53,6 +54,7 @@ import android.widget.ImageView;
 import com.forrestguice.suntimes.addon.R;
 import com.forrestguice.suntimes.addon.TimeZoneHelper;
 
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
@@ -647,10 +649,13 @@ public class SuntimesUtils
      * @param calendar  a Calendar representing some date
      * @return a time display string
      */
-    public TimeDisplayText calendarDateDisplayString(Context context, Calendar calendar) {
-        return calendarDateDisplayString(context, calendar, false, false);
+    public TimeDisplayText calendarDateDisplayString(Context context, long date, boolean showYear)
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(date);
+        return calendarDateDisplayString(context, calendar, showYear);
     }
-    public TimeDisplayText calendarDateDisplayString(Context context, Calendar calendar, boolean showDay, boolean showYear)
+    public TimeDisplayText calendarDateDisplayString(Context context, Calendar calendar, boolean showYear)
     {
         if (calendar == null || context == null) {
             return new TimeDisplayText(strTimeNone);
@@ -1014,6 +1019,22 @@ public class SuntimesUtils
 
     public static String formatAsDistance(Context context, TimeDisplayText text) {
         return String.format(strDistanceFormat, text.getValue(), text.getUnits());
+    }
+
+    public static SpannableString formatLocation(@NonNull Context context, double latitude, double longitude, double meters, @Nullable Integer places, String units)
+    {
+        String altitudeTag = "";
+        if (meters > 0) {
+            SuntimesUtils.TimeDisplayText altitudeDisplay = SuntimesUtils.formatAsHeight(context, meters, SuntimesUtils.LengthUnit.valueOf(units), 0, true);
+            String altitude = context.getString(R.string.format_location_altitude, altitudeDisplay.getValue(), altitudeDisplay.getUnits());
+            altitudeTag = context.getString(R.string.format_tag, altitude);
+        }
+        NumberFormat formatter = NumberFormat.getInstance();
+        formatter.setRoundingMode(RoundingMode.FLOOR);
+        formatter.setMinimumFractionDigits(0);
+        formatter.setMaximumFractionDigits(places != null ? places : 4);
+        String displayString = context.getString((meters > 0 ? R.string.format_location_long : R.string.format_location), formatter.format(latitude), formatter.format(longitude), altitudeTag);
+        return SuntimesUtils.createRelativeSpan(null, displayString, altitudeTag, 0.5f);
     }
 
     public static SpannableStringBuilder createSpan(Context context, String text, String spanTag, ImageSpan imageSpan) {

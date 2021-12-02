@@ -57,6 +57,11 @@
     <string name="delta_day_longer">longer</string>
 
     <!-- position formats -->
+    <string name="format_tag">[%1$s]</string>                     <!-- [tag] -->
+    <string name="format_location">%s, %s</string>                <!-- lat, lon -->
+    <string name="format_location_long">%s, %s %s</string>        <!-- lat, lon [alt] -->
+    <string name="format_location_altitude">%1$s%2$s</string>     <!-- altitude, e.g. 1600m -->
+
     <string name="degrees_format"><xliff:g id="value" example="45">%1$s</xliff:g>°</string>  <!-- e.g. 45° -->
     <string name="elevation_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="altSymbol" example="∠">%2$s</xliff:g></string>  <!-- e.g. 45°∠ -->
     <string name="declination_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="decSymbol" example="δ">%2$s</xliff:g></string>  <!-- e.g. 5° δ -->
