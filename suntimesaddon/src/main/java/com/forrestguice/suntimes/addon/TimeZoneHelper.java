@@ -1,5 +1,5 @@
 /**
- Copyright (C) 2014-2020 Forrest Guice
+ Copyright (C) 2014-2021 Forrest Guice
  This file is part of SuntimesWidget.
 
  SuntimesWidget is free software: you can redistribute it and/or modify
@@ -220,5 +220,48 @@ public class TimeZoneHelper
             return eotOffset;
         }
         private int eotOffset = 0;
+    }
+
+    /**
+     * SiderealTime
+     */
+    public static class SiderealTime
+    {
+        public static final String TZID_GMST = "Greenwich Sidereal Time";
+        public static final String TZID_LMST = "Local Sidereal Time";
+
+        public static int gmstOffset(long dateMillis)
+        {
+            double julianDay = julianDay(dateMillis);
+            double d = julianDay - 2451545d;
+            double t = (d / 36525d);
+            double gmst_degrees = 280.46061837 + (360.98564736629 * d) + (0.000387933 * t * t) - ((t * t * t) / 38710000d);
+            double gmst_hours = gmst_degrees * (24 / 360d);
+            double utc_hours = dateMillis / (60d * 60d * 1000d);
+            double offset_hours = simplifyHours(gmst_hours - utc_hours);
+            return (int)(offset_hours * 60d * 60d * 1000d);
+        }
+
+        public static int lmstOffset(long dateMillis, double longitude) {
+            return gmstOffset(dateMillis) + (int)((longitude * 24 / 360d) * 60 * 60 * 1000);
+        }
+
+        /**
+         * https://stackoverflow.com/questions/11759992/calculating-jdayjulian-day-in-javascript
+         */
+        public static double julianDay(long dateMillis) {
+            return (dateMillis / (24d * 60d * 60d * 1000d)) + 2440587.5;  // days + julianDay(epoch)
+        }
+
+        private static double simplifyHours(double hours)
+        {
+            while (hours >= 24) {
+                hours -= 24;
+            }
+            while (hours < 0) {
+                hours += 24;
+            }
+            return hours;
+        }
     }
 }
