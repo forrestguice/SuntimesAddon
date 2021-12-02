@@ -72,6 +72,12 @@
                             android:src="@drawable/ic_action_suntimes"
                             tools:ignore="contentDescription"/>
 
+                        <ImageView
+                            android:id="@+id/icon_suntimesalarms"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:src="@drawable/ic_action_suntimesalarms"
+                            tools:ignore="contentDescription"/>
+
                     </LinearLayout>
 
                     <TextView android:id="@+id/text_suntimes_version"
@@ -140,8 +146,43 @@
                     </LinearLayout>
 
 
-                </LinearLayout>
 
+                    <LinearLayout style="@style/ChipTray"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:orientation="horizontal" android:gravity="start|center_vertical"
+                            android:layout_marginLeft="4dp" android:layout_marginRight="4dp">
+
+                            <FrameLayout android:id="@+id/chip_offset"
+                                android:layout_width="wrap_content" android:layout_height="match_parent"
+                                android:orientation="horizontal" android:gravity="start|center_vertical">
+
+                                <TextView
+                                    android:id="@+id/text_offset" style="@style/ChipText" android:gravity="center"
+                                    android:layout_width="wrap_content" android:layout_height="match_parent" android:minWidth="100dp"
+                                    tools:text="chip0" />
+
+                            </FrameLayout>
+
+                            <FrameLayout android:id="@+id/chip_event"
+                                android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+                                <TextView android:id="@+id/text_event" style="@style/ChipText1"
+                                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:drawableLeft="@drawable/svg_sunrise" android:drawableStart="?attr/searchIcon"
+                                    tools:text="chip1" />
+
+                            </FrameLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
             </ScrollView>
 
         </android.support.constraint.ConstraintLayout>
