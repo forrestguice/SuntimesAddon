@@ -18,9 +18,15 @@
 
 package com.forrestguice.suntimes.actions;
 
-import android.content.ContentValues;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
+import android.net.Uri;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
+
+import com.forrestguice.suntimes.addon.SuntimesInfo;
 
 /**
  * Addons can use this helper to implement a ContentProvider to supply custom actions Suntimes.
@@ -47,38 +53,45 @@ import android.database.DatabaseUtils;
  *
  *   `<uses-permission android:name="suntimes.permission.READ_CALCULATOR" />` in their manifest
  */
-public class ActionHelper
+public class ActionsHelper
 {
-    public static final String COLUMN_ACTION_NAME = "name";                 // String (action ID)
-    public static final String COLUMN_ACTION_TITLE = "title";               // String (display string)
-    public static final String COLUMN_ACTION_DESC = "desc";                 // String (extended display string)
-    public static final String COLUMN_ACTION_COLOR = "color";
+    /**
+     * actionListCursorAdapter
+     * @param context Context
+     * @return CursorAdapter
+     */
+    public static SimpleCursorAdapter createActionListCursorAdapter(Context context)
+    {
+        Cursor cursor = queryActions(context.getContentResolver());
+        return new SimpleCursorAdapter(context, android.R.layout.two_line_list_item, cursor,
+                new String[] { SuntimesActionsContract.COLUMN_ACTION_TITLE, SuntimesActionsContract.COLUMN_ACTION_DESC }, new int[] { android.R.id.text1, android.R.id.text2 }, 0 );
+    }
 
-    public static final String COLUMN_ACTION_CLASS = "launch";
-    public static final String COLUMN_ACTION_TYPE = "type";
-    public static final String COLUMN_ACTION_ACTION = "action";
-    public static final String COLUMN_ACTION_DATA = "data";
-    public static final String COLUMN_ACTION_MIMETYPE = "datatype";
-    public static final String COLUMN_ACTION_EXTRAS = "extras";
+    /**
+     * queryActions
+     * @param resolver ContentResolver
+     * @return Cursor
+     */
+    public static Cursor queryActions(@Nullable ContentResolver resolver)
+    {
+        if (resolver != null)
+        {
+            Uri uri = Uri.parse("content://" + SuntimesActionsContract.AUTHORITY + "/" + SuntimesActionsContract.QUERY_ACTIONS);
+            try {
+                return resolver.query(uri, SuntimesActionsContract.QUERY_ACTION_PROJECTION_MIN, null, null, null);
 
-    public static final String TYPE_ACTIVITY = "ACTIVITY";
-    public static final String TYPE_BROADCAST = "BROADCAST";
-    public static final String TYPE_SERVICE = "SERVICE";
-
-    public static final String QUERY_ACTION_INFO = "actionInfo";
-    public static final String[] QUERY_ACTION_INFO_PROJECTION_MIN = new String[] {
-            COLUMN_ACTION_NAME, COLUMN_ACTION_TITLE, COLUMN_ACTION_DESC, COLUMN_ACTION_COLOR
-    };
-    public static final String[] QUERY_ACTION_INFO_PROJECTION_FULL = new String[] {
-            COLUMN_ACTION_NAME, COLUMN_ACTION_TITLE, COLUMN_ACTION_DESC, COLUMN_ACTION_COLOR,
-            COLUMN_ACTION_CLASS, COLUMN_ACTION_TYPE, COLUMN_ACTION_ACTION, COLUMN_ACTION_DATA, COLUMN_ACTION_MIMETYPE, COLUMN_ACTION_EXTRAS
-    };
+            } catch (SecurityException e) {
+                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + SuntimesActionsContract.AUTHORITY + "! " + e);
+                return null;
+            }
+        }
+        return null;
+    }
 
     /**
      * getActionInfoUri
      */
     public static String getActionInfoUri(String authority, String actionID) {
-        return "content://" + authority + "/" + QUERY_ACTION_INFO + "/" + actionID;
+        return "content://" + authority + "/" + SuntimesActionsContract.QUERY_ACTIONS + "/" + actionID;
     }
-
 }
