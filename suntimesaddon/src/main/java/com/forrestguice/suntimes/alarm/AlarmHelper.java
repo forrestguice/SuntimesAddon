@@ -162,13 +162,13 @@ public class AlarmHelper
     }
 
     /**
-     * getAlarmUri
+     * getEventUri
      */
-    public static String getAlarmInfoUri(String authority, String alarmID) {
+    public static String getEventInfoUri(String authority, String alarmID) {
         return "content://" + authority + "/" + AlarmEventContract.QUERY_EVENT_INFO + "/" + alarmID;
     }
 
-    public static String getAlarmCalcUri(String authority, String alarmID) {
+    public static String getEventCalcUri(String authority, String alarmID) {
         return "content://" + authority + "/" + AlarmEventContract.QUERY_EVENT_CALC + "/" + alarmID;
     }
 
