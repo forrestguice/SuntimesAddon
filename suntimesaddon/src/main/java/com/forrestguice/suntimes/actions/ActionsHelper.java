@@ -28,6 +28,10 @@ import android.util.Log;
 
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * Addons can use this helper to implement a ContentProvider to supply custom actions Suntimes.
  * Addons should declare the availability of their provider(s) in the manifest with an intent-filter
@@ -86,6 +90,23 @@ public class ActionsHelper
             }
         }
         return null;
+    }
+
+    public static Set<String> getStringSet(@Nullable String value) {
+        return (value != null) ? new TreeSet<>(Arrays.asList(value.split("\\|"))) : null;
+    }
+
+    public static String stringSetToString(@Nullable Set<String> values)
+    {
+        if (values != null) {
+            StringBuilder s = new StringBuilder();
+            for (String v : values) {
+                s.append(v).append("|");
+            }
+            return s.toString();
+        } else {
+            return null;
+        }
     }
 
     /**
