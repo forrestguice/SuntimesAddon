@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2020 Forrest Guice
+    Copyright (C) 2020-2021 Forrest Guice
     This file is part of Suntimes.
 
     Suntimes is free software: you can redistribute it and/or modify
@@ -30,7 +30,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -188,6 +187,7 @@ public class MainActivity extends AppCompatActivity
             text_alarms.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    showAlarm();
                 }
             });
         }
@@ -197,6 +197,13 @@ public class MainActivity extends AppCompatActivity
         alarmsAdapter = AlarmHelper.createAlarmListCursorAdapter(this);
     }
 
+
+    private void showAlarm()
+    {
+        Cursor cursor = (Cursor)spin_alarms.getSelectedItem();
+        long selected = cursor.getLong(cursor.getColumnIndex(SuntimesAlarmsContract.KEY_ROWID));
+        AddonHelper.startSuntimesAlarmsActivity(MainActivity.this, selected);
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 

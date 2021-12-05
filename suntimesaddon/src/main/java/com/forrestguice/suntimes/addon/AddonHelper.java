@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2020 Forrest Guice
+    Copyright (C) 2020-2021 Forrest Guice
     This file is part of Suntimes.
 
     Suntimes is free software: you can redistribute it and/or modify
@@ -21,6 +21,7 @@ package com.forrestguice.suntimes.addon;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ActivityNotFoundException;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -29,6 +30,8 @@ import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.forrestguice.suntimes.alarm.SuntimesAlarmsContract;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -70,10 +73,22 @@ public class AddonHelper
      * Alarms Activity
      */
     public static void startSuntimesAlarmsActivity(Context context) {
-        startActivity(context, intentForAlarmsActivity(null));
+        startActivity(context, intentForAlarmsActivity(null, null));
     }
-    public static Intent intentForAlarmsActivity(@Nullable String action) {
-        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_ALARMCLOCK, action, null, null, 0);
+    public static void startSuntimesAlarmsActivity(Context context, long selectedAlarmID) {
+        startActivity(context, intentForAlarmsActivity(null, selectedAlarmID));
+    }
+    public static Intent intentForAlarmsActivity(@Nullable String action, @Nullable Long selectedAlarmID)
+    {
+        Bundle extras = new Bundle();
+        if (selectedAlarmID != null) {
+            extras.putLong("selectedAlarm", selectedAlarmID);
+        }
+        Intent intent = createIntent(SUNTIMES_PACKAGE, ACTIVITY_ALARMCLOCK, action, extras, null, 0);
+        if (selectedAlarmID != null) {
+            intent.setData(ContentUris.withAppendedId(Uri.parse("content://" + SuntimesAlarmsContract.AUTHORITY + "/alarms"), selectedAlarmID));
+        }
+        return intent;
     }
     public static Intent scheduleNotification(String label, int hour, int minutes, @Nullable TimeZone timezone, @Nullable String solarEvent) {
         return scheduleAlarm("NOTIFICATION", label, hour, minutes, timezone, solarEvent);
@@ -89,7 +104,7 @@ public class AddonHelper
         calendar0.set(Calendar.MINUTE, minutes);
         calendar1.setTimeInMillis(calendar0.getTimeInMillis());
 
-        Intent intent = intentForAlarmsActivity("android.intent.action.SET_ALARM");
+        Intent intent = intentForAlarmsActivity("android.intent.action.SET_ALARM", null);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("android.intent.extra.alarm.MESSAGE", label);
         intent.putExtra("android.intent.extra.alarm.HOUR", ((timezone == null) ? hour : calendar1.get(Calendar.HOUR_OF_DAY)));
