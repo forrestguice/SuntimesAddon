@@ -18,7 +18,12 @@
 
 package com.forrestguice.suntimes.alarm;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -165,6 +170,38 @@ public class AlarmHelper
 
     public static String getAlarmCalcUri(String authority, String alarmID) {
         return "content://" + authority + "/" + AlarmEventContract.QUERY_EVENT_CALC + "/" + alarmID;
+    }
+
+    /**
+     * alarmListCursorAdapter
+     * @param context Context
+     * @return CursorAdapter
+     */
+    public static SimpleCursorAdapter createAlarmListCursorAdapter(Context context)
+    {
+        Cursor cursor = queryAlarms(context.getContentResolver());
+        return new SimpleCursorAdapter(context, android.R.layout.two_line_list_item, cursor,
+                new String[] { SuntimesAlarmsContract.KEY_ALARM_TYPE, SuntimesAlarmsContract.KEY_ALARM_SOLAREVENT }, new int[] { android.R.id.text1, android.R.id.text2 }, 0 );
+    }
+
+    /**
+     * queryAlarms
+     * @param resolver ContentResolver
+     * @return Cursor
+     */
+    public static Cursor queryAlarms(@Nullable ContentResolver resolver)
+    {
+        if (resolver != null)
+        {
+            Uri uri = Uri.parse("content://" + SuntimesAlarmsContract.AUTHORITY + "/" + SuntimesAlarmsContract.QUERY_ALARMS);
+            try {
+                return resolver.query(uri, SuntimesAlarmsContract.QUERY_ALARMS_PROJECTION_MIN, null, null, null);
+            } catch (SecurityException e) {
+                Log.e("AlarmHelper", "queryAlarms: Unable to access " + SuntimesAlarmsContract.AUTHORITY + "! " + e);
+                return null;
+            }
+        }
+        return null;
     }
 
 }

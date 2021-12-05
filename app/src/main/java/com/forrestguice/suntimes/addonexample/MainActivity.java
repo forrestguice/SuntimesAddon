@@ -41,6 +41,8 @@ import com.forrestguice.suntimes.addon.LocaleHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 
 import com.forrestguice.suntimes.addon.ui.Messages;
+import com.forrestguice.suntimes.alarm.AlarmHelper;
+import com.forrestguice.suntimes.alarm.SuntimesAlarmsContract;
 import com.forrestguice.suntimes.themes.SuntimesThemeContract;
 import com.forrestguice.suntimes.themes.ThemeHelper;
 
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity
     protected void initViews()
     {
         initActionViews();
+        initAlarmViews();
         initThemeViews();
         selectTheme(suntimesInfo.appThemeOverride);
     }
@@ -161,6 +164,42 @@ public class MainActivity extends AppCompatActivity
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
+    private Spinner spin_alarms;
+    private SimpleCursorAdapter alarmsAdapter;
+
+    private void initAlarmViews()
+    {
+        spin_alarms = (Spinner)findViewById(R.id.spinner_alarm);
+        if (spin_alarms != null)
+        {
+            if (suntimesInfo != null && suntimesInfo.appCode >= 59)    // v0.14.0  TODO: set req version code..
+            {
+                initAlarmsAdapter();
+                spin_alarms.setAdapter(alarmsAdapter);
+
+            } else {
+                spin_alarms.setVisibility(View.GONE);
+            }
+        }
+
+        TextView text_alarms = (TextView)findViewById(R.id.text_alarm);
+        if (text_alarms != null)
+        {
+            text_alarms.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                }
+            });
+        }
+    }
+
+    private void initAlarmsAdapter() {
+        alarmsAdapter = AlarmHelper.createAlarmListCursorAdapter(this);
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
     private static final int REQUEST_ACTION = 200;
 
     private Spinner spin_actions;
@@ -177,7 +216,7 @@ public class MainActivity extends AppCompatActivity
                 spin_actions.setAdapter(actionsAdapter);
 
             } else {
-                spin_themes.setVisibility(View.GONE);
+                spin_actions.setVisibility(View.GONE);
             }
         }
 
