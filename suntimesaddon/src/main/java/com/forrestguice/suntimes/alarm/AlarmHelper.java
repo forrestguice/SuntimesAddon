@@ -74,6 +74,8 @@ import java.util.HashMap;
  */
 public class AlarmHelper
 {
+    public static final String CATEGORY_SUNTIMES_ALARMS = "suntimes.SUNTIMES_ALARM";
+    public static final String ACTION_ADDON_EVENT = "suntimes.action.ADDON_EVENT";
     public static final String ACTION_PICK_EVENT = "suntimes.action.PICK_EVENT";
 
     /**

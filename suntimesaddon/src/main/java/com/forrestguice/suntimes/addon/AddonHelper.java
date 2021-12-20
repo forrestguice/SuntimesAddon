@@ -37,6 +37,36 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+/**
+ * AddonHelper
+ * A helper class for starting exported Suntimes activities.
+ *
+ * Addons can advertise their own activities using intent-filters, and Suntimes will display these
+ * as actions/navigation when appropriate.
+ *
+ * Examples:
+ *     // Pick an (alarm) event (@see AlarmHelper)
+ *    <intent-filter>
+ *       <action android:name="suntimes.action.PICK_EVENT" />
+ *       <category android:name="suntimes.SUNTIMES_ADDON" />
+ *    </intent-filter>
+ *    <meta-data android:name="SuntimesEventPickerTitle" android:value="Custom Event Picker" />
+ *
+ *    // General navigation (menu item)
+ *    <intent-filter>
+ *        <action android:name="suntimes.action.ADDON_MENU_ITEM" />
+ *        <category android:name="suntimes.SUNTIMES_ADDON" />
+ *    </intent-filter>
+ *    <meta-data android:name="SuntimesMenuItemTitle" android:value="@string/app_name" />
+ *
+ *    // Display more information about a given datetime (context menu item); datetime will passed to
+ *    // the activity using the "dateMillis" extra.
+ *    <intent-filter>
+ *        <action android:name="suntimes.action.SHOW_DATE" />
+ *        <category android:name="suntimes.SUNTIMES_ADDON" />
+ *    </intent-filter>
+ *    <meta-data android:name="SuntimesMenuItemTitle" android:value="@string/app_name" />
+ */
 @SuppressWarnings("WeakerAccess")
 public class AddonHelper
 {
@@ -58,6 +88,13 @@ public class AddonHelper
     public static final String FRAGMENT_SETTINGS_PLACES = ACTIVITY_SETTINGS + "$PlacesPrefsFragment";
     public static final String FRAGMENT_SETTINGS_UI = ACTIVITY_SETTINGS + "$UIPrefsFragment";
 
+    public static final String CATEGORY_SUNTIMES_ADDON = "suntimes.SUNTIMES_ADDON";
+    public static final String ACTION_MENU_ITEM = "suntimes.action.ADDON_MENU_ITEM";
+    public static final String ACTION_SHOW_DATE = "suntimes.action.SHOW_DATE";
+    public static final String EXTRA_SHOW_DATE = "dateMillis";
+
+    public static final String META_MENUITEM_TITLE = "SuntimesMenuItemTitle";
+    public static final String META_ALARMPICK_TITLE = "SuntimesEventPickerTitle";
 
     /**
      * Main Activity

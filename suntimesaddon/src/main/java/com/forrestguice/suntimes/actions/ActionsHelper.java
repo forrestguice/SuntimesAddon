@@ -59,6 +59,9 @@ import java.util.TreeSet;
  */
 public class ActionsHelper
 {
+    public static final String CATEGORY_SUNTIMES_ACTION = "suntimes.SUNTIMES_ACTION";
+    public static final String ACTION_ADDON_ACTION = "suntimes.action.ADDON_ACTION";
+
     /**
      * actionListCursorAdapter
      * @param context Context
