@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2020 Forrest Guice
+    Copyright (C) 2020-2021 Forrest Guice
     This file is part of Suntimes.
 
     Suntimes is free software: you can redistribute it and/or modify
@@ -21,6 +21,7 @@ package com.forrestguice.suntimes.addon;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ActivityNotFoundException;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -30,10 +31,42 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.forrestguice.suntimes.alarm.SuntimesAlarmsContract;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+/**
+ * AddonHelper
+ * A helper class for starting exported Suntimes activities.
+ *
+ * Addons can advertise their own activities using intent-filters, and Suntimes will display these
+ * as actions/navigation when appropriate.
+ *
+ * Examples:
+ *     // Pick an (alarm) event (@see AlarmHelper)
+ *    <intent-filter>
+ *       <action android:name="suntimes.action.PICK_EVENT" />
+ *       <category android:name="suntimes.SUNTIMES_ADDON" />
+ *    </intent-filter>
+ *    <meta-data android:name="SuntimesEventPickerTitle" android:value="Custom Event Picker" />
+ *
+ *    // General navigation (menu item)
+ *    <intent-filter>
+ *        <action android:name="suntimes.action.ADDON_MENU_ITEM" />
+ *        <category android:name="suntimes.SUNTIMES_ADDON" />
+ *    </intent-filter>
+ *    <meta-data android:name="SuntimesMenuItemTitle" android:value="@string/app_name" />
+ *
+ *    // Display more information about a given datetime (context menu item); datetime will passed to
+ *    // the activity using the "dateMillis" extra.
+ *    <intent-filter>
+ *        <action android:name="suntimes.action.SHOW_DATE" />
+ *        <category android:name="suntimes.SUNTIMES_ADDON" />
+ *    </intent-filter>
+ *    <meta-data android:name="SuntimesMenuItemTitle" android:value="@string/app_name" />
+ */
 @SuppressWarnings("WeakerAccess")
 public class AddonHelper
 {
@@ -55,6 +88,13 @@ public class AddonHelper
     public static final String FRAGMENT_SETTINGS_PLACES = ACTIVITY_SETTINGS + "$PlacesPrefsFragment";
     public static final String FRAGMENT_SETTINGS_UI = ACTIVITY_SETTINGS + "$UIPrefsFragment";
 
+    public static final String CATEGORY_SUNTIMES_ADDON = "suntimes.SUNTIMES_ADDON";
+    public static final String ACTION_MENU_ITEM = "suntimes.action.ADDON_MENU_ITEM";
+    public static final String ACTION_SHOW_DATE = "suntimes.action.SHOW_DATE";
+    public static final String EXTRA_SHOW_DATE = "dateMillis";
+
+    public static final String META_MENUITEM_TITLE = "SuntimesMenuItemTitle";
+    public static final String META_ALARMPICK_TITLE = "SuntimesEventPickerTitle";
 
     /**
      * Main Activity
@@ -70,10 +110,22 @@ public class AddonHelper
      * Alarms Activity
      */
     public static void startSuntimesAlarmsActivity(Context context) {
-        startActivity(context, intentForAlarmsActivity(null));
+        startActivity(context, intentForAlarmsActivity(null, null));
     }
-    public static Intent intentForAlarmsActivity(@Nullable String action) {
-        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_ALARMCLOCK, action, null, null, 0);
+    public static void startSuntimesAlarmsActivity(Context context, long selectedAlarmID) {
+        startActivity(context, intentForAlarmsActivity(null, selectedAlarmID));
+    }
+    public static Intent intentForAlarmsActivity(@Nullable String action, @Nullable Long selectedAlarmID)
+    {
+        Bundle extras = new Bundle();
+        if (selectedAlarmID != null) {
+            extras.putLong("selectedAlarm", selectedAlarmID);
+        }
+        Intent intent = createIntent(SUNTIMES_PACKAGE, ACTIVITY_ALARMCLOCK, action, extras, null, 0);
+        if (selectedAlarmID != null) {
+            intent.setData(ContentUris.withAppendedId(Uri.parse("content://" + SuntimesAlarmsContract.AUTHORITY + "/alarms"), selectedAlarmID));
+        }
+        return intent;
     }
     public static Intent scheduleNotification(String label, int hour, int minutes, @Nullable TimeZone timezone, @Nullable String solarEvent) {
         return scheduleAlarm("NOTIFICATION", label, hour, minutes, timezone, solarEvent);
@@ -89,7 +141,7 @@ public class AddonHelper
         calendar0.set(Calendar.MINUTE, minutes);
         calendar1.setTimeInMillis(calendar0.getTimeInMillis());
 
-        Intent intent = intentForAlarmsActivity("android.intent.action.SET_ALARM");
+        Intent intent = intentForAlarmsActivity("android.intent.action.SET_ALARM", null);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("android.intent.extra.alarm.MESSAGE", label);
         intent.putExtra("android.intent.extra.alarm.HOUR", ((timezone == null) ? hour : calendar1.get(Calendar.HOUR_OF_DAY)));

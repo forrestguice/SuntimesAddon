@@ -53,6 +53,8 @@ import java.io.ByteArrayOutputStream;
 @SuppressWarnings("WeakerAccess")
 public class WidgetListHelper
 {
+    public static final String ACTION_LIST_WIDGETS = "suntimes.action.LIST_WIDGETS";
+
     public static final String COLUMN_WIDGET_PACKAGENAME = "packagename";    // String
     public static final String COLUMN_WIDGET_APPWIDGETID = "appwidgetid";    // int
     public static final String COLUMN_WIDGET_CLASS = "widgetclass";          // String (fully qualified class name)

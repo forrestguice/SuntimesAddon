@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -33,6 +34,9 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewParent;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -152,5 +156,43 @@ public class Messages
         }
     }
 
+    /**
+     * @param view the View to trigger the accessibility event
+     * @param msg text that will be read aloud (if accessibility enabled)
+     */
+    public static void announceForAccessibility(View view, String msg)
+    {
+        if (view != null && msg != null)
+        {
+            if (Build.VERSION.SDK_INT >= 16)
+            {
+                view.announceForAccessibility(msg);
+
+            } else {
+                Context context = view.getContext();
+                if (context != null)
+                {
+                    AccessibilityManager accesibility = (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
+                    if (accesibility != null && accesibility.isEnabled())
+                    {
+                        AccessibilityEvent event = AccessibilityEvent.obtain(AccessibilityEvent.TYPE_VIEW_FOCUSED);
+                        event.getText().add(msg);
+                        event.setEnabled(view.isEnabled());
+                        event.setClassName(view.getClass().getName());
+                        event.setPackageName(context.getPackageName());
+
+                        ViewParent parent = view.getParent();
+                        if (Build.VERSION.SDK_INT >= 14 && parent != null)
+                        {
+                            parent.requestSendAccessibilityEvent(view, event);
+
+                        } else {
+                            accesibility.sendAccessibilityEvent(event);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 

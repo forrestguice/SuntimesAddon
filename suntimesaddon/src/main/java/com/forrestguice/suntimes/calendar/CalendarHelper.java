@@ -45,6 +45,9 @@ import java.util.Calendar;
 @TargetApi(14)
 public class CalendarHelper
 {
+    public static final String CATEGORY_SUNTIMES_CALENDAR = "suntimes.SUNTIMES_CALENDAR";
+    public static final String ACTION_ADD_CALENDAR = "suntimes.action.ADD_CALENDAR";
+
     public static final String COLUMN_CALENDAR_NAME = "calendar_name";             // String (calendar ID)
     public static final String COLUMN_CALENDAR_TITLE = "calendar_title";           // String (display string)
     public static final String COLUMN_CALENDAR_SUMMARY = "calendar_summary";       // String (display string)

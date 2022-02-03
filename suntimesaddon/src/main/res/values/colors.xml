@@ -12,6 +12,9 @@
     <color name="fab_background_dark">@color/colorAction_dark</color>
     <color name="fab_ripple_dark">#c66a00</color>
 
+    <color name="text_disabled_dark">#4Dffffff</color>
+    <color name="text_accent_dark">@color/deep_teal_200</color>
+
     <color name="sun_rising_dark">#ffd500</color>
     <color name="sun_setting_dark">#ff9900</color>
     <color name="sun_noon_dark">#ffd500</color>
@@ -38,6 +41,9 @@
     <color name="dialog_light">@color/grey_50</color>
     <color name="fab_background_light">@color/sun_setting_light</color>
     <color name="fab_ripple_light">#971000</color>
+
+    <color name="text_disabled_light">#39000000</color>
+    <color name="text_accent_light">@color/deep_teal_500</color>
 
     <color name="sun_rising_light">#3277C7</color>
     <color name="sun_setting_light">#CF4800</color>

@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2020 Forrest Guice
+    Copyright (C) 2020-2021 Forrest Guice
     This file is part of Suntimes.
 
     Suntimes is free software: you can redistribute it and/or modify
@@ -30,15 +30,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.forrestguice.suntimes.actions.ActionsHelper;
+import com.forrestguice.suntimes.actions.SuntimesActionsContract;
 import com.forrestguice.suntimes.addon.AddonHelper;
 import com.forrestguice.suntimes.addon.LocaleHelper;
 import com.forrestguice.suntimes.addon.SuntimesInfo;
 
 import com.forrestguice.suntimes.addon.ui.Messages;
+import com.forrestguice.suntimes.alarm.AlarmHelper;
+import com.forrestguice.suntimes.alarm.SuntimesAlarmsContract;
 import com.forrestguice.suntimes.themes.SuntimesThemeContract;
 import com.forrestguice.suntimes.themes.ThemeHelper;
 
@@ -79,6 +82,8 @@ public class MainActivity extends AppCompatActivity
 
     protected void initViews()
     {
+        initActionViews();
+        initAlarmViews();
         initThemeViews();
         selectTheme(suntimesInfo.appThemeOverride);
     }
@@ -112,7 +117,6 @@ public class MainActivity extends AppCompatActivity
 
     protected void checkVersion()
     {
-        Messages.showPermissionDeniedMessage(this,  getWindow().getDecorView().findViewById(android.R.id.content));
         if (!SuntimesInfo.checkVersion(this, suntimesInfo))
         {
             View view = getWindow().getDecorView().findViewById(android.R.id.content);
@@ -147,9 +151,136 @@ public class MainActivity extends AppCompatActivity
                 onPickThemeResult(resultCode, data);
                 break;
 
+            case REQUEST_ACTION:
+                onPickActionResult(resultCode, data);
+                break;
+
             default:
                 Log.w("SuntimesAddon", "unhandled result: " + requestCode);
                 break;
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    private Spinner spin_alarms;
+    private SimpleCursorAdapter alarmsAdapter;
+
+    private void initAlarmViews()
+    {
+        spin_alarms = (Spinner)findViewById(R.id.spinner_alarm);
+        if (spin_alarms != null)
+        {
+            if (suntimesInfo != null && suntimesInfo.appCode >= 59)    // v0.14.0  TODO: set req version code..
+            {
+                initAlarmsAdapter();
+                spin_alarms.setAdapter(alarmsAdapter);
+
+            } else {
+                spin_alarms.setVisibility(View.GONE);
+            }
+        }
+
+        TextView text_alarms = (TextView)findViewById(R.id.text_alarm);
+        if (text_alarms != null)
+        {
+            text_alarms.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showAlarm();
+                }
+            });
+        }
+    }
+
+    private void initAlarmsAdapter() {
+        alarmsAdapter = AlarmHelper.createAlarmListCursorAdapter(this);
+    }
+
+
+    private void showAlarm()
+    {
+        Cursor cursor = (Cursor)spin_alarms.getSelectedItem();
+        long selected = cursor.getLong(cursor.getColumnIndex(SuntimesAlarmsContract.KEY_ROWID));
+        AddonHelper.startSuntimesAlarmsActivity(MainActivity.this, selected);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    private static final int REQUEST_ACTION = 200;
+
+    private Spinner spin_actions;
+    private SimpleCursorAdapter actionsAdapter;
+
+    private void initActionViews()
+    {
+        spin_actions = (Spinner)findViewById(R.id.spinner_action);
+        if (spin_actions != null)
+        {
+            if (suntimesInfo != null && suntimesInfo.appCode >= 59)    // v0.14.0  TODO: set req version code..
+            {
+                initActionsAdapter();
+                spin_actions.setAdapter(actionsAdapter);
+
+            } else {
+                spin_actions.setVisibility(View.GONE);
+            }
+        }
+
+        TextView text_action = (TextView)findViewById(R.id.text_action);
+        if (text_action != null)
+        {
+            text_action.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickAction();
+                }
+            });
+        }
+    }
+
+    private void initActionsAdapter() {
+        actionsAdapter = ActionsHelper.createActionListCursorAdapter(this);
+    }
+
+    private void selectAction(@Nullable String actionID)
+    {
+        if (spin_actions != null && actionID != null)
+        {
+            Cursor cursor = (Cursor) spin_actions.getItemAtPosition(0);
+            for (int i=0; i<spin_actions.getCount(); i++)
+            {
+                cursor.moveToPosition(i);
+                String itemName = cursor.getString(cursor.getColumnIndex(SuntimesActionsContract.COLUMN_ACTION_NAME));
+                if (itemName.equals(actionID)) {
+                    spin_actions.setSelection(i);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void pickAction()
+    {
+        Cursor cursor = (Cursor)spin_actions.getSelectedItem();
+        String selected = cursor.getString(cursor.getColumnIndex(SuntimesActionsContract.COLUMN_ACTION_NAME));
+        AddonHelper.startSuntimesActionsActivityForResult(MainActivity.this, REQUEST_ACTION, selected);
+    }
+
+    protected void onPickActionResult(int resultCode, Intent data)
+    {
+        Log.d("SuntimesAddon", "onPickActionResult: " + resultCode);
+        if (resultCode == RESULT_OK)
+        {
+            if (data.getBooleanExtra("isModified", false)) {
+                initActionsAdapter();
+                spin_actions.setAdapter(actionsAdapter);
+            }
+
+            String actionName = data.getStringExtra("actionID");
+            if (actionName != null) {
+                selectAction(actionName);
+            }
         }
     }
 

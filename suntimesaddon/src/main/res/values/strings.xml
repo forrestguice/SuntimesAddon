@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">SuntimesAddon</string>
     <string name="app_url"><![CDATA[
         <a href="https://forrestguice.github.io/SuntimesWidget/">forrestguice.github.io/SuntimesWidget</a>
@@ -21,14 +21,169 @@
 
 
     <!-- time & date formats -->
+    <string name="format_day">EEEE</string>                       <!-- Thursday -->
     <string name="format_year">yyyy</string>                      <!-- 2020 -->
-    <string name="format_date">MMMM d</string>                    <!-- Thursday, February 27 -->
-    <string name="format_date_long">EEEE\nMMMM d, yyyy</string>   <!-- Thursday, February 27, 2020 -->
-    <string name="format_time12">h:mm a</string>                  <!-- 2:30 PM -->
+    <string name="format_date">MMMM d</string>                    <!-- February 27 -->
+    <string name="format_date_long">MMMM d, yyyy</string>         <!-- February 27, 2020 -->
+    <string name="format_datetime_short"><xliff:g id="month">%1$s</xliff:g>, <xliff:g id="time">%2$s</xliff:g></string>           <!-- shortDate, time ... e.g. December 3, 11:00 am -->
+    <string name="format_datetime_long"><xliff:g id="monthYear">%1$s</xliff:g>, <xliff:g id="time">%2$s</xliff:g></string>        <!-- longDate, time ... e.g. December 3, 2017, 11:00 am -->
+
+    <string name="format_time12">h:mm a</string>                           <!-- 2:30 PM -->
+    <string name="format_time12_withseconds">h:mm:ss a</string>            <!-- 2:30:15 PM -->
+    <string name="format_time12_veryshort">h:mm</string>                 <!-- shortest 12hr time format; should omit am/pm -->
+    <string name="format_time12_veryshort_withseconds">h:mm:ss</string>  <!-- shortest 12hr time format (w/ seconds); should omit am/pm -->
+    <string name="format_time12_short"><xliff:g id="hoursMinutes">%1$s</xliff:g> <xliff:g id="suffix">%2$s</xliff:g></string>
     <string name="format_time24">HH:mm</string>                   <!-- 14:30 -->
+    <string name="format_time24_withseconds">HH:mm:ss</string>  <!-- 24hr time format (w/ seconds) -->
 
+    <string name="time_lmst">Local Sidereal Time</string>
+    <string name="time_gmst">Greenwich Sidereal Time</string>
+    <string name="time_utc">Coordinated Universal Time</string>
+    <string name="time_localMean">Local Mean Time</string>
+    <string name="time_apparent">Apparent Solar Time</string>
 
-    <!-- moon phases -->
+    <string name="timeFormatMode_system">System format</string>
+    <string name="timeFormatMode_12hr">12-hour</string>
+    <string name="timeFormatMode_24hr">24-hour</string>
+
+    <string name="delta_format"><xliff:g id="value" example="3">%1$s</xliff:g><xliff:g id="units" example="m">%2$s</xliff:g></string>
+    <string name="delta_years">y</string>    <!-- e.g. 1y -->
+    <string name="delta_weeks">w</string>    <!-- e.g. 2w -->
+    <string name="delta_days">d</string>     <!-- e.g. 1d -->
+    <string name="delta_hours">h</string>    <!-- e.g. 2h -->
+    <string name="delta_minutes">m</string>  <!-- e.g. 3m -->
+    <string name="delta_seconds">s</string>  <!-- e.g. 4s -->
+    <string name="delta_day_shorter">shorter</string>
+    <string name="delta_day_longer">longer</string>
+
+    <!-- position formats -->
+    <string name="format_tag">[%1$s]</string>                     <!-- [tag] -->
+    <string name="format_location">%s, %s</string>                <!-- lat, lon -->
+    <string name="format_location_long">%s, %s %s</string>        <!-- lat, lon [alt] -->
+    <string name="format_location_altitude">%1$s%2$s</string>     <!-- altitude, e.g. 1600m -->
+
+    <string name="degrees_format"><xliff:g id="value" example="45">%1$s</xliff:g>°</string>  <!-- e.g. 45° -->
+    <string name="elevation_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="altSymbol" example="∠">%2$s</xliff:g></string>  <!-- e.g. 45°∠ -->
+    <string name="declination_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="decSymbol" example="δ">%2$s</xliff:g></string>  <!-- e.g. 5° δ -->
+    <string name="rightascension_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="raSymbol" example="δ">%2$s</xliff:g></string>  <!-- e.g. 5° α -->
+    <string name="direction_format"><xliff:g id="degrees" example="180°">%1$s</xliff:g>&#160;<xliff:g id="directions_short" example="S">%2$s</xliff:g></string>  <!-- e.g. 180°S -->
+    <string name="distance_format"><xliff:g id="value" example="6">%1$s</xliff:g>&#160;<xliff:g id="units_short" example="ft">%2$s</xliff:g></string>  <!-- e.g. 6 ft (shadow length), 250,000 mi (distance to moon) -->
+
+    <string name="widgetLabel_altitude_symbol">∠</string>
+    <string name="widgetLabel_rightAscension_symbol">α</string>
+    <string name="widgetLabel_declination_symbol">δ</string>
+
+    <!-- distances -->
+    <string name="lengthUnits_metric">Metric</string>
+    <string name="lengthUnits_imperial">Imperial</string>
+    <string-array name="lengthUnits_values" translatable="false">
+        <item>METRIC</item>
+        <item>IMPERIAL</item>
+    </string-array>
+    <string-array name="lengthUnits_display"> <!-- one-to-one with lengthUnits_values -->
+        <item>@string/lengthUnits_metric</item>
+        <item>@string/lengthUnits_imperial</item>
+    </string-array>
+
+    <string name="units_feet">feet</string>
+    <string name="units_feet_short">ft</string>
+    <plurals name="units_feet_long">
+        <item quantity="one">%s foot</item>
+        <item quantity="other">%s feet</item>
+    </plurals>
+
+    <string name="units_miles">miles</string>
+    <string name="units_miles_short">mi</string>
+    <plurals name="units_miles_long">
+        <item quantity="one">%s mile</item>
+        <item quantity="other">%s miles</item>
+    </plurals>
+
+    <string name="units_meters">meters</string>
+    <string name="units_meters_short">m</string>
+    <plurals name="units_meters_long">
+        <item quantity="one">%s meter</item>
+        <item quantity="other">%s meters</item>
+    </plurals>
+
+    <string name="units_kilometers">kilometers</string>
+    <string name="units_kilometers_short">km</string>
+    <plurals name="units_kilometers_long">
+        <item quantity="one">%s kilometer</item>
+        <item quantity="other">%s kilometers</item>
+    </plurals>
+
+    <!-- cardinal directions -->
+    <string-array name="directions_short">  <!-- one-to-one with directions_long -->
+        <item>N</item>
+        <item>NNE</item>
+        <item>NE</item>
+        <item>ENE</item>
+        <item>E</item>
+        <item>ESE</item>
+        <item>SE</item>
+        <item>SSE</item>
+        <item>S</item>
+        <item>SSW</item>
+        <item>SW</item>
+        <item>WSW</item>
+        <item>W</item>
+        <item>WNW</item>
+        <item>NW</item>
+        <item>NNW</item>
+        <item>N</item>
+    </string-array>
+    <string-array name="directions_long">   <!-- one-to-one with directions_short -->
+        <item>North</item>
+        <item>North North East</item>
+        <item>North East</item>
+        <item>East North East</item>
+        <item>East</item>
+        <item>East South East</item>
+        <item>South East</item>
+        <item>South South East</item>
+        <item>South</item>
+        <item>South South West</item>
+        <item>South West</item>
+        <item>West South West</item>
+        <item>West</item>
+        <item>West North West</item>
+        <item>North West</item>
+        <item>North North West</item>
+        <item>North</item>
+    </string-array>
+
+    <!-- events -->
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="moonrise">Moonrise</string>
+    <string name="moonset">Moonset</string>
+
+    <string name="morning_astronimical_twilight">Morning Astronomical Twilight</string>
+    <string name="morning_nautical_twilight">Morning Nautical Twilight</string>
+    <string name="morning_civil_twilight">Morning Civil Twilight</string>
+    <string name="morning_golden_hour">Morning Golden Hour</string>
+    <string name="evening_golden_hour">Evening Golden Hour</string>
+    <string name="evening_civil_twilight">Evening Civil Twilight</string>
+    <string name="evening_nautical_twilight">Morning Nautical Twilight</string>
+    <string name="evening_astronimical_twilight">Evening Astronomical Twilight</string>
+
+    <string name="timeMode_noon">Solar Noon</string>
+    <string name="timeMode_official">Actual Time</string>
+    <string name="timeMode_civil">Civil Twilight</string>
+    <string name="timeMode_nautical">Nautical Twilight</string>
+    <string name="timeMode_astronomical">Astronomical Twilight</string>
+    <string name="timeMode_night">Night</string>
+    <string name="timeMode_day">Day</string>
+    <string name="timeMode_golden">Golden Hour</string>
+    <string name="timeMode_blue8">Blue Hour (8\u00B0)</string>
+    <string name="timeMode_blue4">Blue Hour (4\u00B0)</string>
+
+    <string name="timeMode_equinox_vernal">Spring Equinox</string>
+    <string name="timeMode_equinox_autumnal">Autumn Equinox</string>
+    <string name="timeMode_solstice_summer">Summer Solstice</string>
+    <string name="timeMode_solstice_winter">Winter Solstice</string>
+
     <string name="timeMode_moon">Moon</string>
     <string name="timeMode_moon_new">New Moon</string>
     <string name="timeMode_moon_waxingcrescent">Waxing Crescent</string>
@@ -39,6 +194,19 @@
     <string name="timeMode_moon_thirdquarter">Third Quarter</string>
     <string name="timeMode_moon_waningcrescent">Waning Crescent</string>
     <string name="time_none">none</string>
+    <string name="time_loading">…</string>
+
+    <string name="timeMode_moon_super">Supermoon</string>
+    <string name="timeMode_moon_micro">Micromoon</string>
+    <string name="timeMode_moon_superfull">Super Full Moon</string>
+    <string name="timeMode_moon_supernew">Super New Moon</string>
+    <string name="timeMode_moon_microfull">Micro Full Moon</string>
+    <string name="timeMode_moon_micronew">Micro New Moon</string>
+
+    <string name="timeMode_moon_perigee">@string/label_perigee</string>
+    <string name="timeMode_moon_apogee">@string/label_apogee</string>
+    <string name="label_apogee">Apogee</string>
+    <string name="label_perigee">Perigee</string>
 
 
     <!-- localized default settings -->
