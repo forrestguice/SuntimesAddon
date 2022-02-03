@@ -59,6 +59,13 @@ import java.util.TimeZone;
  *    </intent-filter>
  *    <meta-data android:name="SuntimesMenuItemTitle" android:value="@string/app_name" />
  *
+ *    // About info (menu item)
+ *    <intent-filter>
+ *        <action android:name="suntimes.action.SHOW_ABOUT" />
+ *        <category android:name="suntimes.SUNTIMES_ADDON" />
+ *    </intent-filter>
+ *    <meta-data android:name="SuntimesMenuItemTitle" android:value="@string/app_name" />
+ *
  *    // Display more information about a given datetime (context menu item); datetime will passed to
  *    // the activity using the "dateMillis" extra.
  *    <intent-filter>
@@ -89,6 +96,7 @@ public class AddonHelper
     public static final String FRAGMENT_SETTINGS_UI = ACTIVITY_SETTINGS + "$UIPrefsFragment";
 
     public static final String CATEGORY_SUNTIMES_ADDON = "suntimes.SUNTIMES_ADDON";
+    public static final String ACTION_ABOUT = "suntimes.action.SHOW_ABOUT";
     public static final String ACTION_MENU_ITEM = "suntimes.action.ADDON_MENU_ITEM";
     public static final String ACTION_SHOW_DATE = "suntimes.action.SHOW_DATE";
     public static final String EXTRA_SHOW_DATE = "dateMillis";
