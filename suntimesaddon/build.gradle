@@ -47,7 +47,9 @@ publishing {
             artifactId 'suntimesaddon'
             version '0.3.0'
             artifact(sourceJar)
-            artifact("$buildDir/outputs/aar/suntimesaddon-release.aar")
+            artifact ("$buildDir/outputs/aar/suntimesaddon-release.aar") {
+                builtBy assemble
+            }
         }
     }
     repositories {
