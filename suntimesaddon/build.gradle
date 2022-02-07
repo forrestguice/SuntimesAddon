@@ -31,3 +31,27 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+apply plugin: 'maven-publish'
+
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier "sources"
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId 'com.forrestguice.suntimesaddon'
+            artifactId 'suntimesaddon'
+            version '0.3.0'
+            artifact(sourceJar)
+            artifact("$buildDir/outputs/aar/suntimesaddon-release.aar")
+        }
+    }
+    repositories {
+        maven {
+            url "$buildDir/repo"
+        }
+    }
+}
