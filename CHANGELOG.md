@@ -1,5 +1,13 @@
 ~
 
+### v0.3.0 (2022-02-04)
+* adds AlarmHelper; add-ons may define custom alarm events.
+* adds ActionsHelper; add-ons can access user-defined actions.
+* adds SuntimesUtils helper (copied from Suntimes).
+* updates TimeZoneHelper; sidereal time.
+* adds strings for events, cardinal directions, timezones, formatting, ...
+* adds resources for displaying events, 'chip', and 'chip tray' ui.
+
 ### v0.2.0 (2020-12-31)
 * adds CalendarHelper; convenience methods for interacting with SuntimesCalendars public interfaces.
 * adds ThemeHelper; convenience methods for retrieving Suntimes themes.
