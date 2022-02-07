@@ -1,1 +1,1 @@
-include ':app', ':suntimesaddon'
+include ':suntimesaddon'
