@@ -38,8 +38,24 @@ jobs:
     #      git checkout $RECENT_TAG
         
     - name: Translation List
+      id: translation-list
       run: |
+          comment=""
+          comment_path="/app/src/main/res/values/strings.xml"
           while IFS= read -r line; do
-              echo "Text read from file: $line"                          
+              echo "Text read from file: $line"            
+              line_parts=($line)
+              filename=${line_parts[0]}
+              translator=${line_parts[1]}              
+              comment="${comment} ${translator} ${filename} was modified.\n"
           done < .github/TRANSLATIONS
-          cd ..
+
+    - name: Create commit comment
+      uses: peter-evans/commit-comment@v2
+      with:
+          sha: 176cc0f779c262dd2636943e281dda00be5e2f88
+          body: ${{ steps.translation-list.outputs.comment }}
+          path: ${{ steps.translation-list.outputs.comment_path }}
+          position: 1
+          
+          
