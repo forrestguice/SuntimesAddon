@@ -41,16 +41,19 @@ jobs:
       id: translation-list
       run: |
           comment=""
-          comment_path="/app/src/main/res/values/strings.xml"
+          comment_file="strings.xml"
+          comment_path="/app/src/main/res/values/${comment_file}"
+          translation_file=".github/TRANSLATIONS"
           while IFS= read -r line; do
-              echo "Text read from file: $line"            
+              echo "Text read from file: $line"
               line_parts=($line)
               filename=${line_parts[0]}
-              translator=${line_parts[1]}              
-              comment="${comment} ${translator} ${filename} was modified.\n"
-          done < .github/TRANSLATIONS
-          echo "comment={$comment}" >> $GITHUB_OUTPUT
-          echo "comment_path={$comment_path}" >> $GITHUB_OUTPUT
+              translator=${line_parts[1]}
+              comment="${comment} ${translator}"
+          done < ${translation_file}
+          comment="${comment} <br/>${comment_file} resources have been modified.<br/><br />This is an automated message sent to users listed in `${translation_file}`."
+          echo "comment=$comment" >> $GITHUB_OUTPUT
+          echo "comment_path=$comment_path" >> $GITHUB_OUTPUT
 
     - name: Create commit comment
       uses: peter-evans/commit-comment@v2
