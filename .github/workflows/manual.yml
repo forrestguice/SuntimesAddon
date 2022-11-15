@@ -1,0 +1,49 @@
+# This is a basic workflow that is manually triggered
+
+name: Manual workflow
+
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      name:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Person to greet'
+        # Default value if no value is explicitly provided
+        default: 'World'
+        # Input has to be provided for the workflow to run
+        required: true
+
+jobs:
+  
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send greeting
+      run: echo "Hello ${{ github.event.inputs.name }}"
+          
+    - name: Checkout Branch
+      uses: actions/checkout@v3
+      with:
+        path: branch
+            
+    # https://stackoverflow.com/questions/69706421/how-to-use-latest-release-tag-in-github-actions
+    - name: Checkout All
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0      
+    - name: Checkout Recent Tag
+      run: |
+          RECENT_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+          mkdir tag
+          cd tag
+          git checkout $RECENT_TAG
+          cd ..
+        
+    - name: Translation List
+      run: |
+          cd branch
+          while IFS= read -r line; do
+              echo "Text read from file: $line"                          
+          done < .github/TRANSLATIONS
+          cd ..
