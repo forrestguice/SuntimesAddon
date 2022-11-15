@@ -42,7 +42,6 @@ jobs:
         
     - name: Translation List
       run: |
-          cd branch
           while IFS= read -r line; do
               echo "Text read from file: $line"                          
           done < .github/TRANSLATIONS
