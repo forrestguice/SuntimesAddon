@@ -24,20 +24,18 @@ jobs:
           
     - name: Checkout Branch
       uses: actions/checkout@v3
-      with:
-        path: branch
             
     # https://stackoverflow.com/questions/69706421/how-to-use-latest-release-tag-in-github-actions
-    - name: Checkout All
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0      
-    - name: Checkout Recent Tag
-      run: |
-          RECENT_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-          mkdir tag
-          cd tag
-          git checkout $RECENT_TAG
+    # - name: Checkout All
+    #  uses: actions/checkout@v3
+    #  with:
+    #    fetch-depth: 0      
+    #- name: Checkout Recent Tag
+    #  run: |
+    #      RECENT_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+    #      mkdir tag
+    #      cd tag
+    #      git checkout $RECENT_TAG
         
     - name: Translation List
       run: |
