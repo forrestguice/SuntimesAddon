@@ -56,8 +56,6 @@ jobs:
       uses: peter-evans/commit-comment@v2
       with:
           sha: 176cc0f779c262dd2636943e281dda00be5e2f88
-          body: ${{ steps.translation-list.outputs.comment }}
-          path: ${{ steps.translation-list.outputs.comment_path }}
-          position: 1
+          body: ${{ steps.translation-list.outputs.comment }}              
           
           
