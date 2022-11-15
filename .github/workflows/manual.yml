@@ -49,6 +49,8 @@ jobs:
               translator=${line_parts[1]}              
               comment="${comment} ${translator} ${filename} was modified.\n"
           done < .github/TRANSLATIONS
+          echo "comment={$comment}" >> $GITHUB_OUTPUT
+          echo "comment_path={$comment_path}" >> $GITHUB_OUTPUT
 
     - name: Create commit comment
       uses: peter-evans/commit-comment@v2
