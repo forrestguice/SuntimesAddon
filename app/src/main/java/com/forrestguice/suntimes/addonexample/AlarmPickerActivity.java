@@ -77,7 +77,7 @@ public class AlarmPickerActivity extends AppCompatActivity
         if (suntimesInfo.appTheme != null) {    // override the theme
             setTheme(suntimesInfo.appTheme.equals(SuntimesInfo.THEME_LIGHT) ? R.style.AppTheme_Light : R.style.AppTheme_Dark);
         }
-        setContentView(R.layout.activity_dismiss_alarm);
+        setContentView(R.layout.activity_pick_alarm);
 
         /*Intent intent = getIntent();
         if (intent != null) {
