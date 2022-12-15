@@ -21,6 +21,7 @@ package com.forrestguice.suntimes.alarm;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -224,6 +225,17 @@ public class AlarmHelper
 
     public static String getEventCalcUri(String authority, String alarmID) {
         return "content://" + authority + "/" + AlarmEventContract.QUERY_EVENT_CALC + "/" + alarmID;
+    }
+
+    public static Intent getEventData(String authority, String eventName, String eventTitle, String eventSummary)
+    {
+        Intent data = new Intent();
+        data.putExtra(AlarmEventContract.COLUMN_CONFIG_PROVIDER, authority);
+        data.putExtra(AlarmEventContract.COLUMN_EVENT_NAME, eventName);
+        data.putExtra(AlarmEventContract.COLUMN_EVENT_TITLE, eventTitle);
+        data.putExtra(AlarmEventContract.COLUMN_EVENT_SUMMARY, eventSummary);
+        data.setData(Uri.parse(AlarmHelper.getEventInfoUri(authority, eventName)));
+        return data;
     }
 
     /**

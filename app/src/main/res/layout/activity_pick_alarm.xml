@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout android:orientation="vertical"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:gravity="center">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:text="Alarm Event Picker\nAddon Example" />
+
+
+        <TextView android:id="@+id/text_eventName"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_margin="16dp" android:textAppearance="@android:style/TextAppearance.Small"
+            android:text="SUNRISE" />
+
+        <LinearLayout android:orientation="horizontal"
+            android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+            <Button style="?android:attr/buttonBarStyle" android:id="@+id/cancel_button"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Cancel" />
+
+            <Button style="?android:attr/buttonBarStyle" android:id="@+id/ok_button"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Ok" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
