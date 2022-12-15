@@ -52,6 +52,14 @@ import java.util.TimeZone;
  *    </intent-filter>
  *    <meta-data android:name="SuntimesEventPickerTitle" android:value="Custom Event Picker" />
  *
+ *     // Alarm Dismiss Challenge (@see AlarmHelper)
+ *    <intent-filter>
+ *       <action android:name="suntimes.action.DISMISS_CHALLENGE" />
+ *       <category android:name="suntimes.SUNTIMES_ADDON" />
+ *    </intent-filter>
+ *    <meta-data android:name="SuntimesDismissChallengeTitle" android:value="Custom Challenge" />
+ *    <meta-data android:name="SuntimesDismissChallengeID" android:value="9000" />
+ *
  *    // General navigation (menu item)
  *    <intent-filter>
  *        <action android:name="suntimes.action.ADDON_MENU_ITEM" />

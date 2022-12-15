@@ -19,6 +19,7 @@
 package com.forrestguice.suntimes.alarm;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -50,7 +51,7 @@ import java.util.HashMap;
  *      android:authorities="custom.alarm.event.provider"
  *      android:exported="true" android:permission="suntimes.permission.READ_CALCULATOR"
  *      android:syncable="false" />
- *
+ * ------------------------------------------------------------------------------------------------
  * Addons can also declare the availability of EventPicker activities in their manifest by including an intent-filter
  * in that activity's definition. The picker is responsible for returning a valid URI into its event provider; the
  * currently selected uri is provided by the `alarm_event` extra.
@@ -65,7 +66,26 @@ import java.util.HashMap;
  *
  * Addons can select their custom alarms by including the `solarevent` extra with a valid URI when
  * starting the AlarmClockActivity (@see AddonHelper.scheduleAlarm).
+ * ------------------------------------------------------------------------------------------------
+ * Addons can declare the available of DismissChallenge activities in their manifest by including an intent-filter
+ * in that activity's definition.
  *
+ *   <activity>
+ *      <meta-data android:name="SuntimesDismissChallengeTitle" android:value="Custom Challenge" />
+ *      <meta-data android:name="SuntimesDismissChallengeID" android:value="9000" />
+ *      <intent-filter>
+ *         <action android:name="suntimes.action.DISMISS_CHALLENGE" />
+ *         <category android:name="suntimes.SUNTIMES_ADDON" />
+ *      </intent-filter>
+ *   </activity>
+ *
+ * The `SuntimesDismissChallengeID` should be assigned a unique value unlikely to collide with other
+ * addons; ID's 0-99 are reserved by SuntimesAlarms.
+ *
+ * When the activity is started the Intent data will contain the alarm URI; i.e. `long rowID = ContentUris.parseId(data)`
+ * The Activity should return RESULT_OK if the challenge was passed (and the alarm should be dismissed).
+ * The Activity may trigger SNOOZE by setting the action to `suntimeswidget.alarm.snooze` (with RESULT_CANCELED).
+ * ------------------------------------------------------------------------------------------------
  * PERMISSIONS
  * The `READ_CALCULATOR` permission must be declared by the package that responds to the alarm URI.
  * All addons are expected to declare this permission in their manifest:
@@ -77,6 +97,38 @@ public class AlarmHelper
     public static final String CATEGORY_SUNTIMES_ALARMS = "suntimes.SUNTIMES_ALARM";
     public static final String ACTION_ADDON_EVENT = "suntimes.action.ADDON_EVENT";
     public static final String ACTION_PICK_EVENT = "suntimes.action.PICK_EVENT";
+
+    /**
+     * Alarm Dismiss Challenge
+     */
+    public static final String ACTION_DISMISS_CHALLENGE = "suntimes.action.DISMISS_CHALLENGE";
+    public static final String META_DISMISS_CHALLENGE_TITLE = "SuntimesDismissChallengeTitle";
+    public static final String META_DISMISS_CHALLENGE_ID = "SuntimesDismissChallengeID";
+
+    /**
+     * Alarm Extras
+     */
+    public static final String EXTRA_SELECTED_ALARM = "selectedAlarm";
+    public static final String EXTRA_NOTIFICATION_ID = "notificationID";
+
+    /**
+     * Alarm Actions
+     */
+    public static final String ACTION_SILENT = "suntimeswidget.alarm.silent";
+    public static final String ACTION_DISMISS = "suntimeswidget.alarm.dismiss";
+    public static final String ACTION_SNOOZE = "suntimeswidget.alarm.snooze";
+    public static final String ACTION_SCHEDULE = "suntimeswidget.alarm.schedule";
+    public static final String ACTION_RESCHEDULE = "suntimeswidget.alarm.reschedule";
+    public static final String ACTION_RESCHEDULE1 = ACTION_RESCHEDULE + "1";
+    public static final String ACTION_DISABLE = "suntimeswidget.alarm.disable";
+    public static final String ACTION_DELETE = "suntimeswidget.alarm.delete";
+    public static final String ACTION_UPDATE_UI = "suntimeswidget.alarm.ui.update";
+
+    /**
+     * Alarm URI
+     */
+    public static final String ALARM_AUTHORITY = "com.forrestguice.suntimeswidget.alarmclock";
+    public static final Uri ALARM_URI = Uri.parse("content://" + ALARM_AUTHORITY + "/alarms");
 
     /**
      * processSelection
@@ -172,6 +224,15 @@ public class AlarmHelper
 
     public static String getEventCalcUri(String authority, String alarmID) {
         return "content://" + authority + "/" + AlarmEventContract.QUERY_EVENT_CALC + "/" + alarmID;
+    }
+
+    /**
+     * getAlarmUri
+     * @param rowID alarmID
+     * @return Uri pointing to alarm
+     */
+    public static Uri getAlarmUri(long rowID) {
+        return ContentUris.withAppendedId(ALARM_URI, rowID);
     }
 
     /**
