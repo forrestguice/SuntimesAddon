@@ -1,0 +1,64 @@
+# This is a basic workflow that is manually triggered
+
+name: Manual workflow
+
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      name:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Person to greet'
+        # Default value if no value is explicitly provided
+        default: 'World'
+        # Input has to be provided for the workflow to run
+        required: true
+
+jobs:
+  
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send greeting
+      run: echo "Hello ${{ github.event.inputs.name }}"
+          
+    - name: Checkout Branch
+      uses: actions/checkout@v3
+            
+    # https://stackoverflow.com/questions/69706421/how-to-use-latest-release-tag-in-github-actions
+    # - name: Checkout All
+    #  uses: actions/checkout@v3
+    #  with:
+    #    fetch-depth: 0      
+    #- name: Checkout Recent Tag
+    #  run: |
+    #      RECENT_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+    #      mkdir tag
+    #      cd tag
+    #      git checkout $RECENT_TAG
+        
+    - name: Translation List
+      id: translation-list
+      run: |
+          comment=""
+          comment_file="strings.xml"
+          comment_path="/app/src/main/res/values/${comment_file}"
+          translation_file=".github/TRANSLATIONS"
+          while IFS= read -r line; do
+              echo "Text read from file: $line"
+              line_parts=($line)
+              filename=${line_parts[0]}
+              translator=${line_parts[1]}
+              comment="${comment} ${translator}"
+          done < ${translation_file}
+          comment="${comment} <br/>${comment_file} resources have been modified.<br/><br />This is an automated message sent to users listed in `${translation_file}`."
+          echo "comment=$comment" >> $GITHUB_OUTPUT
+          echo "comment_path=$comment_path" >> $GITHUB_OUTPUT
+
+    - name: Create commit comment
+      uses: peter-evans/commit-comment@v2
+      with:
+          sha: 176cc0f779c262dd2636943e281dda00be5e2f88
+          body: ${{ steps.translation-list.outputs.comment }}              
+          
+          
