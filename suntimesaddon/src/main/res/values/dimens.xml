@@ -3,6 +3,7 @@
     <dimen name="activity_margin">8dp</dimen>
     <dimen name="dialog_margin">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="tooltip_margin">8dp</dimen>
 
     <dimen name="smalltext_size_tiny">6sp</dimen>      <!-- "small" sizes -->
     <dimen name="smalltext_size_xsmall">10sp</dimen>
