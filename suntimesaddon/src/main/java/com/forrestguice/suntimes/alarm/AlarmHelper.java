@@ -109,6 +109,7 @@ public class AlarmHelper
     /**
      * Alarm Extras
      */
+    public static final String EXTRA_RESULT = "result";
     public static final String EXTRA_SELECTED_ALARM = "selectedAlarm";
     public static final String EXTRA_NOTIFICATION_ID = "notificationID";
 
