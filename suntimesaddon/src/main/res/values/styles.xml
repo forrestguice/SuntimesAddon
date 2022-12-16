@@ -307,4 +307,9 @@
         <item name="android:drawableRight">@drawable/ic_transparent</item>
     </style>
 
+
+    <style name="ToastTextAppearance">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>
