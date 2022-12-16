@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/colorPrimary_dark</color>
+    <color name="colorPrimaryDark">@color/colorPrimaryDark_dark</color>
+    <color name="colorAccent">@color/colorAccent_dark</color>
+    <color name="colorAction">@color/colorAction_dark</color>
+    <color name="colorDisabled">@color/colorDisabled_dark</color>
+
+    <color name="card">@color/card_dark</color>
+    <color name="dialog_frame">@color/dialog_frame_dark</color>
+    <color name="dialog">@color/dialog_dark</color>
+    <color name="dialog_alt">@color/dialog_alt_dark</color>
+
+    <color name="fab_background">@color/fab_background_dark</color>
+    <color name="fab_ripple">@color/fab_ripple_dark</color>
+
+    <color name="snackbar_text">@color/snackbar_text_dark</color>
+
+    <color name="sun_rising">@color/sun_rising_dark</color>
+    <color name="sun_setting">@color/sun_setting_dark</color>
+    <color name="sun_noon">@color/sun_noon_dark</color>
+    <color name="sun_noon_border">@color/sun_noon_border_dark</color>
+
+    <color name="moon_rising">@color/moon_rising_dark</color>
+    <color name="moon_setting">@color/moon_setting_dark</color>
+
+</resources>

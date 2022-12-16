@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <drawable name="chip_ref">@drawable/chip_dark</drawable>
+    <drawable name="chip_tray_ref">@drawable/chip_tray_dark</drawable>
+    <drawable name="ic_noon_ref">@drawable/ic_noon_dark</drawable>
+    <drawable name="ic_sunrise_ref">@drawable/ic_sunrise_dark</drawable>
+    <drawable name="ic_sunset_ref">@drawable/ic_sunset_dark</drawable>
+    <drawable name="ic_moonrise_ref">@drawable/ic_moonrise_dark</drawable>
+    <drawable name="ic_moonset_ref">@drawable/ic_moonset_dark</drawable>
+
+</resources>

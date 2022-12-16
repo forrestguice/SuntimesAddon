@@ -1,5 +1,45 @@
 <resources>
 
+    <!-- System Theme -->
+    <style name="SuntimesAddonTheme.System" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAction">@color/colorAction</item>
+        <item name="colorDisabled">@color/colorDisabled</item>
+
+        <item name="suntimesCardBackground">@color/card</item>
+        <item name="dialogFrame">@color/dialog_frame</item>
+        <item name="dialogBackground">@color/dialog</item>
+        <item name="dialogBackgroundAlt">@color/dialog_alt</item>
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
+        <item name="actionBarPopupTheme">@style/PopupMenuStyleSystem</item>
+        <item name="fab_backgroundColor">@color/fab_background</item>
+        <item name="fab_rippleColor">@color/fab_ripple</item>
+
+        <item name="snackbar_textColor">@color/snackbar_text</item>
+        <item name="snackbar_accentColor">?colorAccent</item>
+        <item name="snackbar_backgroundColor">?attr/colorPrimary</item>
+
+        <item name="chipBackground">@drawable/chip_ref</item>
+        <item name="chipTrayBackground">@drawable/chip_tray_ref</item>
+
+        <item name="sunriseColor">@color/sun_rising</item>
+        <item name="sunsetColor">@color/sun_setting</item>
+
+        <item name="noonColor">@color/sun_noon</item>
+        <item name="noonBorderColor">@color/sun_noon_border</item>
+        <item name="noonIcon">@drawable/ic_noon_ref</item>
+
+        <item name="moonriseColor">@color/moon_rising</item>
+        <item name="moonsetColor">@color/moon_setting</item>
+
+        <item name="sunriseIconSmall">@drawable/ic_sunrise_ref</item>
+        <item name="sunsetIconSmall">@drawable/ic_sunset_ref</item>
+        <item name="moonriseIconSmall">@drawable/ic_moonrise_ref</item>
+        <item name="moonsetIconSmall">@drawable/ic_moonset_ref</item>
+    </style>
+
     <!-- Dark Theme -->
     <style name="SuntimesAddonTheme.Dark" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary_dark</item>
@@ -9,9 +49,9 @@
         <item name="colorDisabled">@color/colorDisabled_dark</item>
 
         <item name="suntimesCardBackground">@color/card_dark</item>
-        <item name="dialogFrame">@color/grey_800</item>
+        <item name="dialogFrame">@color/dialog_frame_dark</item>
         <item name="dialogBackground">@color/dialog_dark</item>
-        <item name="dialogBackgroundAlt">@color/grey_900</item>
+        <item name="dialogBackgroundAlt">@color/dialog_alt_dark</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="actionBarPopupTheme">@style/PopupMenuStyleDark</item>
         <item name="fab_backgroundColor">@color/fab_background_dark</item>
@@ -41,7 +81,7 @@
     </style>
 
     <!-- Light Theme -->
-    <style name="SuntimesAddonTheme.Light" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="SuntimesAddonTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary_light</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_light</item>
         <item name="colorAccent">@color/colorAccent_light</item>
@@ -49,9 +89,9 @@
         <item name="colorDisabled">@color/colorDisabled_light</item>
 
         <item name="suntimesCardBackground">@color/card_light</item>
-        <item name="dialogFrame">@android:color/white</item>
+        <item name="dialogFrame">@color/dialog_frame_light</item>
         <item name="dialogBackground">@color/dialog_light</item>
-        <item name="dialogBackgroundAlt">@color/grey_300</item>
+        <item name="dialogBackgroundAlt">@color/dialog_alt_light</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="actionBarPopupTheme">@style/PopupMenuStyleLight</item>
         <item name="fab_backgroundColor">@color/fab_background_light</item>
@@ -82,6 +122,7 @@
 
     <style name="PopupMenuStyleLight" parent="Theme.AppCompat.Light" />
     <style name="PopupMenuStyleDark" parent="Theme.AppCompat" />
+    <style name="PopupMenuStyleSystem" parent="Theme.AppCompat.DayNight" />
 
     <style name="ActionButton" parent="@android:style/Widget.Button.Small" />
 
