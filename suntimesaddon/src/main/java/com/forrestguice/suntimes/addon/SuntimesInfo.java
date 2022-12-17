@@ -45,6 +45,7 @@ public class SuntimesInfo
     public String appLocale = null;
     public String appTheme = null;
     public String appThemeOverride = null;
+    public String appTextSize = null;
 
     public String timezone = null;
     public String timezoneMode = "CUSTOM_TIMEZONE";        // "SOLAR_TIME", "CURRENT_TIMEZONE", "CUSTOM_TIMEZONE";
@@ -53,6 +54,7 @@ public class SuntimesInfo
     public String[] location = null;    // [0]label, [1]latitude (dd), [2]longitude (dd), [3]altitude (meters)
     protected SuntimesOptions options = null;
 
+    public static final String THEME_SYSTEM = "system";
     public static final String THEME_LIGHT = "light";
     public static final String THEME_DARK = "dark";
     public static final String THEME_DAYNIGHT = "daynight";
@@ -68,7 +70,8 @@ public class SuntimesInfo
             CalculatorProviderContract.COLUMN_CONFIG_TIMEZONE, CalculatorProviderContract.COLUMN_CONFIG_TIMEZONEMODE, CalculatorProviderContract.COLUMN_CONFIG_SOLARTIMEMODE,
             CalculatorProviderContract.COLUMN_CONFIG_LOCATION, CalculatorProviderContract.COLUMN_CONFIG_LATITUDE,
             CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE,
-            CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE_V2    // legacy support
+            CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE_V2,    // legacy support
+            CalculatorProviderContract.COLUMN_CONFIG_APP_TEXT_SIZE
     };
 
     public void initFromCursor(@NonNull Cursor cursor)
@@ -93,6 +96,7 @@ public class SuntimesInfo
         if (providerCode == null) {    // is this an older provider? limited support
             providerCode = (!cursor.isNull(14)) ? cursor.getInt(14) : null;
         }
+        appTextSize = (!cursor.isNull(15)) ? cursor.getString(15) : null;
 
         hasPermission = isInstalled = (providerCode != null);
     }
@@ -229,6 +233,7 @@ public class SuntimesInfo
                 appName + "(" + providerCode + ")" +" \n"
                 + "permission: " + hasPermission + "\n"
                 + "locale: " + appLocale + "\n"
+                + "text size: " + appTextSize + "\n"
                 + "theme: " + appTheme + " (" + appThemeOverride + ")\n"
                 + "timezone: " + timezone + "\n"
                 + "location: " + location[0] + "\n" + location[1] + ", " + location[2] + " [" + location[3] +"]" + "\n\n"
