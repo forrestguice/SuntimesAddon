@@ -1,5 +1,5 @@
 /**
- Copyright (C) 2018-2020 Forrest Guice
+ Copyright (C) 2018-2022 Forrest Guice
  This file is part of SuntimesWidget.
 
  SuntimesWidget is free software: you can redistribute it and/or modify
@@ -40,7 +40,7 @@ package com.forrestguice.suntimes.calculator.core;
  *       COLUMN_CONFIG_LOCALE, COLUMN_CONFIG_APPTHEME,
  *       COLUMN_CONFIG_CALCULATOR, COLUMN_CONFIG_CALCULATOR_FEATURES,
  *       COLUMN_CONFIG_LATITUDE, COLUMN_CONFIG_LONGITUDE, COLUMN_CONFIG_ALTITUDE,
- *       COLUMN_CONFIG_TIMEZONE, COLUMN_CONFIG_APPWIDGETID,
+ *       COLUMN_CONFIG_TIMEZONE, COLUMN_CONFIG_TIMEZONEMODE, COLUMN_CONFIG_SOLARTIMEMODE, COLUMN_CONFIG_APPWIDGETID,
  *       COLUMN_CONFIG_OPTION_TIME_IS24, COLUMN_CONFIG_OPTION_TIME_SECONDS, COLUMN_CONFIG_OPTION_TIME_HOURS,
  *       COLUMN_CONFIG_OPTION_TIME_WEEKS, COLUMN_CONFIG_OPTION_TIME_DATETIME,
  *       COLUMN_CONFIG_OPTION_ALTITUDE, COLUMN_CONFIG_OPTION_WARNINGS, COLUMN_CONFIG_OPTION_TALKBACK
@@ -110,13 +110,16 @@ package com.forrestguice.suntimes.calculator.core;
  * ------------------------------------------------------------------------------------------------
  * QUERY_SEASONS (seasons)
  *   The following URIs are supported:
- *       content://suntimeswidget.calculator.provider/seasons                         .. get vernal, summer, autumn, and winter dates for this year
- *       content://suntimeswidget.calculator.provider/seasons/[year]                  .. get vernal, summer, autumn, and winter dates for some year
- *       content://suntimeswidget.calculator.provider/seasons/[year]-[year]           .. get vernal, summer, autumn, and winter dates for range
+ *       content://suntimeswidget.calculator.provider/seasons                         .. get spring, summer, autumn, and winter dates for this year
+ *       content://suntimeswidget.calculator.provider/seasons/[year]                  .. get spring, summer, autumn, and winter dates for some year
+ *       content://suntimeswidget.calculator.provider/seasons/[year]-[year]           .. get spring, summer, autumn, and winter dates for range
  *
  *   The result will be one or more rows containing:
- *       COLUMM_SEASON_VERNAL, COLUMN_SEASON_SUMMER,
- *       COLUMN_SEASON_AUTUMN, COLUMN_SEASON_WINTER, COLUMN_YEAR
+ *       COLUMM_SEASON_CROSS_SPRING, COLUMM_SEASON_SPRING,
+ *       COLUMN_SEASON_CROSS_SUMMER, COLUMN_SEASON_SUMMER,
+ *       COLUMN_SEASON_CROSS_AUTUMN, COLUMN_SEASON_AUTUMN,
+ *       COLUMN_SEASON_CROSS_WINTER, COLUMN_SEASON_WINTER,
+ *       COLUMN_SEASON_TROPICAL_YEAR_LENGTH, COLUMN_YEAR
  *
  * ------------------------------------------------------------------------------------------------
  * Example: Date of the Full Moon
@@ -176,6 +179,7 @@ package com.forrestguice.suntimes.calculator.core;
  *     String selection = COLUMN_CONFIG_CALCULATOR +=? AND "      // any combination of these CONFIG_COLUMNS
  *                      + COLUMN_CONFIG_LATITUDE + "=? AND "
  *                      + COLUMN_CONFIG_LONGITUDE + "=? AND "
+ *                      + COLUMN_CONFIG_ALTITUDE + "=? AND "
  *                      + COLUMN_CONFIG_TIMEZONE + "=?";
  *     String[] selectionArgs = new String[] {"time4a-cc", "33.45", "-111.94", "US/Arizona"};
  *
@@ -218,7 +222,11 @@ package com.forrestguice.suntimes.calculator.core;
  *     adds COLUMN_CONFIG_LENGTH_UNITS, COLUMN_CONFIG_OBJECT_HEIGHT
  *     fixes typo in COLUMN_CONFIG_PROVIDER_VERSION_CODE
  *   4 adds COLUMN_CONFIG_APP_THEME_OVERRIDE
- *   5 adds COLUMN_SUNPOS_EOT, COLUMN_CONFIG_TIMEZONEMODE, COLUMN_CONFIG_SOLARTIMEMODE
+ *   5 adds COLUMN_SEASON_CROSS_SPRING, _CROSS_SUMMER, _CROSS_AUTUMN, and _CROSS_WINTER;
+ *     adds SEASON_TROPICAL_YEAR_LENGTH (tropical year milliseconds);
+ *     deprecates COLUMN_SEASON_VERNAL and replaces it with COLUMN_SEASON_SPRING
+ *     adds COLUMN_CONFIG_APP_TEXT_SIZE
+ *     adds COLUMN_SUNPOS_EOT, COLUMN_CONFIG_TIMEZONEMODE, COLUMN_CONFIG_SOLARTIMEMODE
  */
 public interface CalculatorProviderContract
 {
@@ -235,6 +243,7 @@ public interface CalculatorProviderContract
     String COLUMN_CONFIG_PROVIDER_VERSION_CODE_V2 = "config_pvodier_version_code"; // int (key has typo in v0-v2; fixed v3)
     String COLUMN_CONFIG_APP_VERSION = "config_app_version";                       // String (app version string)
     String COLUMN_CONFIG_APP_VERSION_CODE = "config_app_version_code";             // int (app version code)
+    String COLUMN_CONFIG_APP_TEXT_SIZE = "config_app_textsize";                    // String (SMALL, NORMAL, LARGE, XLARGE)
     String COLUMN_CONFIG_APP_THEME = "config_app_theme";                           // String (base: dark, light, daynight)
     String COLUMN_CONFIG_APP_THEME_OVERRIDE = "config_app_theme_override";         // String (themeName)
     String COLUMN_CONFIG_LOCALE = "config_locale";                                 // String (localeCode)
@@ -267,7 +276,7 @@ public interface CalculatorProviderContract
     String[] QUERY_CONFIG_PROJECTION = new String[] {
             COLUMN_CONFIG_APP_VERSION, COLUMN_CONFIG_APP_VERSION_CODE,
             COLUMN_CONFIG_PROVIDER_VERSION, COLUMN_CONFIG_PROVIDER_VERSION_CODE,
-            COLUMN_CONFIG_LOCALE, COLUMN_CONFIG_APP_THEME, COLUMN_CONFIG_APP_THEME_OVERRIDE,
+            COLUMN_CONFIG_LOCALE, COLUMN_CONFIG_APP_TEXT_SIZE, COLUMN_CONFIG_APP_THEME, COLUMN_CONFIG_APP_THEME_OVERRIDE,
             COLUMN_CONFIG_CALCULATOR, COLUMN_CONFIG_CALCULATOR_FEATURES,
             COLUMN_CONFIG_LOCATION, COLUMN_CONFIG_LATITUDE, COLUMN_CONFIG_LONGITUDE, COLUMN_CONFIG_ALTITUDE,
             COLUMN_CONFIG_TIMEZONE, COLUMN_CONFIG_TIMEZONEMODE, COLUMN_CONFIG_SOLARTIMEMODE, COLUMN_CONFIG_APPWIDGETID,
@@ -382,15 +391,25 @@ public interface CalculatorProviderContract
     /**
      * SEASONS
      */
-    String COLUMN_SEASON_YEAR = "season_year";               // int
-    String COLUMN_SEASON_VERNAL = "season_vernal";           // long (timestamp)
+    String COLUMN_SEASON_YEAR = "season_year";               // int (year, e.g. 2022)
+    String COLUMN_SEASON_TROPICAL_YEAR_LENGTH = "season_tropical_year";           // long (millisecond duration)
+
+    @Deprecated String COLUMN_SEASON_VERNAL = "season_vernal";           // long (timestamp)
+    String COLUMN_SEASON_SPRING = "season_spring";           // long (timestamp)
     String COLUMN_SEASON_SUMMER = "season_summer";           // long (timestamp)
     String COLUMN_SEASON_AUTUMN = "season_autumn";           // long (timestamp)
     String COLUMN_SEASON_WINTER = "season_winter";           // long (timestamp)
 
+    String COLUMN_SEASON_CROSS_SPRING = "season_cross_spring";           // long (timestamp)
+    String COLUMN_SEASON_CROSS_SUMMER = "season_cross_summer";           // long (timestamp)
+    String COLUMN_SEASON_CROSS_AUTUMN = "season_cross_autumn";           // long (timestamp)
+    String COLUMN_SEASON_CROSS_WINTER = "season_cross_winter";           // long (timestamp)
+
     String QUERY_SEASONS = "seasons";
     String[] QUERY_SEASONS_PROJECTION = new String[] {
-            COLUMN_SEASON_VERNAL, COLUMN_SEASON_SUMMER, COLUMN_SEASON_AUTUMN, COLUMN_SEASON_WINTER, COLUMN_SEASON_YEAR
+            COLUMN_SEASON_CROSS_SPRING, COLUMN_SEASON_CROSS_SUMMER, COLUMN_SEASON_CROSS_AUTUMN, COLUMN_SEASON_CROSS_WINTER,
+            COLUMN_SEASON_SPRING, COLUMN_SEASON_VERNAL, COLUMN_SEASON_SUMMER, COLUMN_SEASON_AUTUMN, COLUMN_SEASON_WINTER,
+            COLUMN_SEASON_TROPICAL_YEAR_LENGTH, COLUMN_SEASON_YEAR
     };
 
 }
