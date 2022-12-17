@@ -1,7 +1,7 @@
 # Suntimes Addon
-An Android Library that assists the development of [Suntimes](https://github.com/forrestguice/SuntimesWidget/) add-ons.  
+An Android Library that assists the development of [Suntimes](https://github.com/forrestguice/SuntimesWidget/) add-ons.
 
-This library is used by the [Solunar Periods](https://github.com/forrestguice/SolunarPeriods) add-on.
+This library is used by the [Natural Hour](https://github.com/forrestguice/NaturalHour), [Interval Midpoints](https://github.com/forrestguice/IntervalMidpoints), and [Solunar Periods](https://github.com/forrestguice/SolunarPeriods) add-ons.
 
 ### To use:
 * Create a new Android project; `File -> New Project`
