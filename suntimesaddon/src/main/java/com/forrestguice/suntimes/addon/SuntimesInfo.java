@@ -141,9 +141,10 @@ public class SuntimesInfo
         return info;
     }
 
+    @Nullable
     public static String queryAppTheme(@Nullable ContentResolver resolver)
     {
-        String theme = THEME_DARK;
+        String theme = null;
         if (resolver != null) {
             Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG );
             try {
@@ -157,7 +158,7 @@ public class SuntimesInfo
                 Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + CalculatorProviderContract.AUTHORITY + "! " + e);
             }
         }
-        if (theme.equals(THEME_DAYNIGHT)) {
+        if (theme != null && theme.equals(THEME_DAYNIGHT)) {
             theme = queryDayNightTheme(resolver);
         }
         return theme;
@@ -229,15 +230,20 @@ public class SuntimesInfo
 
     public String toString()
     {
-        return getClass().getSimpleName() + " [" +
+        String retValue = getClass().getSimpleName() + " [" +
                 appName + "(" + providerCode + ")" +" \n"
                 + "permission: " + hasPermission + "\n"
                 + "locale: " + appLocale + "\n"
                 + "text size: " + appTextSize + "\n"
                 + "theme: " + appTheme + " (" + appThemeOverride + ")\n"
-                + "timezone: " + timezone + "\n"
-                + "location: " + location[0] + "\n" + location[1] + ", " + location[2] + " [" + location[3] +"]" + "\n\n"
-                + (options != null ? options.toString() : "null options");
+                + "timezone: " + timezone + "\n";
+        if (location != null) {
+            retValue += "location: " + location[0] + "\n" + location[1] + ", " + location[2] + " [" + location[3] +"]" + "\n\n";
+        } else {
+            retValue += "location: null\n\n";
+        }
+        retValue += (options != null ? options.toString() : "null options");
+        return retValue;
     }
 
     /**

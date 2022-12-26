@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity
         spin_alarms = (Spinner)findViewById(R.id.spinner_alarm);
         if (spin_alarms != null)
         {
-            if (suntimesInfo != null && suntimesInfo.appCode >= 59)    // v0.14.0  TODO: set req version code..
+            if (suntimesInfo != null && suntimesInfo.appCode != null && suntimesInfo.appCode >= 59)    // v0.14.0  TODO: set req version code..
             {
                 initAlarmsAdapter();
                 spin_alarms.setAdapter(alarmsAdapter);
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity
         spin_actions = (Spinner)findViewById(R.id.spinner_action);
         if (spin_actions != null)
         {
-            if (suntimesInfo != null && suntimesInfo.appCode >= 59)    // v0.14.0  TODO: set req version code..
+            if (suntimesInfo != null && suntimesInfo.appCode != null && suntimesInfo.appCode >= 59)    // v0.14.0  TODO: set req version code..
             {
                 initActionsAdapter();
                 spin_actions.setAdapter(actionsAdapter);
@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity
         spin_themes = (Spinner)findViewById(R.id.spinner_theme);
         if (spin_themes != null)
         {
-            if (suntimesInfo != null && suntimesInfo.appCode >= 59)    // v0.12.8 (60)
+            if (suntimesInfo != null && suntimesInfo.appCode != null && suntimesInfo.appCode >= 59)    // v0.12.8 (60)
             {
                 initThemeAdapter();
                 spin_themes.setAdapter(themeAdapter);

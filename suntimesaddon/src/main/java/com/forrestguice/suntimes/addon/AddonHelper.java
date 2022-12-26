@@ -184,7 +184,7 @@ public class AddonHelper
         return data.getStringExtra("actionID");    // selected actionID
     }
     public static boolean supportForActionsActivity(SuntimesInfo suntimesInfo) {
-        return (suntimesInfo != null && suntimesInfo.appCode >= 66);    // access to Actions added v0.13.2 (66)
+        return (suntimesInfo != null && suntimesInfo.appCode != null && suntimesInfo.appCode >= 66);    // access to Actions added v0.13.2 (66)
     }
     public static Intent intentForActionsActivity(String selected)
     {
@@ -210,7 +210,7 @@ public class AddonHelper
         return data.getStringExtra("name");    // selected theme name
     }
     public static boolean supportForThemesActivity(SuntimesInfo suntimesInfo) {
-        return (suntimesInfo != null && suntimesInfo.appCode >= 59);    // access to Themes added v0.12.8 (59)
+        return (suntimesInfo != null && suntimesInfo.appCode != null && suntimesInfo.appCode >= 59);    // access to Themes added v0.12.8 (59)
     }
     public static Intent intentForThemesActivity(String selected)
     {
@@ -234,7 +234,7 @@ public class AddonHelper
         return data.getLongExtra("selectedRowID", -1);
     }
     public static boolean supportForPlacesActivity(SuntimesInfo suntimesInfo) {
-        return (suntimesInfo != null && suntimesInfo.appCode >= 64);    // access to Places added v0.13.0 (64)
+        return (suntimesInfo != null && suntimesInfo.appCode != null && suntimesInfo.appCode >= 64);    // access to Places added v0.13.0 (64)
     }
     public static Intent intentForPlacesActivity(long selected, boolean allowPick)
     {
@@ -257,7 +257,7 @@ public class AddonHelper
         return data.getIntExtra("color", defaultColor);
     }
     public static boolean supportForColorActivity(SuntimesInfo suntimesInfo) {
-        return (suntimesInfo != null && suntimesInfo.appCode >= 64);    // access to Colors added v0.13.0 (64)
+        return (suntimesInfo != null && suntimesInfo.appCode != null && suntimesInfo.appCode >= 64);    // access to Colors added v0.13.0 (64)
     }
     public static Intent intentForColorActivity(int selectedColor, boolean showAlpha, @Nullable ArrayList<Integer> recentColors)
     {
@@ -278,7 +278,7 @@ public class AddonHelper
         startActivity(context, intentForWidgetListActivity());
     }
     public static boolean supportForWidgetListActivity(SuntimesInfo suntimesInfo) {
-        return (suntimesInfo != null && suntimesInfo.appCode >= 66);    // access to WidgetList added v0.13.2 (66)
+        return (suntimesInfo != null && suntimesInfo.appCode != null && suntimesInfo.appCode >= 66);    // access to WidgetList added v0.13.2 (66)
     }
     public static Intent intentForWidgetListActivity() {
         return createIntent(SUNTIMES_PACKAGE, ACTIVITY_WIDGETS, null, null, null, 0);
@@ -312,7 +312,7 @@ public class AddonHelper
         startActivity(context, intentForSettingsActivity(fragment));
     }
     public static boolean supportForSettingsActivity(SuntimesInfo suntimesInfo) {
-        return (suntimesInfo != null && suntimesInfo.appCode >= 66);    // access to SettingsActivity added v0.13.2 (66)
+        return (suntimesInfo != null && suntimesInfo.appCode != null && suntimesInfo.appCode >= 66);    // access to SettingsActivity added v0.13.2 (66)
     }
     public static Intent intentForSettingsActivity(@Nullable String fragment)
     {
