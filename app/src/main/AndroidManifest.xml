@@ -17,12 +17,10 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
 
-        <activity android:name=".AlarmPickerActivity">
-            <meta-data android:name="SuntimesEventPickerTitle" android:value="Addon Event Picker" />
+            <meta-data android:name="SuntimesDismissChallengeID" android:value="9000" />
             <intent-filter>
-                <action android:name="suntimes.action.PICK_EVENT" />
+                <action android:name="suntimes.action.DISMISS_CHALLENGE_CONFIG" />
                 <category android:name="suntimes.SUNTIMES_ADDON" />
             </intent-filter>
         </activity>
@@ -32,6 +30,15 @@
             <meta-data android:name="SuntimesDismissChallengeID" android:value="9000" />
             <intent-filter>
                 <action android:name="suntimes.action.DISMISS_CHALLENGE" />
+                <category android:name="suntimes.SUNTIMES_ADDON" />
+            </intent-filter>
+        </activity>
+
+
+        <activity android:name=".AlarmPickerActivity">
+            <meta-data android:name="SuntimesEventPickerTitle" android:value="Addon Event Picker" />
+            <intent-filter>
+                <action android:name="suntimes.action.PICK_EVENT" />
                 <category android:name="suntimes.SUNTIMES_ADDON" />
             </intent-filter>
         </activity>

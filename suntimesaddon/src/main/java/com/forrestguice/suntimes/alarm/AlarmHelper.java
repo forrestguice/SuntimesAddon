@@ -103,6 +103,7 @@ public class AlarmHelper
      * Alarm Dismiss Challenge
      */
     public static final String ACTION_DISMISS_CHALLENGE = "suntimes.action.DISMISS_CHALLENGE";
+    public static final String ACTION_DISMISS_CHALLENGE_CONFIG = "suntimes.action.DISMISS_CHALLENGE_CONFIG";
     public static final String META_DISMISS_CHALLENGE_TITLE = "SuntimesDismissChallengeTitle";
     public static final String META_DISMISS_CHALLENGE_ID = "SuntimesDismissChallengeID";
 
