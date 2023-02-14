@@ -38,7 +38,7 @@ public class SuntimesInfo
     public Integer providerCode = null;
     public String providerName = null;
     public boolean isInstalled = false;
-    public boolean hasPermission = false;
+    public boolean hasPermission = true;    // true until SecurityException encountered
 
     public Integer appCode = null;
     public String appName = null;
