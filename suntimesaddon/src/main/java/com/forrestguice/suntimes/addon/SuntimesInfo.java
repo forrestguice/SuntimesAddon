@@ -62,7 +62,7 @@ public class SuntimesInfo
     public SuntimesInfo(@NonNull Context context) {
     }
 
-    private static final String[] projection = new String[] {
+    protected static final String[] projection = new String[] {
             CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE, CalculatorProviderContract.COLUMN_CONFIG_APP_VERSION_CODE,
             CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION,      CalculatorProviderContract.COLUMN_CONFIG_APP_VERSION,
             CalculatorProviderContract.COLUMN_CONFIG_LOCALE,
@@ -136,6 +136,7 @@ public class SuntimesInfo
             } catch (SecurityException e) {
                 Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + CalculatorProviderContract.AUTHORITY + "! " + e);
                 info.hasPermission = false;
+                info.isInstalled = true;
             }
         }
         return info;
@@ -208,7 +209,7 @@ public class SuntimesInfo
      * @return true Suntimes installed >= min_provider_version, or false < min_provider_version (or Suntimes missing)
      */
     public static boolean checkVersion(@NonNull Context context, SuntimesInfo info) {
-        return (info != null && info.isInstalled && info.providerCode >= minProviderVersion(context));
+        return (info != null && info.isInstalled && info.providerCode != null && info.providerCode >= minProviderVersion(context));
     }
 
     /**
