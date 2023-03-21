@@ -58,9 +58,14 @@ public class SuntimesInfo
     public static final String THEME_LIGHT = "light";
     public static final String THEME_DARK = "dark";
     public static final String THEME_DAYNIGHT = "daynight";
+
     public static final String THEME_CONTRAST_LIGHT = "contrast_light";
     public static final String THEME_CONTRAST_DARK = "contrast_dark";
     public static final String THEME_CONTRAST_SYSTEM = "contrast_system";
+
+    public static final String THEME_MONET_SYSTEM = "monet_system";
+    public static final String THEME_MONET_LIGHT = "monet_light";
+    public static final String THEME_MONET_DARK = "monet_dark";
 
     public SuntimesInfo(@NonNull Context context) {
     }
