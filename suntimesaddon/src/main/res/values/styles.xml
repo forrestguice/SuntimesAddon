@@ -127,7 +127,7 @@
         <item name="text_size_huge">@dimen/text_size_huge</item>
         <item name="text_size_enormous">@dimen/text_size_enormous</item>
     </style>
-    <style name="SuntimesAddonTheme.Darl.Small" parent="SuntimesAddonTheme.Dark">
+    <style name="SuntimesAddonTheme.Dark.Small" parent="SuntimesAddonTheme.Dark">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
         <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
         <item name="text_size_small">@dimen/smalltext_size_small</item>
