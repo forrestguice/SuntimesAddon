@@ -64,6 +64,9 @@ public class CalendarHelper
             COLUMN_CALENDAR_TEMPLATE_TITLE, COLUMN_CALENDAR_TEMPLATE_DESCRIPTION, COLUMN_CALENDAR_TEMPLATE_LOCATION
     };
 
+    public static final String QUERY_CALENDAR_TEMPLATE_STRINGS = "calendarTemplateStrings";
+    public static final String[] QUERY_CALENDAR_TEMPLATE_STRINGS_PROJECTION = new String[] { COLUMN_CALENDAR_TEMPLATE_STRINGS };
+
     public static final String QUERY_CALENDAR_CONTENT = "calendarContent";
     public static final String[] QUERY_CALENDAR_CONTENT_PROJECTION = new String[] {
             CalendarContract.Events.TITLE, CalendarContract.Events.DESCRIPTION, CalendarContract.Events.EVENT_TIMEZONE,
