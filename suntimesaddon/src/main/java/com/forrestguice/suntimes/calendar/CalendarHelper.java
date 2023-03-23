@@ -152,7 +152,7 @@ public class CalendarHelper
      * @param calendarName calendar name
      * @return String[3] {title, desc, location} (elements will be null if undefined)
      */
-    public String[] queryCalendarTemplate(@NonNull Context context, @NonNull String calendarName)
+    public static String[] queryCalendarTemplate(@NonNull Context context, @NonNull String calendarName)
     {
         String[] elements = new String[3];
         ContentResolver resolver = context.getContentResolver();
@@ -173,7 +173,7 @@ public class CalendarHelper
                 }
 
             } catch (SecurityException e) {
-                Log.e(getClass().getSimpleName(), "queryCalendarTemplate: Unable to access " + CalendarEventTemplateContract.AUTHORITY + "! " + e);
+                Log.e("CalendarHelper", "queryCalendarTemplate: Unable to access " + CalendarEventTemplateContract.AUTHORITY + "! " + e);
             }
         }
         return elements;
