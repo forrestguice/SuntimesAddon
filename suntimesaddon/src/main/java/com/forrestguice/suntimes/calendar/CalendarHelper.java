@@ -152,7 +152,7 @@ public class CalendarHelper
      * @param calendarName calendar name
      * @return String[3] {title, desc, location} (elements will be null if undefined)
      */
-    private String[] queryCalendarTemplate(@NonNull Context context, @NonNull String calendarName)
+    public String[] queryCalendarTemplate(@NonNull Context context, @NonNull String calendarName)
     {
         String[] elements = new String[3];
         ContentResolver resolver = context.getContentResolver();
