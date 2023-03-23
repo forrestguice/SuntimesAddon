@@ -19,9 +19,14 @@
 package com.forrestguice.suntimes.calendar;
 
 import android.annotation.TargetApi;
+import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.net.Uri;
 import android.provider.CalendarContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -137,6 +142,75 @@ public class CalendarHelper
                     v.get(CalendarContract.Events.DTSTART), v.get(CalendarContract.Events.DTEND), v.get(CalendarContract.Events.EVENT_LOCATION),
                     v.get(CalendarContract.Events.AVAILABILITY), v.get(CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS), v.get(CalendarContract.Events.GUESTS_CAN_SEE_GUESTS), v.get(CalendarContract.Events.GUESTS_CAN_MODIFY)
             });
+        }
+        return cursor;
+    }
+
+    /**
+     * Retrieves user-defined calendar template from SuntimesCalendars (if defined).
+     * @param context used by contentResolver
+     * @param calendarName calendar name
+     * @return String[3] {title, desc, location} (elements will be null if undefined)
+     */
+    private String[] queryCalendarTemplate(@NonNull Context context, @NonNull String calendarName)
+    {
+        String[] elements = new String[3];
+        ContentResolver resolver = context.getContentResolver();
+        if (resolver != null)
+        {
+            Uri uri = Uri.parse("content://" + CalendarEventTemplateContract.AUTHORITY + "/" + CalendarEventTemplateContract.QUERY_TEMPLATE + "/" + calendarName);
+            try {
+                Cursor cursor = resolver.query(uri, CalendarEventTemplateContract.QUERY_TEMPLATE_PROJECTION, null, null, null);
+                if (cursor != null)
+                {
+                    int i_template_title = cursor.getColumnIndex(CalendarEventTemplateContract.COLUMN_TEMPLATE_TITLE);
+                    int i_template_desc = cursor.getColumnIndex(CalendarEventTemplateContract.COLUMN_TEMPLATE_DESCRIPTION);
+                    int i_template_location = cursor.getColumnIndex(CalendarEventTemplateContract.COLUMN_TEMPLATE_LOCATION);
+                    elements[0] = (i_template_title >= 0 ? cursor.getString(i_template_title) : null);
+                    elements[1] = (i_template_desc >= 0 ? cursor.getString(i_template_desc) : null);
+                    elements[2] = (i_template_location >= 0 ? cursor.getString(i_template_location) : null);
+                    cursor.close();
+                }
+
+            } catch (SecurityException e) {
+                Log.e(getClass().getSimpleName(), "queryCalendarTemplate: Unable to access " + CalendarEventTemplateContract.AUTHORITY + "! " + e);
+            }
+        }
+        return elements;
+    }
+
+    /**
+     * Creates a MatrixCursor containing template string values.
+     * @param values array of template string values
+     * @return a MatrixCursor of template string values
+     */
+    public static Cursor createTemplateStringsCursor(@Nullable String[] values) {
+        return createTemplateStringsCursor(values, null);
+    }
+    public static Cursor createTemplateStringsCursor(@Nullable String[] values, @Nullable String[] projection)
+    {
+        String[] columns = (projection != null ? projection : QUERY_CALENDAR_TEMPLATE_STRINGS_PROJECTION);
+        MatrixCursor cursor = new MatrixCursor(columns);
+        if (values != null && values.length > 0)
+        {
+            for (int i=0; i<values.length; i++)
+            {
+                Object[] row = new Object[columns.length];
+                for (int j=0; j<columns.length; j++)
+                {
+                    switch (columns[j])
+                    {
+                        case CalendarEventTemplateContract.COLUMN_TEMPLATE_STRINGS:
+                            row[j] = values[i];
+                            break;
+
+                        default:
+                            row[j] = null;
+                            break;
+                    }
+                }
+                cursor.addRow(row);
+            }
         }
         return cursor;
     }
