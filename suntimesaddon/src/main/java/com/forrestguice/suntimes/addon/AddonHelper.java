@@ -96,12 +96,22 @@ public class AddonHelper
     public static final String ACTIVITY_WIDGETCONFIG = SUNTIMES_PACKAGE + ".SuntimesConfigActivity0";
 
     public static final String ACTIVITY_SETTINGS = SUNTIMES_PACKAGE + ".SuntimesSettingsActivity";
-    public static final String FRAGMENT_SETTINGS_GENERAL = ACTIVITY_SETTINGS + "$GeneralPrefsFragment";
-    public static final String FRAGMENT_SETTINGS_ALARMS = ACTIVITY_SETTINGS + "$AlarmPrefsFragment";
-    public static final String FRAGMENT_SETTINGS_CALENDARS = ACTIVITY_SETTINGS + "$CalendarPrefsFragment";
-    public static final String FRAGMENT_SETTINGS_LOCALE = ACTIVITY_SETTINGS + "$LocalePrefsFragment";
-    public static final String FRAGMENT_SETTINGS_PLACES = ACTIVITY_SETTINGS + "$PlacesPrefsFragment";
-    public static final String FRAGMENT_SETTINGS_UI = ACTIVITY_SETTINGS + "$UIPrefsFragment";
+
+    /* FRAGMENT_SETTINGS_* are current fragment identifiers (Suntimes v0.15.2 (99+))  */
+    public static final String FRAGMENT_SETTINGS_GENERAL = SUNTIMES_PACKAGE + ".settings.fragments.GeneralPrefsFragment";
+    public static final String FRAGMENT_SETTINGS_ALARMS = SUNTIMES_PACKAGE + ".settings.fragments.AlarmPrefsFragment";
+    public static final String FRAGMENT_SETTINGS_CALENDARS = SUNTIMES_PACKAGE + ".settings.fragments.CalendarPrefsFragment";
+    public static final String FRAGMENT_SETTINGS_LOCALE = SUNTIMES_PACKAGE + ".settings.fragments.LocalePrefsFragment";
+    public static final String FRAGMENT_SETTINGS_PLACES = SUNTIMES_PACKAGE + ".settings.fragments.PlacesPrefsFragment";
+    public static final String FRAGMENT_SETTINGS_UI = SUNTIMES_PACKAGE + ".settings.fragments.UIPrefsFragment";
+
+    /* FRAGMENT_SETTINGS_*0 are legacy fragment identifiers (Suntimes v0.15.1 (98 and under)) */
+    public static final String FRAGMENT_SETTINGS_GENERAL0 = ACTIVITY_SETTINGS + "$GeneralPrefsFragment";
+    public static final String FRAGMENT_SETTINGS_ALARMS0 = ACTIVITY_SETTINGS + "$AlarmPrefsFragment";
+    public static final String FRAGMENT_SETTINGS_CALENDARS0 = ACTIVITY_SETTINGS + "$CalendarPrefsFragment";
+    public static final String FRAGMENT_SETTINGS_LOCALE0 = ACTIVITY_SETTINGS + "$LocalePrefsFragment";
+    public static final String FRAGMENT_SETTINGS_PLACES0 = ACTIVITY_SETTINGS + "$PlacesPrefsFragment";
+    public static final String FRAGMENT_SETTINGS_UI0 = ACTIVITY_SETTINGS + "$UIPrefsFragment";
 
     public static final String CATEGORY_SUNTIMES_ADDON = "suntimes.SUNTIMES_ADDON";
     public static final String ACTION_ABOUT = "suntimes.action.SHOW_ABOUT";
@@ -323,6 +333,12 @@ public class AddonHelper
             extras.putBoolean(PreferenceActivity.EXTRA_NO_HEADERS, true);
         }
         return createIntent(SUNTIMES_PACKAGE, ACTIVITY_SETTINGS, null, extras, null, 0);
+    }
+
+    public void startSuntimesSettingsActivity_calendarIntegration(Context context, SuntimesInfo info)
+    {
+        String fragment = ((info.appCode >= 99) ? AddonHelper.FRAGMENT_SETTINGS_CALENDARS : AddonHelper.FRAGMENT_SETTINGS_CALENDARS0);
+        AddonHelper.startSuntimesSettingsActivity(context, fragment);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
