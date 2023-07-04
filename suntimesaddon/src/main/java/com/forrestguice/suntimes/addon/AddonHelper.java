@@ -335,9 +335,9 @@ public class AddonHelper
         return createIntent(SUNTIMES_PACKAGE, ACTIVITY_SETTINGS, null, extras, null, 0);
     }
 
-    public void startSuntimesSettingsActivity_calendarIntegration(Context context, SuntimesInfo info)
+    public static void startSuntimesSettingsActivity_calendarIntegration(Context context, int appCode)
     {
-        String fragment = ((info.appCode >= 99) ? AddonHelper.FRAGMENT_SETTINGS_CALENDARS : AddonHelper.FRAGMENT_SETTINGS_CALENDARS0);
+        String fragment = ((appCode >= 99) ? AddonHelper.FRAGMENT_SETTINGS_CALENDARS : AddonHelper.FRAGMENT_SETTINGS_CALENDARS0);
         AddonHelper.startSuntimesSettingsActivity(context, fragment);
     }
 
