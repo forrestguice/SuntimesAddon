@@ -84,17 +84,23 @@ public abstract class AppThemeInfo
     {
         if (info != null)
         {
-            if (info.appThemeOverride != null)
-            {
-                String themeName = ((info.appTextSize != null) ? getExtendedThemeName(info.appThemeOverride, info.appTextSize)
-                                                               : info.appThemeOverride);
-                return setTheme(activity, themeName);
+            if (info.appThemeOverride != null) {
+                return setTheme(activity, themeNameFromInfo(info));
 
             } else if (info.appTheme != null) {
                 return setTheme(activity, info.appTheme);
             }
         }
         return 0;
+    }
+
+    /**
+     * themeNameFromInfo
+     */
+    public static String themeNameFromInfo(SuntimesInfo info)
+    {
+        return ((info.appTextSize != null) ? getExtendedThemeName(info.appThemeOverride, info.appTextSize)
+                : getExtendedThemeName(info.appThemeOverride, TextSize.NORMAL.name()));
     }
 
     /**
