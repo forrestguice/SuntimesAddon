@@ -107,6 +107,7 @@
     <color name="grey_800">#ff424242</color>
     <color name="grey_850">#ff303030</color>
     <color name="grey_900">#ff212121</color>
+    <color name="grey_999">#ff111111</color>
     <color name="deep_teal_200">#ff80cbc4</color>
     <color name="deep_teal_500">#ff009688</color>
 </resources>
