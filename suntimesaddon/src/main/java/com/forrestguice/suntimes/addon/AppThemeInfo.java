@@ -80,6 +80,23 @@ public abstract class AppThemeInfo
         return themeResID;
     }
 
+    public static int setTheme(Activity activity, SuntimesInfo info)
+    {
+        if (info != null)
+        {
+            if (info.appThemeOverride != null)
+            {
+                String themeName = ((info.appTextSize != null) ? getExtendedThemeName(info.appThemeOverride, info.appTextSize)
+                                                               : info.appThemeOverride);
+                return setTheme(activity, themeName);
+
+            } else if (info.appTheme != null) {
+                return setTheme(activity, info.appTheme);
+            }
+        }
+        return 0;
+    }
+
     /**
      * themePrefToStyleId
      */
