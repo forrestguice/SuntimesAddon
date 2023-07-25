@@ -307,6 +307,12 @@
         <item name="android:drawableRight">@drawable/ic_transparent</item>
     </style>
 
+    <style name="ToolbarTitleTextAppearance" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">?attr/text_size_xlarge</item>
+    </style>
+    <style name="ToolbarSubtitleTextAppearance" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">?attr/text_size_small</item>
+    </style>
 
     <style name="ToastTextAppearance">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
