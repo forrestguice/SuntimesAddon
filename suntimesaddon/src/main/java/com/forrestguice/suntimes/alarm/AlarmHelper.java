@@ -23,9 +23,10 @@ import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 //import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
+
+import com.forrestguice.suntimes.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Calendar;

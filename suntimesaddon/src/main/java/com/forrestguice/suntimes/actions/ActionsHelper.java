@@ -21,11 +21,11 @@ package com.forrestguice.suntimes.actions;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 //import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 
 import com.forrestguice.suntimes.addon.SuntimesInfo;
+import com.forrestguice.suntimes.annotation.Nullable;
 
 import java.util.Arrays;
 import java.util.Set;

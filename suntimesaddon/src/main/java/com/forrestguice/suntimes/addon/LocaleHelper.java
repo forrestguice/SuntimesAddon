@@ -23,9 +23,10 @@ import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.util.Log;
+
+import com.forrestguice.suntimes.annotation.NonNull;
 
 import java.util.Locale;
 
@@ -98,7 +99,8 @@ public class LocaleHelper
     /**
      * localeForLanguageTag
      */
-    public static @NonNull Locale localeForLanguageTag(@NonNull String languageTag)
+    public static @NonNull
+    Locale localeForLanguageTag(@NonNull String languageTag)
     {
         Locale locale;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)

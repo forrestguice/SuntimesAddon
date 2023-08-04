@@ -21,7 +21,6 @@ package com.forrestguice.suntimes.addonexample;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +41,7 @@ import com.forrestguice.suntimes.addon.SuntimesInfo;
 import com.forrestguice.suntimes.addon.ui.Messages;
 import com.forrestguice.suntimes.alarm.AlarmHelper;
 import com.forrestguice.suntimes.alarm.SuntimesAlarmsContract;
+import com.forrestguice.suntimes.annotation.Nullable;
 import com.forrestguice.suntimes.themes.SuntimesThemeContract;
 import com.forrestguice.suntimes.themes.ThemeHelper;
 

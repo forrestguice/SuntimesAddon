@@ -18,7 +18,8 @@
 package com.forrestguice.suntimes.calendar;
 
 import android.content.ContentValues;
-import android.support.annotation.Nullable;
+
+import com.forrestguice.suntimes.annotation.Nullable;
 
 /**
  * TemplatePatterns
