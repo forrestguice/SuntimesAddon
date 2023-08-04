@@ -26,7 +26,8 @@ import android.database.MatrixCursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
+
+import com.forrestguice.suntimes.ContextCompat;
 
 import java.io.ByteArrayOutputStream;
 
