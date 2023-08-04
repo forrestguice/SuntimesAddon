@@ -21,7 +21,6 @@ package com.forrestguice.suntimes.addon;
 import android.app.Activity;
 import android.app.UiModeManager;
 import android.content.Context;
-import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
 import com.forrestguice.suntimes.annotation.Nullable;
@@ -31,6 +30,11 @@ import com.forrestguice.suntimes.annotation.Nullable;
  */
 public abstract class AppThemeInfo
 {
+    public static final int MODE_NIGHT_NO = 1;
+    public static final int MODE_NIGHT_YES = 2;
+    public static final int MODE_NIGHT_AUTO = 0;
+    public static final int MODE_NIGHT_FOLLOW_SYSTEM = -1;
+
     public abstract int getStyleId(Context context, TextSize textSize);
     public abstract String getThemeName();
 
@@ -76,7 +80,7 @@ public abstract class AppThemeInfo
         Log.d("DEBUG", "setTheme: " + appTheme);
         int themeResID = themePrefToStyleId(activity, appTheme);
         activity.setTheme(themeResID);
-        AppCompatDelegate.setDefaultNightMode(info.loadThemeInfo(appTheme).getDefaultNightMode());
+        info.setDefaultNightMode(info.loadThemeInfo(appTheme).getDefaultNightMode());
         return themeResID;
     }
 
@@ -141,13 +145,18 @@ public abstract class AppThemeInfo
 
                 @Override
                 public int getDefaultNightMode() {
-                    return AppCompatDelegate.MODE_NIGHT_NO;
+                    return MODE_NIGHT_NO;
                 }
             };
         }
         @Override
         public int getDefaultThemeID() {
             return R.style.SuntimesAddonTheme_Dark;
+        }
+
+        @Override
+        public void setDefaultNightMode(int mode) {
+            //AppCompatDelegate.setDefaultNightMode(mode);
         }
     };
 
@@ -209,6 +218,7 @@ public abstract class AppThemeInfo
     {
         public abstract AppThemeInfo loadThemeInfo(@Nullable String extendedThemeName);
         public abstract int getDefaultThemeID();
+        public abstract void setDefaultNightMode(int mode);
     }
 
 }
