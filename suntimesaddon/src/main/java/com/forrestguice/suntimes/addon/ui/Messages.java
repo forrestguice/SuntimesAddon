@@ -22,31 +22,24 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.net.Uri;
-import android.os.Build;
-import android.support.design.widget.Snackbar;
 import android.text.Html;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.Menu;
 import android.view.View;
-import android.view.ViewParent;
-import android.view.accessibility.AccessibilityEvent;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.forrestguice.suntimes.ContextCompat;
 import com.forrestguice.suntimes.addon.R;
 import com.forrestguice.suntimes.annotation.NonNull;
 import com.forrestguice.suntimes.annotation.Nullable;
-
-import java.lang.reflect.Method;
+import com.google.android.material.snackbar.Snackbar;
 
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
-public class Messages
+public class Messages extends MessagesBase
 {
+    public static TextView getSnackBarText(View v) {
+        return (TextView)v.findViewById(com.google.android.material.R.id.snackbar_text);
+    }
+
     @NonNull
     public static Snackbar createMessage(Context context, @NonNull View view, @NonNull CharSequence message, int textSize, int maxLines, int displayLength, @Nullable View.OnClickListener onClickListener)
     {
@@ -57,7 +50,7 @@ public class Messages
         //snackbarView.setBackgroundColor(ContextCompat.getColor(context, R.color.snackbarError_background));   // TODO
         snackbarView.setOnClickListener(onClickListener);
 
-        TextView textView = (TextView)snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+        TextView textView = getSnackBarText(snackbarView);
         if (textView != null)
         {
             //textView.setTextColor(ContextCompat.getColor(context, R.color.snackbarError_text));    // TODO
@@ -108,91 +101,18 @@ public class Messages
     @SuppressLint("ResourceType")
     public static void themeSnackbar(Context context, @NonNull Snackbar snackbar, @Nullable Integer[] colorOverrides)
     {
-        Integer[] colors = new Integer[] {null, null, null};
-        int[] colorAttrs = { R.attr.snackbar_textColor, R.attr.snackbar_accentColor, R.attr.snackbar_backgroundColor };
-        TypedArray a = context.obtainStyledAttributes(colorAttrs);
-        colors[0] = ContextCompat.getColor(context, a.getResourceId(0, android.R.color.primary_text_dark));
-        colors[1] = ContextCompat.getColor(context, a.getResourceId(1, R.color.colorAccent_dark));
-        colors[2] = ContextCompat.getColor(context, a.getResourceId(2, R.color.card_dark));
-        a.recycle();
-
-        if (colorOverrides != null && colorOverrides.length == colors.length) {
-            for (int i=0; i<colors.length; i++) {
-                if (colorOverrides[i] != null) {
-                    colors[i] = colorOverrides[i];
-                }
-            }
-        }
+        Integer[] colors = getSnackbarColors(context, colorOverrides);
 
         View snackbarView = snackbar.getView();
         snackbarView.setBackgroundColor(colors[2]);
         snackbar.setActionTextColor(colors[1]);
 
-        TextView snackbarText = (TextView)snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+        TextView snackbarText = getSnackBarText(snackbarView);
         if (snackbarText != null) {
             snackbarText.setTextColor(colors[0]);
             snackbarText.setMaxLines(3);
         }
     }
 
-    /**
-     * from http://stackoverflow.com/questions/18374183/how-to-show-icons-in-overflow-menu-in-actionbar
-     */
-    public static void forceActionBarIcons(Menu menu)
-    {
-        if (menu != null)
-        {
-            if (menu.getClass().getSimpleName().equals("MenuBuilder"))
-            {
-                try {
-                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
-                    m.setAccessible(true);
-                    m.invoke(menu, true);
-
-                } catch (Exception e) {
-                    Log.e("forceActionBarIcons", "failed to set show overflow icons", e);
-                }
-            }
-        }
-    }
-
-    /**
-     * @param view the View to trigger the accessibility event
-     * @param msg text that will be read aloud (if accessibility enabled)
-     */
-    public static void announceForAccessibility(View view, String msg)
-    {
-        if (view != null && msg != null)
-        {
-            if (Build.VERSION.SDK_INT >= 16)
-            {
-                view.announceForAccessibility(msg);
-
-            } else {
-                Context context = view.getContext();
-                if (context != null)
-                {
-                    AccessibilityManager accesibility = (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
-                    if (accesibility != null && accesibility.isEnabled())
-                    {
-                        AccessibilityEvent event = AccessibilityEvent.obtain(AccessibilityEvent.TYPE_VIEW_FOCUSED);
-                        event.getText().add(msg);
-                        event.setEnabled(view.isEnabled());
-                        event.setClassName(view.getClass().getName());
-                        event.setPackageName(context.getPackageName());
-
-                        ViewParent parent = view.getParent();
-                        if (Build.VERSION.SDK_INT >= 14 && parent != null)
-                        {
-                            parent.requestSendAccessibilityEvent(view, event);
-
-                        } else {
-                            accesibility.sendAccessibilityEvent(event);
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
 

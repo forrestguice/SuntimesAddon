@@ -33,12 +33,12 @@ import com.forrestguice.suntimes.addon.R;
 import com.forrestguice.suntimes.annotation.NonNull;
 import com.forrestguice.suntimes.annotation.Nullable;
 
-import android.support.design.widget.Snackbar;
+//import android.support.design.widget.Snackbar;
 
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public class MessagesLegacy extends MessagesBase
 {
-    public static TextView getSnackBarText(View v) {
+  /*  public static TextView getSnackBarText(View v) {
         return (TextView)v.findViewById(android.support.design.R.id.snackbar_text);
     }
 
@@ -116,6 +116,6 @@ public class MessagesLegacy extends MessagesBase
         }
     }
 
-
+*/
 }
 
