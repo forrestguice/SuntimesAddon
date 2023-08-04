@@ -19,11 +19,10 @@
 package com.forrestguice.suntimes.actions;
 
 import android.content.ContentResolver;
-import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SimpleCursorAdapter;
+//import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 
 import com.forrestguice.suntimes.addon.SuntimesInfo;
@@ -67,12 +66,12 @@ public class ActionsHelper
      * @param context Context
      * @return CursorAdapter
      */
-    public static SimpleCursorAdapter createActionListCursorAdapter(Context context)
+    /*public static SimpleCursorAdapter createActionListCursorAdapter(Context context)
     {
         Cursor cursor = queryActions(context.getContentResolver());
         return new SimpleCursorAdapter(context, android.R.layout.two_line_list_item, cursor,
                 new String[] { SuntimesActionsContract.COLUMN_ACTION_TITLE, SuntimesActionsContract.COLUMN_ACTION_DESC }, new int[] { android.R.id.text1, android.R.id.text2 }, 0 );
-    }
+    }*/
 
     /**
      * queryActions

@@ -26,7 +26,7 @@ import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SimpleCursorAdapter;
+//import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 
 import com.forrestguice.suntimes.addon.SuntimesInfo;
@@ -39,12 +39,12 @@ public class ThemeHelper
      * @param context Context
      * @return CursorAdapter
      */
-    public static SimpleCursorAdapter createThemeListCursorAdapter(Context context)
+    /*public static SimpleCursorAdapter createThemeListCursorAdapter(Context context)
     {
         Cursor cursor = queryThemes(context.getContentResolver());
         return new SimpleCursorAdapter(context, android.R.layout.simple_list_item_1, cursor,
                 new String[] { SuntimesThemeContract.THEME_DISPLAYSTRING }, new int[] { android.R.id.text1 }, 0 );
-    }
+    }*/
 
     /**
      * queryThemes

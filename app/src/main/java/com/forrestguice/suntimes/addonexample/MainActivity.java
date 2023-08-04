@@ -194,9 +194,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initAlarmsAdapter() {
-        alarmsAdapter = AlarmHelper.createAlarmListCursorAdapter(this);
+        alarmsAdapter = createAlarmListCursorAdapter(this);
     }
-
+    public static SimpleCursorAdapter createAlarmListCursorAdapter(Context context)
+    {
+        Cursor cursor = AlarmHelper.queryAlarms(context.getContentResolver());
+        return new SimpleCursorAdapter(context, android.R.layout.two_line_list_item, cursor,
+                new String[] { SuntimesAlarmsContract.KEY_ALARM_TYPE, SuntimesAlarmsContract.KEY_ALARM_SOLAREVENT }, new int[] { android.R.id.text1, android.R.id.text2 }, 0 );
+    }
 
     private void showAlarm()
     {
@@ -240,7 +245,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initActionsAdapter() {
-        actionsAdapter = ActionsHelper.createActionListCursorAdapter(this);
+        actionsAdapter = createActionListCursorAdapter(this);
+    }
+    public static SimpleCursorAdapter createActionListCursorAdapter(Context context)
+    {
+        Cursor cursor = ActionsHelper.queryActions(context.getContentResolver());
+        return new SimpleCursorAdapter(context, android.R.layout.two_line_list_item, cursor,
+                new String[] { SuntimesActionsContract.COLUMN_ACTION_TITLE, SuntimesActionsContract.COLUMN_ACTION_DESC }, new int[] { android.R.id.text1, android.R.id.text2 }, 0 );
     }
 
     private void selectAction(@Nullable String actionID)
@@ -320,7 +331,13 @@ public class MainActivity extends AppCompatActivity
 
     private void initThemeAdapter()
     {
-        themeAdapter = ThemeHelper.createThemeListCursorAdapter(this);
+        themeAdapter = createThemeListCursorAdapter(this);
+    }
+    public static SimpleCursorAdapter createThemeListCursorAdapter(Context context)
+    {
+        Cursor cursor = ThemeHelper.queryThemes(context.getContentResolver());
+        return new SimpleCursorAdapter(context, android.R.layout.simple_list_item_1, cursor,
+                new String[] { SuntimesThemeContract.THEME_DISPLAYSTRING }, new int[] { android.R.id.text1 }, 0 );
     }
 
     private void selectTheme(@Nullable String themeName)

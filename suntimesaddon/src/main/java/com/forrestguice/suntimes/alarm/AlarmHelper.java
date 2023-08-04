@@ -20,12 +20,11 @@ package com.forrestguice.suntimes.alarm;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SimpleCursorAdapter;
+//import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -254,12 +253,12 @@ public class AlarmHelper
      * @param context Context
      * @return CursorAdapter
      */
-    public static SimpleCursorAdapter createAlarmListCursorAdapter(Context context)
+    /*public static SimpleCursorAdapter createAlarmListCursorAdapter(Context context)
     {
         Cursor cursor = queryAlarms(context.getContentResolver());
         return new SimpleCursorAdapter(context, android.R.layout.two_line_list_item, cursor,
                 new String[] { SuntimesAlarmsContract.KEY_ALARM_TYPE, SuntimesAlarmsContract.KEY_ALARM_SOLAREVENT }, new int[] { android.R.id.text1, android.R.id.text2 }, 0 );
-    }
+    }*/
 
     /**
      * queryAlarms
