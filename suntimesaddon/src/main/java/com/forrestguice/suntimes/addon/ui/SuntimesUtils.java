@@ -32,7 +32,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.InsetDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
-import android.support.v4.content.res.ResourcesCompat;
+
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -49,6 +49,9 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.widget.ImageView;
 
+//import android.support.v4.content.res.ResourcesCompat;
+//import androidx.core.content.res.ResourcesCompat;
+import com.forrestguice.suntimes.ResourcesCompat;
 import com.forrestguice.suntimes.addon.R;
 import com.forrestguice.suntimes.addon.TimeZoneHelper;
 import com.forrestguice.suntimes.annotation.NonNull;
