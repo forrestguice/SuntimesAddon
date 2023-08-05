@@ -1,5 +1,16 @@
 ~
 
+### v0.4.0 (2023-08-04)
+* adds support for "text size" setting and high contrast themes; adds AppThemeInfo helper class.
+* adds tooltip support for older Android versions.
+* fixes bug where toasts are unreadable on api33+.
+* updates CalculatorProviderContract (v0.5.0).
+* updates AddonHelper; legacy settings fragment identifiers (changed in Suntimes v0.15.2).
+* updates AlarmHelper; support for add-on dismiss challenge.
+* updates CalendarHelper; support for templates (adds contract and patterns).
+* updates build; minSdkVersion 11->14, targetSdkVersion 25->28, support libs updated to 28.0.0.
+* other changes in preparation for future migration to AndroidX libraries; annotations, ContextCompat, ResourcesCompat.
+
 ### v0.3.0 (2022-02-04)
 * adds AlarmHelper; add-ons may define custom alarm events.
 * adds ActionsHelper; add-ons can access user-defined actions.
