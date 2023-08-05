@@ -27,17 +27,19 @@ import android.text.Html;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.forrestguice.suntimes.addon.R;
 import com.forrestguice.suntimes.annotation.NonNull;
 import com.forrestguice.suntimes.annotation.Nullable;
-import com.google.android.material.snackbar.Snackbar;
+
+import android.support.design.widget.Snackbar;
 
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public class Messages extends MessagesBase
 {
     public static TextView getSnackBarText(View v) {
-        return (TextView)v.findViewById(com.google.android.material.R.id.snackbar_text);
+        return (TextView)v.findViewById(android.support.design.R.id.snackbar_text);
     }
 
     @NonNull
