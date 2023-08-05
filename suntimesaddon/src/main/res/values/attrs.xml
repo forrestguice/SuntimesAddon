@@ -46,5 +46,6 @@
     <attr name="text_size_xlarge" format="dimension" />
     <attr name="text_size_huge" format="dimension" />
     <attr name="text_size_enormous" format="dimension" />
+    <attr name="bottomBarSize" format="reference" />
 
 </resources>

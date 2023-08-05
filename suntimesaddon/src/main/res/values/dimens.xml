@@ -46,6 +46,11 @@
     <dimen name="large_actionbar_size">64sp</dimen>
     <dimen name="xlarge_actionbar_size">68sp</dimen>
 
+    <dimen name="small_bottombar_size">32sp</dimen>    <!-- bottom bar minimum height -->
+    <dimen name="normal_bottombar_size">34sp</dimen>
+    <dimen name="large_bottombar_size">36sp</dimen>
+    <dimen name="xlarge_bottombar_size">38sp</dimen>
+
     <dimen name="sunIcon_height">9dip</dimen>
     <dimen name="sunIcon_width">24dip</dimen>
     <dimen name="sunIcon_inset">-9dip</dimen> <!-- this should be the same as sunicon_height to produce a half circle -->
