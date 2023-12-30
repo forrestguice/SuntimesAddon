@@ -153,7 +153,7 @@ public class CalendarHelper
      * @param calendarName calendar name
      * @return String[3] {title, desc, location} (elements will be null if undefined)
      */
-    public static String[] queryCalendarTemplate(@NonNull Context context, @NonNull String calendarName)
+    public static String[] queryCalendarTemplate(@com.forrestguice.suntimes.annotation.NonNull Context context, @com.forrestguice.suntimes.annotation.NonNull String calendarName)
     {
         String[] elements = new String[3];
         ContentResolver resolver = context.getContentResolver();
@@ -164,12 +164,16 @@ public class CalendarHelper
                 Cursor cursor = resolver.query(uri, CalendarEventTemplateContract.QUERY_TEMPLATE_PROJECTION, null, null, null);
                 if (cursor != null)
                 {
-                    int i_template_title = cursor.getColumnIndex(CalendarEventTemplateContract.COLUMN_TEMPLATE_TITLE);
-                    int i_template_desc = cursor.getColumnIndex(CalendarEventTemplateContract.COLUMN_TEMPLATE_DESCRIPTION);
-                    int i_template_location = cursor.getColumnIndex(CalendarEventTemplateContract.COLUMN_TEMPLATE_LOCATION);
-                    elements[0] = (i_template_title >= 0 ? cursor.getString(i_template_title) : null);
-                    elements[1] = (i_template_desc >= 0 ? cursor.getString(i_template_desc) : null);
-                    elements[2] = (i_template_location >= 0 ? cursor.getString(i_template_location) : null);
+                    cursor.moveToFirst();
+                    if (!cursor.isAfterLast())
+                    {
+                        int i_template_title = cursor.getColumnIndex(CalendarEventTemplateContract.COLUMN_TEMPLATE_TITLE);
+                        int i_template_desc = cursor.getColumnIndex(CalendarEventTemplateContract.COLUMN_TEMPLATE_DESCRIPTION);
+                        int i_template_location = cursor.getColumnIndex(CalendarEventTemplateContract.COLUMN_TEMPLATE_LOCATION);
+                        elements[0] = (i_template_title >= 0 ? cursor.getString(i_template_title) : null);
+                        elements[1] = (i_template_desc >= 0 ? cursor.getString(i_template_desc) : null);
+                        elements[2] = (i_template_location >= 0 ? cursor.getString(i_template_location) : null);
+                    }
                     cursor.close();
                 }
 
