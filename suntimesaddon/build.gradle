@@ -32,6 +32,15 @@ android {
         }
     }
 
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        if (project.properties['android.useAndroidX'] && names.contains("supportlib")) {
+            setIgnore(true)
+        } else if (!project.properties['android.useAndroidX'] && names.contains("androidx")) {
+            setIgnore(true)
+        }
+    }
+
     lintOptions {
         disable 'MissingTranslation'
     }
