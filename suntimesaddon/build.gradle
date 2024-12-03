@@ -86,8 +86,8 @@ dependencies {
     androidxApi28Implementation 'com.google.android.material:material:1.0.0'
     androidxApi28Implementation 'androidx.appcompat:appcompat:1.0.0'
 
-    androidxApi30Implementation 'com.google.android.material:material:1.6.0'
-    androidxApi30Implementation 'androidx.appcompat:appcompat:1.6.1'
+    androidxApi30Implementation 'com.google.android.material:material:1.4.0'
+    androidxApi30Implementation 'androidx.appcompat:appcompat:1.3.1'
 
     androidxApi33Implementation 'com.google.android.material:material:1.6.0'
     androidxApi33Implementation 'androidx.appcompat:appcompat:1.6.1'
