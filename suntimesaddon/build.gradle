@@ -82,10 +82,7 @@ android {
 dependencies {
     supportlibImplementation 'com.android.support:design:28.0.0'
     supportlibImplementation 'com.android.support:appcompat-v7:28.0.0'
-
-    androidxImplementation 'com.google.android.material:material:1.6.0'
-    androidxImplementation 'androidx.appcompat:appcompat:1.6.1'
-
+    
     androidxApi28Implementation 'com.google.android.material:material:1.0.0'
     androidxApi28Implementation 'androidx.appcompat:appcompat:1.0.0'
 
