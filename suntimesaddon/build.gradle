@@ -18,7 +18,7 @@ android {
         }
     }
 
-    flavorDimensions "version"
+    flavorDimensions "version", "api"
     productFlavors {
         supportlib {
             dimension "version"
@@ -36,13 +36,40 @@ android {
             versionNameSuffix "-androidx"
             testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         }
+
+        api28 {
+            dimension "api"
+            compileSdkVersion 28
+            //noinspection ExpiredTargetSdkVersion,OldTargetApi
+            targetSdkVersion 28
+            versionNameSuffix "-api28"
+        }
+        api30 {
+            dimension "api"
+            compileSdkVersion 30
+            //noinspection ExpiredTargetSdkVersion,OldTargetApi
+            targetSdkVersion 30
+            versionNameSuffix "-api30"
+        }
+        api33 {
+            dimension "api"
+            compileSdkVersion 33
+            //noinspection ExpiredTargetSdkVersion,OldTargetApi
+            targetSdkVersion 33
+            versionNameSuffix "-api33"
+        }
+    }
+    configurations {
+        androidxApi28Implementation {}
+        androidxApi30Implementation {}
+        androidxApi33Implementation {}
     }
 
     variantFilter { variant ->
         def names = variant.flavors*.name
         if (project.properties['android.useAndroidX'] && names.contains("supportlib")) {
             setIgnore(true)
-        } else if (!project.properties['android.useAndroidX'] && names.contains("androidx")) {
+        } else if (!project.properties['android.useAndroidX'] && (names.contains("androidx") || names.contains("api30") || names.contains("api33"))) {
             setIgnore(true)
         }
     }
@@ -58,6 +85,15 @@ dependencies {
 
     androidxImplementation 'com.google.android.material:material:1.6.0'
     androidxImplementation 'androidx.appcompat:appcompat:1.6.1'
+
+    androidxApi28Implementation 'com.google.android.material:material:1.0.0'
+    androidxApi28Implementation 'androidx.appcompat:appcompat:1.0.0'
+
+    androidxApi30Implementation 'com.google.android.material:material:1.6.0'
+    androidxApi30Implementation 'androidx.appcompat:appcompat:1.6.1'
+
+    androidxApi33Implementation 'com.google.android.material:material:1.6.0'
+    androidxApi33Implementation 'androidx.appcompat:appcompat:1.6.1'
 
     testImplementation 'junit:junit:4.12'
 
