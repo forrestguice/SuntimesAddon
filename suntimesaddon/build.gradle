@@ -115,7 +115,7 @@ publishing {
         release(MavenPublication) {
             groupId 'com.forrestguice.suntimesaddon'
             artifactId 'suntimesaddon'
-            version '0.4.0'
+            version '0.4.1'
             artifact(sourceJar)
             artifact ("$buildDir/outputs/aar/suntimesaddon-release.aar") {
                 builtBy assemble
