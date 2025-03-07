@@ -1,5 +1,13 @@
 ~
 
+### v0.4.1 (2025-03-07)
+* adds 'supportlib' and 'androidx' build flavors.
+* updates targetSdk 28 -> 33 (androidx flavor).
+* updates agp 3.6.0 -> 4.1.3 (androidx flavor).
+* updates support dependencies (androidx flavor).
+* updates gradle-wrapper 5.6.4 -> 6.5.
+* removes jcenter from the build.
+
 ### v0.4.0 (2023-08-04)
 * adds support for "text size" setting and high contrast themes; adds AppThemeInfo helper class.
 * adds tooltip support for older Android versions.

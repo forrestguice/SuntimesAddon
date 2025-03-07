@@ -92,7 +92,7 @@ private SuntimesInfo suntimesInfo = null;
 
 ### Legal Stuff
 
-Copyright © 2020 Forrest Guice
+Copyright © 2020-2025 Forrest Guice
 
 Source code is available under GPLv3 (https://github.com/forrestguice/SuntimesAddon).
 
