@@ -35,6 +35,8 @@ import com.forrestguice.suntimes.annotation.Nullable;
 
 import java.lang.reflect.Method;
 
+import androidx.appcompat.view.menu.MenuBuilder;
+
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public class MessagesBase
 {
@@ -62,16 +64,20 @@ public class MessagesBase
     /**
      * from http://stackoverflow.com/questions/18374183/how-to-show-icons-in-overflow-menu-in-actionbar
      */
+    @SuppressLint("RestrictedApi")
     public static void forceActionBarIcons(Menu menu)
     {
         if (menu != null)
         {
-            if (menu.getClass().getSimpleName().equals("MenuBuilder"))
+            //if (menu.getClass().getSimpleName().equals("MenuBuilder"))
+            if (menu instanceof MenuBuilder)
             {
                 try {
-                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
-                    m.setAccessible(true);
-                    m.invoke(menu, true);
+                    ((MenuBuilder) menu).setOptionalIconsVisible(true);
+
+                    //Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    //m.setAccessible(true);
+                    //m.invoke(menu, true);
 
                 } catch (Exception e) {
                     Log.e("forceActionBarIcons", "failed to set show overflow icons", e);
