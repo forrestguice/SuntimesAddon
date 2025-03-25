@@ -1,0 +1,5 @@
+<resources>
+    <style name="SuntimesAddonTheme.SystemBase" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge" />
+    <style name="SuntimesAddonTheme.LightBase" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge" />
+    <style name="SuntimesAddonTheme.DarkBase" parent="Theme.MaterialComponents.NoActionBar.Bridge" />
+</resources>
