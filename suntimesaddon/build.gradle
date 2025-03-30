@@ -7,8 +7,8 @@ android {
         minSdkVersion 14
         //noinspection ExpiredTargetSdkVersion,OldTargetApi
         targetSdkVersion 28
-        versionCode 5
-        versionName "0.4.1"
+        versionCode 6
+        versionName "0.4.2"
     }
 
     buildTypes {
@@ -115,7 +115,7 @@ publishing {
         release(MavenPublication) {
             groupId 'com.forrestguice.suntimesaddon'
             artifactId 'suntimesaddon'
-            version '0.4.1'
+            version '0.4.2'
             artifact(sourceJar)
             artifact ("$buildDir/outputs/aar/suntimesaddon-release.aar") {
                 builtBy assemble
