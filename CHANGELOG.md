@@ -1,5 +1,10 @@
 ~
 
+### v0.4.2 (2025-03-29)
+* adds "compass intent" definitions for interactions with compass apps.
+* fixes bug where "menu icons are not shown" (androidx).
+* fixes bug where app themes extend from the wrong style (androidx).
+
 ### v0.4.1 (2025-03-07)
 * adds 'supportlib' and 'androidx' build flavors.
 * updates targetSdk 28 -> 33 (androidx flavor).
