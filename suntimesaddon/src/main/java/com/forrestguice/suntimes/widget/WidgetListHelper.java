@@ -78,10 +78,10 @@ public class WidgetListHelper
      * @param iconResID array of iconResID (for each widgetClass)
      * @return a Cursor containing rows for each running widget (of the supplied widget type)
      */
-    public static MatrixCursor createWidgetListCursor(Context context, Class[] widgetClass, String[] summary, int[] iconResID) {
+    public static MatrixCursor createWidgetListCursor(Context context, Class<?>[] widgetClass, String[] summary, int[] iconResID) {
         return createWidgetListCursor(context, QUERY_WIDGET_PROJECTION, widgetClass, summary, iconResID);
     }
-    public static MatrixCursor createWidgetListCursor(Context context, String[] columns, Class[] widgetClass, String[] summary, int[] iconResID)
+    public static MatrixCursor createWidgetListCursor(Context context, String[] columns, Class<?>[] widgetClass, String[] summary, int[] iconResID)
     {
         MatrixCursor cursor = new MatrixCursor(columns);
         if (context != null)

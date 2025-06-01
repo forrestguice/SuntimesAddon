@@ -209,10 +209,10 @@ public class SuntimesUtils
         NORTH_NW(16,  "NNW", "North North West"   , 337.5),
         NORTH2(1,     "N",   "North"              , 360.0);
 
-        private int pointNum;
+        private final int pointNum;
         private String shortDisplayString;
         private String longDisplayString;
-        private double degrees;
+        private final double degrees;
 
         private CardinalDirection(int pointNum, String shortDisplayString, String longDisplayString, double degrees)
         {
