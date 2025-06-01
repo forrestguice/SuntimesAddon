@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.forrestguice.suntimes.addon">
+
+    <uses-permission android:name="suntimes.permission.READ_CALCULATOR" />  <!-- required to interact w/ Suntimes provider -->
+
+    <queries>
+        <package android:name="com.forrestguice.suntimeswidget" />    <!-- package visibility api 30+ -->
+    </queries>
+
+</manifest>
