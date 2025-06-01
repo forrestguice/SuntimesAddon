@@ -51,6 +51,7 @@ import android.widget.ImageView;
 
 //import android.support.v4.content.res.ResourcesCompat;
 //import androidx.core.content.res.ResourcesCompat;
+import com.forrestguice.suntimes.ContextCompat;
 import com.forrestguice.suntimes.ResourcesCompat;
 import com.forrestguice.suntimes.addon.R;
 import com.forrestguice.suntimes.addon.TimeZoneHelper;
@@ -649,7 +650,7 @@ public class SuntimesUtils
 
     /**
      * @param context a context
-     * @param calendar  a Calendar representing some date
+     * @param date a long representing some date
      * @return a time display string
      */
     public TimeDisplayText calendarDateDisplayString(Context context, long date, boolean showYear)
@@ -1186,7 +1187,7 @@ public class SuntimesUtils
     {
         Drawable drawable = null;
         try {
-            drawable = context.getResources().getDrawable(drawableID);
+            drawable = ContextCompat.getDrawable(context, drawableID);
         } catch (Exception e) {
             Log.e("createImageSpan", "invalid drawableID " + drawableID + "! ...set to null.");
         }

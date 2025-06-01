@@ -1,5 +1,6 @@
 package com.forrestguice.suntimes;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -20,6 +21,8 @@ import com.forrestguice.suntimes.annotation.Nullable;
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  */
+
+@SuppressLint("UseCompatLoadingForDrawables")
 public class ContextCompat
 {
     @SuppressWarnings("deprecation")
