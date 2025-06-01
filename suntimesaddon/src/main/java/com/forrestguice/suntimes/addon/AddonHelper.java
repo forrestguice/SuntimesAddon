@@ -161,7 +161,7 @@ public class AddonHelper
     }
     public static Intent scheduleAlarm(String alarmType, String label, int hour, int minutes, @Nullable TimeZone timezone, @Nullable String solarEvent)
     {
-        Calendar calendar0 = Calendar.getInstance(timezone);
+        Calendar calendar0 = Calendar.getInstance(timezone != null ? timezone : TimeZone.getDefault());
         Calendar calendar1 = Calendar.getInstance(TimeZone.getDefault());
         calendar0.set(Calendar.HOUR_OF_DAY, hour);
         calendar0.set(Calendar.MINUTE, minutes);

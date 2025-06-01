@@ -1,5 +1,6 @@
 package com.forrestguice.suntimes;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -19,6 +20,8 @@ import com.forrestguice.suntimes.annotation.Nullable;
  *       http://www.apache.org/licenses/LICENSE-2.0
  *
  */
+
+@SuppressLint("UseCompatLoadingForDrawables")
 public class ResourcesCompat
 {
     @Nullable

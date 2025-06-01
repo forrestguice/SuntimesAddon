@@ -33,8 +33,6 @@ import com.forrestguice.suntimes.ContextCompat;
 import com.forrestguice.suntimes.addon.R;
 import com.forrestguice.suntimes.annotation.Nullable;
 
-import java.lang.reflect.Method;
-
 import androidx.appcompat.view.menu.MenuBuilder;
 
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
