@@ -67,8 +67,19 @@ android {
 
     variantFilter { variant ->
         def names = variant.flavors*.name
-        if (project.properties['android.useAndroidX'] && names.contains("supportlib")) {
-            setIgnore(true)
+        def targetVersion = project.properties['android.targetVersion'] != null ? project.properties['android.targetVersion'].toInteger() : null
+
+        if (project.properties['android.useAndroidX']) {
+            if (names.contains("supportlib")) {
+                setIgnore(true)
+
+            } else if (targetVersion != null) {
+                if ((names.contains("api28") && targetVersion != 28)
+                        || (names.contains("api30") && targetVersion != 30)
+                        || (names.contains("api33") && targetVersion != 33)) {
+                    setIgnore(true)
+                }
+            }
         } else if (!project.properties['android.useAndroidX'] && (names.contains("androidx") || names.contains("api30") || names.contains("api33"))) {
             setIgnore(true)
         }
