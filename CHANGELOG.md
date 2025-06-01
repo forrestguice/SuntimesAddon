@@ -1,5 +1,12 @@
 ~
 
+### v0.4.3 (2025-06-01)
+* adds 'targetVersion' project variable that filters build flavors (defaults to 33).
+* adds <queries> declaration to AndroidManifest.xml (api30, api33).
+* updates agp 4.1.3 -> 7.2.2 (api33).
+* updates test dependencies (api33).
+* updates gradle-wrapper 6.5 -> 7.3.3.
+
 ### v0.4.2 (2025-03-29)
 * adds "compass intent" definitions for interactions with compass apps.
 * fixes bug where "menu icons are not shown" (androidx).
