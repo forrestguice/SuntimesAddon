@@ -13,6 +13,7 @@
     <color name="dialog_alt">@color/dialog_alt_dark</color>
 
     <color name="fab_background">@color/fab_background_dark</color>
+    <color name="fab_foreground">@color/fab_foreground_dark</color>
     <color name="fab_ripple">@color/fab_ripple_dark</color>
 
     <color name="snackbar_text">@color/snackbar_text_dark</color>
