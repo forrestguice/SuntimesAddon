@@ -37,6 +37,15 @@
         <item>XLARGE</item>
     </string-array>
 
+    <string name="action_dismiss">Dismiss</string>
+
+    <!-- notifications -->
+    <string name="notificationChannel_main_title">Main</string>
+    <string name="notificationChannel_main_desc">Main notification channel</string>
+
+    <string name="notification_bootcompleted_message">Waiting for interaction with Suntimes.</string>
+    <string name="notification_bootcompleted_message1">Done…</string>
+
     <!-- time & date formats -->
     <string name="format_day">EEEE</string>                       <!-- Thursday -->
     <string name="format_year">yyyy</string>                      <!-- 2020 -->
@@ -239,4 +248,5 @@
     <string name="def_verbose_talkback" translatable="false">false</string>
     <string name="def_object_height" translatable="false">1.8288</string>
     <string name="def_show_fields" translatable="false">00111111</string>
+
 </resources>
