@@ -90,6 +90,7 @@ public class AddonHelper
     public static final String ACTIVITY_ALARMCLOCK = SUNTIMES_PACKAGE + ".alarmclock.ui.AlarmClockActivity";
     public static final String ACTIVITY_ACTIONS = SUNTIMES_PACKAGE + ".actions.ActionListActivity";
     public static final String ACTIVITY_COLOR = SUNTIMES_PACKAGE + ".settings.colors.ColorActivity";
+    public static final String ACTIVITY_EVENTS = SUNTIMES_PACKAGE + ".events.EventListActivity";
     public static final String ACTIVITY_THEMES = SUNTIMES_PACKAGE + ".themes.WidgetThemeListActivity";
     public static final String ACTIVITY_PLACES = SUNTIMES_PACKAGE + ".getfix.PlacesActivity";
     public static final String ACTIVITY_WIDGETS = SUNTIMES_PACKAGE + ".SuntimesWidgetListActivity";
@@ -252,6 +253,43 @@ public class AddonHelper
         extras.putLong("selectedRowID", selected);
         extras.putBoolean("allowPick", allowPick);
         return createIntent(SUNTIMES_PACKAGE, ACTIVITY_PLACES, null, extras, null, 0);
+    }
+
+    /**
+     * Events Activity
+     */
+    public static void startSuntimesEventsActivity(Context context) {
+        startActivity(context, intentForEventsActivity(null, true, false));
+    }
+    public static void startSuntimesEventsActivityForResult(Activity activity, int requestCode, String selected, Boolean expanded) {
+        startActivityForResult(activity, intentForEventsActivity(selected, false, expanded), requestCode);
+    }
+    public static String[] resultForEventsActivity(@NonNull Intent data) {
+        return new String[] { data.getStringExtra("eventID"), data.getStringExtra("eventUri") };
+    }
+    public static boolean supportForEventsActivity(SuntimesInfo suntimesInfo) {
+        return (suntimesInfo != null && suntimesInfo.appCode != null && suntimesInfo.appCode >= 114);    // access to Events requires v0.16.0+ (114)
+    }
+    public static Intent intentForEventsActivity(@Nullable String selectedEventID, Boolean noselect, Boolean expanded)
+    {
+        Bundle extras = new Bundle();
+        if (selectedEventID != null) {
+            extras.putSerializable("selected", selectedEventID);
+        }
+        if (noselect != null) {
+            extras.putBoolean("noselect", noselect);
+        }
+        if (expanded != null) {
+            extras.putBoolean("expanded", expanded);
+        }
+        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_EVENTS, null, extras, null, 0);
+    }
+    public static Intent addLocationExtraToEventsActivityIntent(@NonNull Intent intent, @Nullable String label, double latitude, double longitude, double altitude) {
+        intent.putExtra("location_label", label);
+        intent.putExtra("location_latitude", latitude);
+        intent.putExtra("location_longitude", longitude);
+        intent.putExtra("location_altitude", altitude);
+        return intent;
     }
 
     /**
