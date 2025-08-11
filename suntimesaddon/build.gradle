@@ -147,8 +147,7 @@ dependencies {
 apply plugin: 'maven-publish'
 
 task sourceJar(type: Jar) {
-    def targetVersion = project.properties['android.targetVersion'] != null ? project.properties['android.targetVersion'].toInteger() : null
-    if (targetVersion == null || targetVersion >= 34) {
+    if (getGradle().getGradleVersion().substring(0, 1).toInteger() >= 8) {
         from android.sourceSets.main.java.srcDirs
         archiveClassifier = 'sources'
     } else {
