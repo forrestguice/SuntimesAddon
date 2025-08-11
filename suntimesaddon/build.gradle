@@ -1,6 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
+    if (getGradle().getGradleVersion().substring(0, 1).toInteger() >= 8) {
+        namespace "com.forrestguice.suntimes.addon"
+        buildFeatures {
+            buildConfig = true
+        }
+    }
+
     compileSdkVersion 28
     defaultConfig {
         //noinspection MinSdkTooLow
@@ -128,8 +135,14 @@ dependencies {
 apply plugin: 'maven-publish'
 
 task sourceJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier "sources"
+    def targetVersion = project.properties['android.targetVersion'] != null ? project.properties['android.targetVersion'].toInteger() : null
+    if (targetVersion == null || targetVersion >= 34) {
+        from android.sourceSets.main.java.srcDirs
+        archiveClassifier = 'sources'
+    } else {
+        from android.sourceSets.main.java.srcDirs
+        classifier "sources"
+    }
 }
 
 publishing {
