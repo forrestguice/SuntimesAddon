@@ -65,11 +65,19 @@ android {
             targetSdkVersion 33
             versionNameSuffix "-api33"
         }
+        api34 {
+            dimension "api"
+            compileSdkVersion 34
+            //noinspection ExpiredTargetSdkVersion,OldTargetApi
+            targetSdkVersion 34
+            versionNameSuffix "-api34"
+        }
     }
     configurations {
         androidxApi28Implementation {}
         androidxApi30Implementation {}
         androidxApi33Implementation {}
+        androidxApi34Implementation {}
     }
 
     variantFilter { variant ->
@@ -83,11 +91,12 @@ android {
             } else if (targetVersion != null) {
                 if ((names.contains("api28") && targetVersion != 28)
                         || (names.contains("api30") && targetVersion != 30)
-                        || (names.contains("api33") && targetVersion != 33)) {
+                        || (names.contains("api33") && targetVersion != 33)
+                        || (names.contains("api34") && targetVersion != 34)) {
                     setIgnore(true)
                 }
             }
-        } else if (!project.properties['android.useAndroidX'] && (names.contains("androidx") || names.contains("api30") || names.contains("api33"))) {
+        } else if (!project.properties['android.useAndroidX'] && (names.contains("androidx") || names.contains("api30") || names.contains("api33") || names.contains("api34"))) {
             setIgnore(true)
         }
     }
@@ -114,6 +123,9 @@ dependencies {
 
     androidxApi33Implementation 'com.google.android.material:material:1.6.0'
     androidxApi33Implementation 'androidx.appcompat:appcompat:1.6.1'
+
+    androidxApi34Implementation 'com.google.android.material:material:1.6.1'    // TODO
+    androidxApi34Implementation 'androidx.appcompat:appcompat:1.6.1'
 
     testImplementation 'junit:junit:4.12'
 
