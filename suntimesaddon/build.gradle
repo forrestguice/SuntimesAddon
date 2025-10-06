@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 
 android {
+    namespace "com.forrestguice.suntimes.addon"
+
     compileSdkVersion 28
     defaultConfig {
         //noinspection MinSdkTooLow
@@ -9,6 +11,10 @@ android {
         targetSdkVersion 28
         versionCode 7
         versionName "0.4.3"
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -58,11 +64,19 @@ android {
             targetSdkVersion 33
             versionNameSuffix "-api33"
         }
+        api34 {
+            dimension "api"
+            compileSdkVersion 34
+            //noinspection ExpiredTargetSdkVersion,OldTargetApi
+            targetSdkVersion 34
+            versionNameSuffix "-api34"
+        }
     }
     configurations {
         androidxApi28Implementation {}
         androidxApi30Implementation {}
         androidxApi33Implementation {}
+        androidxApi34Implementation {}
     }
 
     variantFilter { variant ->
@@ -76,11 +90,12 @@ android {
             } else if (targetVersion != null) {
                 if ((names.contains("api28") && targetVersion != 28)
                         || (names.contains("api30") && targetVersion != 30)
-                        || (names.contains("api33") && targetVersion != 33)) {
+                        || (names.contains("api33") && targetVersion != 33)
+                        || (names.contains("api34") && targetVersion != 34)) {
                     setIgnore(true)
                 }
             }
-        } else if (!project.properties['android.useAndroidX'] && (names.contains("androidx") || names.contains("api30") || names.contains("api33"))) {
+        } else if (!project.properties['android.useAndroidX'] && (names.contains("androidx") || names.contains("api30") || names.contains("api33") || names.contains("api34"))) {
             setIgnore(true)
         }
     }
@@ -108,6 +123,9 @@ dependencies {
     androidxApi33Implementation 'com.google.android.material:material:1.6.0'
     androidxApi33Implementation 'androidx.appcompat:appcompat:1.6.1'
 
+    androidxApi34Implementation 'com.google.android.material:material:1.6.0'
+    androidxApi34Implementation 'androidx.appcompat:appcompat:1.6.1'
+
     testImplementation 'junit:junit:4.12'
 
     if (project.properties['android.useAndroidX']) {
@@ -128,8 +146,14 @@ dependencies {
 apply plugin: 'maven-publish'
 
 task sourceJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier "sources"
+    def targetVersion = project.properties['android.targetVersion'] != null ? project.properties['android.targetVersion'].toInteger() : null
+    if (targetVersion == null || targetVersion >= 34) {
+        from android.sourceSets.main.java.srcDirs
+        archiveClassifier = "sources"
+    } else {
+        from android.sourceSets.main.java.srcDirs
+        classifier "sources"
+    }
 }
 
 publishing {
