@@ -3,12 +3,13 @@ apply plugin: 'com.android.library'
 android {
     namespace "com.forrestguice.suntimes.addon"
 
-    compileSdkVersion 28
     defaultConfig {
         //noinspection MinSdkTooLow
         minSdkVersion 14
         //noinspection ExpiredTargetSdkVersion,OldTargetApi
         targetSdkVersion 28
+        compileSdk 28
+
         versionCode 7
         versionName "0.4.3"
     }
@@ -24,11 +25,11 @@ android {
         }
     }
 
-    flavorDimensions "version", "api"
+    flavorDimensions = [ "version", "api" ]
     productFlavors {
         supportlib {
             dimension "version"
-            compileSdkVersion 28
+            compileSdk 28
             //noinspection ExpiredTargetSdkVersion,OldTargetApi
             targetSdkVersion 28
             versionNameSuffix "-supportlib"
@@ -36,7 +37,8 @@ android {
         }
         androidx {
             dimension "version"
-            compileSdkVersion 33
+            //noinspection GradleDependency
+            compileSdk 33
             //noinspection ExpiredTargetSdkVersion,OldTargetApi
             targetSdkVersion 33
             versionNameSuffix "-androidx"
@@ -45,28 +47,28 @@ android {
 
         api28 {
             dimension "api"
-            compileSdkVersion 28
+            compileSdk 28
             //noinspection ExpiredTargetSdkVersion,OldTargetApi
             targetSdkVersion 28
             versionNameSuffix "-api28"
         }
         api30 {
             dimension "api"
-            compileSdkVersion 30
+            compileSdk 30
             //noinspection ExpiredTargetSdkVersion,OldTargetApi
             targetSdkVersion 30
             versionNameSuffix "-api30"
         }
         api33 {
             dimension "api"
-            compileSdkVersion 33
+            compileSdk 33
             //noinspection ExpiredTargetSdkVersion,OldTargetApi
             targetSdkVersion 33
             versionNameSuffix "-api33"
         }
         api34 {
             dimension "api"
-            compileSdkVersion 34
+            compileSdk 34
             //noinspection ExpiredTargetSdkVersion,OldTargetApi
             targetSdkVersion 34
             versionNameSuffix "-api34"
