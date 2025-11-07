@@ -1,0 +1,13 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="crash_dialog_title">Crash Report</string>
+    <string name="crash_dialog_message">%s has crashed…</string>
+    <string name="crash_dialog_message1"><![CDATA[
+        Help improve this app by reporting this crash:<br/><br/>
+        <b>%1$s</b>
+    ]]></string>
+    <string name="crash_dialog_copy">Copy Report</string>
+    <string name="crash_dialog_view">View Report</string>
+    <string name="crash_toast_copied_to_clipboard">Copied to clipboard.</string>
+    <string name="crash_channel_title">Crash Report</string>
+    <string name="crash_channel_desc">@string/notificationChannel_main_title</string>
+</resources>

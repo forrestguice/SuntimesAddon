@@ -34,8 +34,6 @@ import android.widget.Toast;
 
 import com.forrestguice.suntimes.annotation.Nullable;
 
-import androidx.core.app.NotificationCompat;
-
 /**
  * Remember to declare and request the follow 'dangerous' permission when targeting api33+;
  *     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
