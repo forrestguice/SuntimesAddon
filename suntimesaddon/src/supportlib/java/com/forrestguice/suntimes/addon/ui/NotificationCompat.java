@@ -15,27 +15,20 @@
     You should have received a copy of the GNU General Public License
     along with SuntimesWidget.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.forrestguice.suntimes.crashreport;
+package com.forrestguice.suntimes.addon.ui;
 
-import android.annotation.TargetApi;
-import android.app.Notification;
 import android.content.Context;
 
-import androidx.annotation.NonNull;
+import com.forrestguice.suntimes.annotation.NonNull;
 
 public class NotificationCompat
 {
-    public static final int VISIBILITY_PUBLIC = androidx.core.app.NotificationCompat.VISIBILITY_PUBLIC;
-    public static final int PRIORITY_HIGH = androidx.core.app.NotificationCompat.PRIORITY_HIGH;
-    public static final String CATEGORY_ERROR = androidx.core.app.NotificationCompat.CATEGORY_ERROR;
+    public static final int VISIBILITY_PUBLIC = android.support.v4.app.NotificationCompat.VISIBILITY_PUBLIC;
+    public static final int PRIORITY_HIGH = android.support.v4.app.NotificationCompat.PRIORITY_HIGH;
+    public static final String CATEGORY_ERROR = android.support.v4.app.NotificationCompat.CATEGORY_ERROR;
 
-    public static class Builder extends androidx.core.app.NotificationCompat.Builder
+    public static class Builder extends android.support.v4.app.NotificationCompat.Builder
     {
-        @TargetApi(19)
-        public Builder(@NonNull Context context, @NonNull Notification notification) {
-            super(context, notification);
-        }
-
         public Builder(@NonNull Context context, @NonNull String channelId) {
             super(context, channelId);
         }

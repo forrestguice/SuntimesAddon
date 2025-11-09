@@ -18,25 +18,18 @@
 package com.forrestguice.suntimes.addon.ui;
 
 import android.annotation.TargetApi;
-import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.os.Build;
 
-import androidx.annotation.NonNull;
-
-public class NotificationCompat
+public class NotificationManagerCompat_api29
 {
-    public static final int VISIBILITY_PUBLIC = androidx.core.app.NotificationCompat.VISIBILITY_PUBLIC;
-    public static final int PRIORITY_HIGH = androidx.core.app.NotificationCompat.PRIORITY_HIGH;
-    public static final String CATEGORY_ERROR = androidx.core.app.NotificationCompat.CATEGORY_ERROR;
-
-    public static class Builder extends androidx.core.app.NotificationCompat.Builder
+    @TargetApi(29)
+    public static boolean areNotificationsPaused(Context context)
     {
-        public Builder(@NonNull Context context, @NonNull String channelId) {
-            super(context, channelId);
-        }
-
-        public Builder(@NonNull Context context) {
-            super(context);
-        }
+        if (Build.VERSION.SDK_INT >= 29) {
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            return notificationManager.areNotificationsPaused();
+        } else return false;
     }
 }

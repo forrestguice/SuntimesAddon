@@ -102,12 +102,8 @@ public class Notifications
         return false;
     }
 
-    public static boolean areNotificationsPaused(Context context)
-    {
-        if (Build.VERSION.SDK_INT >= 29) {
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            return notificationManager.areNotificationsPaused();
-        } else return false;
+    public static boolean areNotificationsPaused(Context context) {
+        return NotificationManagerCompat.areNotificationsPaused(context);
     }
 
     /**

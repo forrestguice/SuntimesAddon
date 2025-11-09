@@ -20,6 +20,7 @@ package com.forrestguice.suntimes.addon.ui;
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.content.Context;
+import android.os.Build;
 
 public class NotificationManagerCompat
 {
@@ -34,6 +35,13 @@ public class NotificationManagerCompat
 
     public boolean areNotificationsEnabled() {
         return (notifications != null && notifications.areNotificationsEnabled());
+    }
+
+    public static boolean areNotificationsPaused(Context context)
+    {
+        if (Build.VERSION.SDK_INT >= 29) {
+            return NotificationManagerCompat_api29.areNotificationsPaused(context);
+        } else return false;
     }
 
     @SuppressLint("MissingPermission")

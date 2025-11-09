@@ -17,33 +17,13 @@
 */
 package com.forrestguice.suntimes.addon.ui;
 
-import android.annotation.SuppressLint;
-import android.app.Notification;
+import android.annotation.TargetApi;
 import android.content.Context;
 
-public class NotificationManagerCompat
+public class NotificationManagerCompat_api29
 {
-    protected android.support.v4.app.NotificationManagerCompat notifications;
-    protected NotificationManagerCompat(Context context) {
-        notifications = android.support.v4.app.NotificationManagerCompat.from(context);
-    }
-
-    public static NotificationManagerCompat from(Context context) {
-        return new NotificationManagerCompat(context);
-    }
-
-    public boolean areNotificationsEnabled() {
-        return (notifications != null && notifications.areNotificationsEnabled());
-    }
-
+    @TargetApi(29)
     public static boolean areNotificationsPaused(Context context) {
         return false;
-    }
-
-    @SuppressLint("MissingPermission")
-    public void notify(String message, int notificationID, Notification notification) {
-        if (notifications != null) {
-            notifications.notify(message, notificationID, notification);
-        }
     }
 }
