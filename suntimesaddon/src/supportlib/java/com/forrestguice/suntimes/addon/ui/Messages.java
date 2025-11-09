@@ -23,8 +23,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.view.menu.MenuBuilder;
 import android.text.Html;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -113,6 +116,31 @@ public class Messages extends MessagesBase
         if (snackbarText != null) {
             snackbarText.setTextColor(colors[0]);
             snackbarText.setMaxLines(3);
+        }
+    }
+
+    /**
+     * from http://stackoverflow.com/questions/18374183/how-to-show-icons-in-overflow-menu-in-actionbar
+     */
+    @SuppressLint("RestrictedApi")
+    public static void forceActionBarIcons(Menu menu)
+    {
+        if (menu != null)
+        {
+            //if (menu.getClass().getSimpleName().equals("MenuBuilder"))
+            if (menu instanceof MenuBuilder)
+            {
+                try {
+                    ((MenuBuilder) menu).setOptionalIconsVisible(true);
+
+                    //Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    //m.setAccessible(true);
+                    //m.invoke(menu, true);
+
+                } catch (Exception e) {
+                    Log.e("forceActionBarIcons", "failed to set show overflow icons", e);
+                }
+            }
         }
     }
 
