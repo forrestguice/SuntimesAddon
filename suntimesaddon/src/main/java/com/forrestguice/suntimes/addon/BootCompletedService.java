@@ -28,7 +28,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ServiceInfo;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
@@ -36,11 +35,9 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
 
+import com.forrestguice.suntimes.addon.ui.NotificationCompat;
 import com.forrestguice.suntimes.addon.ui.Notifications;
-
-import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
+import com.forrestguice.suntimes.annotation.Nullable;
 
 /**
  * A foreground service that may run on BOOT_COMPLETED. It displays a notification while
@@ -65,7 +62,7 @@ public abstract class BootCompletedService extends Service
     public void onCreate()
     {
         super.onCreate();
-        ContextCompat.registerReceiver(BootCompletedService.this, receiver, getIntentFilter(), ContextCompat.RECEIVER_NOT_EXPORTED);
+        BootCompletedServiceHelper.registerReceiver(this, receiver, getIntentFilter());
     }
 
     @Override
@@ -82,16 +79,7 @@ public abstract class BootCompletedService extends Service
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         NotificationCompat.Builder notification = createMainNotification(this);
-
-        // api34+...
-        // if (Build.VERSION.SDK_INT >= 34) {
-        //    ServiceCompat.startForeground(this, NOTIFICATION_MAIN, notification.build(), FOREGROUND_SERVICE_TYPE);   // we are obligated to startForeground within 5s
-        //} else
-
-        if (Build.VERSION.SDK_INT >= 29) {
-            startForeground(getNotificationID(), notification.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_NONE);   // we are obligated to startForeground within 5s
-        }
-
+        BootCompletedServiceHelper.onStartCommand(this, intent, flags, startId, getNotificationID(), notification);
         handleAction(((intent != null) ? intent.getAction() : null));
         return START_NOT_STICKY;
     }
@@ -177,10 +165,10 @@ public abstract class BootCompletedService extends Service
         NotificationCompat.Builder notification = Notifications.createNotificationBuilder(context, createNotificationChannel(context));
         notification.setContentTitle(getNotificationTitle(context))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setSilent(true)
                 .setContentText(getNotificationMessage(context))
                 .setSmallIcon(getNotificationIcon())
                 .setOngoing(true);
+        BootCompletedServiceHelper.setSilent(notification);
         notification.addAction(getNotificationIcon_done(), getNotificationDismissActionText(context), getServicePendingIntent(context, ACTION_MAIN));
         return notification;
     }
@@ -191,10 +179,10 @@ public abstract class BootCompletedService extends Service
         notification.setContentTitle(getNotificationTitle(context))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setProgress(1, 0, true)
-                .setSilent(true)
                 .setContentText(getNotificationExitMessage(context))
                 .setSmallIcon(getNotificationIcon_done())
                 .setOngoing(true);
+        BootCompletedServiceHelper.setSilent(notification);
         return notification;
     }
 

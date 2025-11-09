@@ -17,5 +17,6 @@
 */
 package com.forrestguice.suntimes.crashreport;
 
-public class AppCompatActivity extends android.support.app.AppCompatActivity {
+public class ExceptionActivity0 extends android.support.v7.app.AppCompatActivity {
+    /* EMPTY */
 }
