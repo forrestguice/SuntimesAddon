@@ -7,7 +7,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        if (project.properties['android.useAndroidX'])
+        if (project.properties['android.useAndroidX'].toBoolean())
         {
             def targetVersion = project.properties['android.targetVersion'] != null ? project.properties['android.targetVersion'].toInteger() : null
             if (targetVersion == null || targetVersion >= 34) {

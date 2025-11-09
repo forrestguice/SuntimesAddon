@@ -1,21 +1,24 @@
 apply plugin: 'com.android.library'
 
 android {
-    namespace "com.forrestguice.suntimes.addon"
+    Boolean useAndroidX = project.properties['android.useAndroidX'].toBoolean()
+    def targetVersion = project.properties['android.targetVersion'] != null ? project.properties['android.targetVersion'].toInteger() : null
+    if (targetVersion == null) {
+        targetVersion = 33;
+    }
 
     defaultConfig {
+        if (targetVersion >= 33) {
+            compileSdk 33
+        }
+
         //noinspection MinSdkTooLow
         minSdkVersion 14
         //noinspection ExpiredTargetSdkVersion,OldTargetApi
         targetSdkVersion 28
-        compileSdk 28
 
         versionCode 7
         versionName "0.4.3"
-    }
-
-    buildFeatures {
-        buildConfig = true
     }
 
     buildTypes {
@@ -25,11 +28,21 @@ android {
         }
     }
 
-    flavorDimensions = [ "version", "api" ]
+    if (targetVersion >= 33) {
+        namespace "com.forrestguice.suntimes.addon"
+        buildFeatures {
+            buildConfig = true
+        }
+        flavorDimensions = [ "version", "api" ]
+
+    } else {
+        compileSdkVersion targetVersion
+        flavorDimensions "version", "api"
+    }
+
     productFlavors {
         supportlib {
             dimension "version"
-            compileSdk 28
             //noinspection ExpiredTargetSdkVersion,OldTargetApi
             targetSdkVersion 28
             versionNameSuffix "-supportlib"
@@ -38,7 +51,9 @@ android {
         androidx {
             dimension "version"
             //noinspection GradleDependency
-            compileSdk 33
+            if (targetVersion >= 33) {
+                compileSdk 33
+            }
             //noinspection ExpiredTargetSdkVersion,OldTargetApi
             targetSdkVersion 33
             versionNameSuffix "-androidx"
@@ -47,34 +62,37 @@ android {
 
         api28 {
             dimension "api"
-            compileSdk 28
             //noinspection ExpiredTargetSdkVersion,OldTargetApi
             targetSdkVersion 28
             versionNameSuffix "-api28"
         }
         api30 {
             dimension "api"
-            compileSdk 30
             //noinspection ExpiredTargetSdkVersion,OldTargetApi
             targetSdkVersion 30
             versionNameSuffix "-api30"
         }
         api33 {
             dimension "api"
-            compileSdk 33
+            if (targetVersion >= 33) {
+                compileSdk 33
+            }
             //noinspection ExpiredTargetSdkVersion,OldTargetApi
             targetSdkVersion 33
             versionNameSuffix "-api33"
         }
         api34 {
             dimension "api"
-            compileSdk 34
+            if (targetVersion >= 33) {
+                compileSdk 34
+            }
             //noinspection ExpiredTargetSdkVersion,OldTargetApi
             targetSdkVersion 34
             versionNameSuffix "-api34"
         }
     }
     configurations {
+        supportlibApi28Implementation {}
         androidxApi28Implementation {}
         androidxApi30Implementation {}
         androidxApi33Implementation {}
@@ -83,9 +101,7 @@ android {
 
     variantFilter { variant ->
         def names = variant.flavors*.name
-        def targetVersion = project.properties['android.targetVersion'] != null ? project.properties['android.targetVersion'].toInteger() : null
-
-        if (project.properties['android.useAndroidX']) {
+        if (useAndroidX) {
             if (names.contains("supportlib")) {
                 setIgnore(true)
 
@@ -97,7 +113,7 @@ android {
                     setIgnore(true)
                 }
             }
-        } else if (!project.properties['android.useAndroidX'] && (names.contains("androidx") || names.contains("api30") || names.contains("api33") || names.contains("api34"))) {
+        } else if (!useAndroidX && (names.contains("androidx") || names.contains("api30") || names.contains("api33") || names.contains("api34"))) {
             setIgnore(true)
         }
     }
@@ -115,23 +131,30 @@ android {
 dependencies {
     supportlibImplementation 'com.android.support:design:28.0.0'
     supportlibImplementation 'com.android.support:appcompat-v7:28.0.0'
+    supportlibImplementation 'com.android.support.constraint:constraint-layout:2.0.4'
     
     androidxApi28Implementation 'com.google.android.material:material:1.0.0'
     androidxApi28Implementation 'androidx.appcompat:appcompat:1.0.0'
+    androidxApi28Implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     androidxApi30Implementation 'com.google.android.material:material:1.4.0'
     androidxApi30Implementation 'androidx.appcompat:appcompat:1.3.1'
+    androidxApi30Implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     androidxApi33Implementation 'com.google.android.material:material:1.6.0'
     androidxApi33Implementation 'androidx.appcompat:appcompat:1.6.1'
+    androidxApi33Implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    androidxApi34Implementation 'com.google.android.material:material:1.6.0'
+    androidxApi34Implementation 'com.google.android.material:material:1.6.1'
     androidxApi34Implementation 'androidx.appcompat:appcompat:1.6.1'
+    androidxApi34Implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     testImplementation 'junit:junit:4.12'
 
-    if (project.properties['android.useAndroidX']) {
-        def targetVersion = project.properties['android.targetVersion'] != null ? project.properties['android.targetVersion'].toInteger() : null
+    Boolean useAndroidX = project.properties['android.useAndroidX'].toBoolean();
+    def targetVersion = project.properties['android.targetVersion'] != null ? project.properties['android.targetVersion'].toInteger() : null
+
+    if (useAndroidX) {
         if (targetVersion == null || targetVersion >= 33) {
             androidTestImplementation 'androidx.test.ext:junit:1.1.1'
             androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
