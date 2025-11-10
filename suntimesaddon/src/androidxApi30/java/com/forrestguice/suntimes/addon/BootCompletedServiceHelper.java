@@ -21,7 +21,12 @@ package com.forrestguice.suntimes.addon;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ServiceInfo;
+import android.os.Build;
+
+import com.forrestguice.suntimes.addon.ui.NotificationCompat;
 
 public class BootCompletedServiceHelper
 {
@@ -32,7 +37,7 @@ public class BootCompletedServiceHelper
     public static void onStartCommand(Service service, Intent intent, int flags, int startId, int notificationID, NotificationCompat.Builder notification)
     {
         if (Build.VERSION.SDK_INT >= 29) {
-            service.startForeground(notification, notification.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_NONE);   // we are obligated to startForeground within 5s
+            service.startForeground(notificationID, notification.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_NONE);   // we are obligated to startForeground within 5s
         }
     }
 
