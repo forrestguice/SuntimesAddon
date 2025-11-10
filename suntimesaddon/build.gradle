@@ -83,7 +83,7 @@ android {
         }
         api34 {
             dimension "api"
-            if (targetVersion >= 33) {
+            if (targetVersion >= 34) {
                 compileSdk 34
             }
             //noinspection ExpiredTargetSdkVersion,OldTargetApi
