@@ -33,10 +33,12 @@ android {
         buildFeatures {
             buildConfig = true
         }
-        flavorDimensions = [ "version", "api" ]
+        flavorDimensions = ["version", "api"]
 
     } else {
+        //noinspection GrDeprecatedAPIUsage
         compileSdkVersion targetVersion
+        //noinspection GrDeprecatedAPIUsage
         flavorDimensions "version", "api"
     }
 
@@ -99,22 +101,42 @@ android {
         androidxApi34Implementation {}
     }
 
-    variantFilter { variant ->
-        def names = variant.flavors*.name
-        if (useAndroidX) {
-            if (names.contains("supportlib")) {
-                setIgnore(true)
+    if (targetVersion >= 34)
+    {
+        androidComponents {
+            beforeVariants(selector().all(), { variant ->
+                if (useAndroidX) {
+                    if (variant.name.contains("supportlib")) {
+                        variant.enable = false
 
-            } else if (targetVersion != null) {
-                if ((names.contains("api28") && targetVersion != 28)
-                        || (names.contains("api30") && targetVersion != 30)
-                        || (names.contains("api33") && targetVersion != 33)
-                        || (names.contains("api34") && targetVersion != 34)) {
-                    setIgnore(true)
+                    } else if (targetVersion != null) {
+                        if ((variant.name.contains("Api28") && targetVersion != 28) || (variant.name.contains("Api30") && targetVersion != 30)
+                                || (variant.name.contains("Api33") && targetVersion != 33) || (variant.name.contains("Api34") && targetVersion != 34)) {
+                            variant.enable = false
+                        }
+                    }
+                } else if (!useAndroidX && (variant.name.contains("androidx") || variant.name.contains("Api30") || variant.name.contains("Api33") || variant.name.contains("Api34"))) {
+                    variant.enable = false
                 }
+            })
+        }
+    } else {
+        //noinspection GrDeprecatedAPIUsage
+        variantFilter { variant ->
+            def names = variant.flavors*.name
+            if (useAndroidX) {
+                if (names.contains("supportlib")) {
+                    setIgnore(true)
+
+                } else if (targetVersion != null) {
+                    if ((names.contains("api28") && targetVersion != 28) || (names.contains("api30") && targetVersion != 30)
+                            || (names.contains("api33") && targetVersion != 33) || (names.contains("api34") && targetVersion != 34)) {
+                        setIgnore(true)
+                    }
+                }
+            } else if (!useAndroidX && (names.contains("androidx") || names.contains("api30") || names.contains("api33") || names.contains("api34"))) {
+                setIgnore(true)
             }
-        } else if (!useAndroidX && (names.contains("androidx") || names.contains("api30") || names.contains("api33") || names.contains("api34"))) {
-            setIgnore(true)
         }
     }
 
