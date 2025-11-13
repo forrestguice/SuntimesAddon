@@ -28,20 +28,9 @@ import com.forrestguice.suntimes.addon.ui.NotificationManagerCompat;
 
 /**
  * 1) Add `ExceptionActivity` to your manifest.
- * 2) Extend from `ExceptionHandler` and call `setDefaultUncaughtExceptionHandler` from your app's
- * entry point. e.g.
- *     public class MyApplication extends Application ... OR ...
- *     public class MyContentProvider extends ContentProvider
- *     {
- *         public void onCreate()
- *         {
- *             super.onCreate();
- *             Thread.setDefaultUncaughtExceptionHandler(new MyExceptionHandler(context, Thread.getDefaultUncaughtExceptionHandler()));
- *             ...
- *         }
- *     }
+ * 2) Extend from `suntimes.crashreport.ExceptionHandler`
  *
- *     public static class MyExceptionHandler extends ExceptionHandler
+ *     public static class MyExceptionHandler extends com.forrestguice.suntimes.crashreport.ExceptionHandler
  *     {
  *         protected ExceptionNotification getNotification()
  *         {
@@ -50,7 +39,7 @@ import com.forrestguice.suntimes.addon.ui.NotificationManagerCompat;
  *                 protected String getAppName(Context context) {
  *                     return context.getString(R.string.app_name);
  *                 }
- **                 protected String getChannelID() {
+     *                 protected String getChannelID() {
  *                     return "suntimes.notifications.misc";
  *                 }
  *                 protected int getNotificationID() {
@@ -68,6 +57,31 @@ import com.forrestguice.suntimes.addon.ui.NotificationManagerCompat;
  *             return context.getString(R.string.app_name);
  *         }
  *     }
+ *
+ * 3) call `setDefaultUncaughtExceptionHandler` from your app's entry point. e.g.
+ *
+ *     public class MyApplication extends Application
+ *     {
+ *         public void onCreate()
+ *         {
+ *             super.onCreate();
+ *             Thread.setDefaultUncaughtExceptionHandler(new MyExceptionHandler(this, Thread.getDefaultUncaughtExceptionHandler()));
+ *             ...
+ *         }
+ *     }
+ *
+ * If your app has a ContentProvider then call it from there instead (since ContentProviders are initialized before Application.onCreate).
+ *
+ *     public class MyContentProvider extends ContentProvider
+ *     {
+ *         public boolean onCreate()
+ *         {
+ *             Thread.setDefaultUncaughtExceptionHandler(new MyExceptionHandler(getContext(), Thread.getDefaultUncaughtExceptionHandler()));
+ *             ...
+ *             return true;
+ *         }
+ *     }
+ *
  * @see ExceptionActivity
  * @see ExceptionNotification
  * @see ExceptionNotification1

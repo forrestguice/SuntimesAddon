@@ -33,11 +33,16 @@ import com.forrestguice.suntimes.addon.ui.Toast;
 
 /**
  * An activity that displays a crash report / stack trace.
- * Add the following to the app manifest...
+ *
+ * Add the following to your app manifest:
  *         <activity android:name=".ExceptionActivity"
  *             android:process=":crashreport"
  *             android:theme="@style/AppTheme.Dark"
  *             android:exported="false" />
+ *
+ * Add the following to your build dependencies:
+ *     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+ *
  * @see ExceptionHandler
  * @see ExceptionNotification1
  */
