@@ -148,7 +148,8 @@ public class TimeZoneHelper
                     Cursor cursor = resolver.query(uri, new String[]{CalculatorProviderContract.COLUMN_SUNPOS_EOT}, null, null, null);
                     if (cursor != null) {
                         cursor.moveToFirst();
-                        eot = (cursor.isNull(0) ? equationOfTimeOffset(date) : (int) cursor.getDouble(0) * 1000);
+                        int i_eot = cursor.getColumnIndex(CalculatorProviderContract.COLUMN_SUNPOS_EOT);
+                        eot = (i_eot >= 0 && !cursor.isNull(i_eot) ? (int) cursor.getDouble(i_eot) * 1000 : equationOfTimeOffset(date));
                         cursor.close();
                     } else {
                         eot = equationOfTimeOffset(date);
