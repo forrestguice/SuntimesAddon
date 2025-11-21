@@ -24,6 +24,8 @@ import com.forrestguice.suntimes.addon.R;
 /**
  * An `ExceptionNotification` with default notification/channel values.
  * Note: add `ExceptionActivity` to your manifest.
+ * Note: declare and request the follow 'dangerous' permission when targeting api33+;
+ *       <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
  * @see ExceptionNotification
  * @see ExceptionActivity
  */

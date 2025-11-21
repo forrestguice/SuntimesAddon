@@ -32,6 +32,8 @@ import com.forrestguice.suntimes.annotation.Nullable;
 
 /**
  * This class defines a notification to be displayed if the app crashes with an Exception.
+ * Note: declare and request the follow 'dangerous' permission when targeting api33+;
+ *       <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
  * @see ExceptionHandler
  * @see ExceptionNotification1
  */
