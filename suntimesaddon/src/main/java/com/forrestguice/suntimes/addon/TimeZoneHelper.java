@@ -143,7 +143,7 @@ public class TimeZoneHelper
             int eot;
             if (resolver != null)
             {
-                Uri uri = Uri.parse("content://" + SuntimesInfo.AUTHORITY() + "/" + CalculatorProviderContract.QUERY_SUNPOS);
+                Uri uri = Uri.parse("content://" + SuntimesInfo.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUNPOS);
                 try {
                     Cursor cursor = resolver.query(uri, new String[]{CalculatorProviderContract.COLUMN_SUNPOS_EOT}, null, null, null);
                     if (cursor != null) {
@@ -155,7 +155,7 @@ public class TimeZoneHelper
                         eot = equationOfTimeOffset(date);
                     }
                 } catch (SecurityException e) {
-                    Log.e(ApparentSolarTime.class.getSimpleName(), "queryInfo: Unable to access " + SuntimesInfo.AUTHORITY() + "! " + e);
+                    Log.e(ApparentSolarTime.class.getSimpleName(), "queryInfo: Unable to access " + SuntimesInfo.AUTHORITY + "! " + e);
                     eot = equationOfTimeOffset(date);
                 }
             } else {
