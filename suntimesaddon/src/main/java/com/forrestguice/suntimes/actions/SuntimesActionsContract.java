@@ -27,7 +27,9 @@ package com.forrestguice.suntimes.actions;
  */
 public interface SuntimesActionsContract
 {
-    String AUTHORITY = "suntimeswidget.action.provider";
+    String AUTHORITY_ROOT = "suntimeswidget";
+    String AUTHORITY_ID = "action.provider";
+    String AUTHORITY = AUTHORITY_ROOT + "." + AUTHORITY_ID;
     String VERSION_NAME = "v0.1.0";
     int VERSION_CODE = 1;
 

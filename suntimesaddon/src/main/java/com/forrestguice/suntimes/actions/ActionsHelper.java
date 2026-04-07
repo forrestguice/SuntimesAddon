@@ -21,10 +21,10 @@ package com.forrestguice.suntimes.actions;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
-//import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 
 import com.forrestguice.suntimes.addon.SuntimesInfo;
+import com.forrestguice.suntimes.annotation.NonNull;
 import com.forrestguice.suntimes.annotation.Nullable;
 
 import java.util.Arrays;
@@ -82,12 +82,12 @@ public class ActionsHelper
     {
         if (resolver != null)
         {
-            Uri uri = Uri.parse("content://" + SuntimesActionsContract.AUTHORITY + "/" + SuntimesActionsContract.QUERY_ACTIONS);
+            Uri uri = Uri.parse("content://" + AUTHORITY + "/" + SuntimesActionsContract.QUERY_ACTIONS);
             try {
                 return resolver.query(uri, SuntimesActionsContract.QUERY_ACTION_PROJECTION_MIN, null, null, null);
 
             } catch (SecurityException e) {
-                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + SuntimesActionsContract.AUTHORITY + "! " + e);
+                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + AUTHORITY + "! " + e);
                 return null;
             }
         }
@@ -116,5 +116,10 @@ public class ActionsHelper
      */
     public static String getActionInfoUri(String authority, String actionID) {
         return "content://" + authority + "/" + SuntimesActionsContract.QUERY_ACTIONS + "/" + actionID;
+    }
+
+    public static String AUTHORITY = SuntimesActionsContract.AUTHORITY;
+    public static void setAuthorityRoot(@NonNull String value) {
+        AUTHORITY = value + "." + SuntimesActionsContract.AUTHORITY_ID;
     }
 }
