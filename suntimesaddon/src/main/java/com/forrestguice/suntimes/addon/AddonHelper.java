@@ -354,15 +354,18 @@ public class AddonHelper
     /**
      * Settings Activity
      */
+    @Deprecated   // access to settings activity no longer supported Suntimes v0.17.0+
     public static void startSuntimesSettingsActivity(Context context) {
         startActivity(context, intentForSettingsActivity(null));
     }
+    @Deprecated
     public static void startSuntimesSettingsActivity(Context context, @Nullable String fragment) {
         startActivity(context, intentForSettingsActivity(fragment));
     }
     public static boolean supportForSettingsActivity(SuntimesInfo suntimesInfo) {
-        return (suntimesInfo != null && suntimesInfo.appCode != null && suntimesInfo.appCode >= 66);    // access to SettingsActivity added v0.13.2 (66)
+        return (suntimesInfo != null && suntimesInfo.appCode != null && suntimesInfo.appCode >= 66 && suntimesInfo.appCode <= 129);    // access to SettingsActivity added v0.13.2 (66), removed v0.17.0 (130)
     }
+    @Deprecated
     public static Intent intentForSettingsActivity(@Nullable String fragment)
     {
         Bundle extras = new Bundle();
@@ -374,6 +377,7 @@ public class AddonHelper
         return createIntent(SuntimesInfo.SUNTIMES_PACKAGE, ACTIVITY_SETTINGS, null, extras, null, 0);
     }
 
+    @Deprecated
     public static void startSuntimesSettingsActivity_calendarIntegration(Context context, int appCode)
     {
         String fragment = ((appCode >= 99) ? AddonHelper.FRAGMENT_SETTINGS_CALENDARS : AddonHelper.FRAGMENT_SETTINGS_CALENDARS0);
