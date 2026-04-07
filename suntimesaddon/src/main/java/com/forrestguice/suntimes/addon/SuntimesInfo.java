@@ -102,8 +102,8 @@ public class SuntimesInfo
     public static String AUTHORITY() {
         return AUTHORITY;
     }
-    public static void setAuthority(@NonNull String value) {
-        AUTHORITY = value;
+    public static void setAuthorityRoot(@NonNull String value) {
+        AUTHORITY = value + "." + CalculatorProviderContract.AUTHORITY_ID;
     }
 
     protected static final String[] projection = new String[] {

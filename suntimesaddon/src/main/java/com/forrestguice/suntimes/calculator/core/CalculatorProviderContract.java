@@ -234,7 +234,9 @@ package com.forrestguice.suntimes.calculator.core;
  */
 public interface CalculatorProviderContract
 {
-    String AUTHORITY = "suntimeswidget.calculator.provider";
+    String AUTHORITY_ROOT = "suntimeswidget";
+    String AUTHORITY_ID = "calculator.provider";
+    String AUTHORITY = AUTHORITY_ROOT + "." + AUTHORITY_ID;
     String READ_PERMISSION = "suntimes.permission.READ_CALCULATOR";
     String VERSION_NAME = "v0.6.1";
     int VERSION_CODE = 8;
