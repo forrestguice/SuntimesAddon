@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.util.Log;
 
+import com.forrestguice.suntimes.alarm.AlarmHelper;
 import com.forrestguice.suntimes.alarm.SuntimesAlarmsContract;
 import com.forrestguice.suntimes.annotation.NonNull;
 import com.forrestguice.suntimes.annotation.Nullable;
@@ -150,7 +151,7 @@ public class AddonHelper
         }
         Intent intent = createIntent(SuntimesInfo.SUNTIMES_PACKAGE, ACTIVITY_ALARMCLOCK, action, extras, null, 0);
         if (selectedAlarmID != null) {
-            intent.setData(ContentUris.withAppendedId(Uri.parse("content://" + SuntimesAlarmsContract.AUTHORITY + "/alarms"), selectedAlarmID));
+            intent.setData(ContentUris.withAppendedId(Uri.parse("content://" + AlarmHelper.AUTHORITY_ALARMS + "/alarms"), selectedAlarmID));
         }
         return intent;
     }

@@ -27,7 +27,9 @@ package com.forrestguice.suntimes.alarm;
  */
 public interface SuntimesAlarmsContract
 {
-    String AUTHORITY = "suntimeswidget.alarm.provider";
+    String AUTHORITY_ROOT = "suntimeswidget";
+    String AUTHORITY_ID = "alarm.provider";
+    String AUTHORITY = AUTHORITY_ROOT + "." + AUTHORITY_ID;
 
     String KEY_ROWID = "_id";                                                   // row ID
     String KEY_ALARM_TYPE = "alarmType";                                        // type (ALARM, NOTIFICATION)

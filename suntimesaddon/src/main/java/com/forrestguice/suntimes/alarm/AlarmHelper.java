@@ -23,9 +23,9 @@ import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-//import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 
+import com.forrestguice.suntimes.annotation.NonNull;
 import com.forrestguice.suntimes.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -270,15 +270,20 @@ public class AlarmHelper
     {
         if (resolver != null)
         {
-            Uri uri = Uri.parse("content://" + SuntimesAlarmsContract.AUTHORITY + "/" + SuntimesAlarmsContract.QUERY_ALARMS);
+            Uri uri = Uri.parse("content://" + AUTHORITY_ALARMS + "/" + SuntimesAlarmsContract.QUERY_ALARMS);
             try {
                 return resolver.query(uri, SuntimesAlarmsContract.QUERY_ALARMS_PROJECTION_MIN, null, null, null);
             } catch (SecurityException e) {
-                Log.e("AlarmHelper", "queryAlarms: Unable to access " + SuntimesAlarmsContract.AUTHORITY + "! " + e);
+                Log.e("AlarmHelper", "queryAlarms: Unable to access " + AUTHORITY_ALARMS + "! " + e);
                 return null;
             }
         }
         return null;
+    }
+
+    public static String AUTHORITY_ALARMS = SuntimesAlarmsContract.AUTHORITY;
+    public static void setAuthorityRoot(@NonNull String value) {
+        AUTHORITY_ALARMS = value + "." + SuntimesAlarmsContract.AUTHORITY_ID;
     }
 
 }
