@@ -85,7 +85,7 @@ import java.util.TimeZone;
 @SuppressWarnings("WeakerAccess")
 public class AddonHelper
 {
-    public static String SUNTIMES_PACKAGE = "com.forrestguice.suntimeswidget";
+    public static String SUNTIMES_PACKAGE = AddonHelperInit.SUNTIMES_PACKAGE;
     public static final String ACTIVITY_MAIN = SUNTIMES_PACKAGE + ".SuntimesActivity";
     public static final String ACTIVITY_ALARMCLOCK = SUNTIMES_PACKAGE + ".alarmclock.ui.AlarmClockActivity";
     public static final String ACTIVITY_ACTIONS = SUNTIMES_PACKAGE + ".actions.ActionListActivity";
