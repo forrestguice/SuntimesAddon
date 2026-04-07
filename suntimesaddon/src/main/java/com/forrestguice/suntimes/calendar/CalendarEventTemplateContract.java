@@ -31,7 +31,9 @@ package com.forrestguice.suntimes.calendar;
  */
 public interface CalendarEventTemplateContract
 {
-    String AUTHORITY = "com.forrestguice.suntimescalendars.template.provider";
+    String AUTHORITY_ROOT = "com.forrestguice.suntimescalendars";
+    String AUTHORITY_ID = "template.provider";
+    String AUTHORITY = AUTHORITY_ROOT + "." + AUTHORITY_ID;
     String READ_PERMISSION = "suntimes.permission.READ_CALCULATOR";
     String VERSION_NAME = "v0.0.0";
     int VERSION_CODE = 0;

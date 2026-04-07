@@ -159,7 +159,7 @@ public class CalendarHelper
         ContentResolver resolver = context.getContentResolver();
         if (resolver != null)
         {
-            Uri uri = Uri.parse("content://" + CalendarEventTemplateContract.AUTHORITY + "/" + CalendarEventTemplateContract.QUERY_TEMPLATE + "/" + calendarName);
+            Uri uri = Uri.parse("content://" + AUTHORITY + "/" + CalendarEventTemplateContract.QUERY_TEMPLATE + "/" + calendarName);
             try {
                 Cursor cursor = resolver.query(uri, CalendarEventTemplateContract.QUERY_TEMPLATE_PROJECTION, null, null, null);
                 if (cursor != null)
@@ -178,7 +178,7 @@ public class CalendarHelper
                 }
 
             } catch (SecurityException e) {
-                Log.e("CalendarHelper", "queryCalendarTemplate: Unable to access " + CalendarEventTemplateContract.AUTHORITY + "! " + e);
+                Log.e("CalendarHelper", "queryCalendarTemplate: Unable to access " + AUTHORITY + "! " + e);
             }
         }
         return elements;
@@ -218,6 +218,11 @@ public class CalendarHelper
             }
         }
         return cursor;
+    }
+
+    public static String AUTHORITY = CalendarEventTemplateContract.AUTHORITY;
+    public static void setAuthorityRoot(@NonNull String value) {
+        AUTHORITY = value + "." + CalendarEventTemplateContract.AUTHORITY_ID;
     }
 
 }
