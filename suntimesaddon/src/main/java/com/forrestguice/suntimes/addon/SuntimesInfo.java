@@ -98,6 +98,14 @@ public class SuntimesInfo
     public SuntimesInfo(@NonNull Context context) {
     }
 
+    public static String AUTHORITY = CalculatorProviderContract.AUTHORITY;
+    public static String AUTHORITY() {
+        return AUTHORITY;
+    }
+    public static void setAuthority(@NonNull String value) {
+        AUTHORITY = value;
+    }
+
     protected static final String[] projection = new String[] {
             COLUMN_CONFIG_PROVIDER_VERSION_CODE, COLUMN_CONFIG_APP_VERSION_CODE,
             COLUMN_CONFIG_PROVIDER_VERSION,      COLUMN_CONFIG_APP_VERSION,
@@ -178,7 +186,7 @@ public class SuntimesInfo
         if (resolver != null)
         {
             info = new SuntimesInfo(context);
-            Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG );
+            Uri uri = Uri.parse("content://" + AUTHORITY() + "/" + CalculatorProviderContract.QUERY_CONFIG );
 
             try {
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
@@ -199,7 +207,7 @@ public class SuntimesInfo
                 }
 
             } catch (SecurityException e) {
-                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + CalculatorProviderContract.AUTHORITY + "! " + e);
+                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + AUTHORITY() + "! " + e);
                 info.hasPermission = false;
                 info.isInstalled = true;
             }
@@ -212,7 +220,7 @@ public class SuntimesInfo
     {
         String theme = null;
         if (resolver != null) {
-            Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG );
+            Uri uri = Uri.parse("content://" + AUTHORITY() + "/" + CalculatorProviderContract.QUERY_CONFIG );
             try {
                 Cursor cursor = resolver.query(uri, new String[] { COLUMN_CONFIG_APP_THEME } , null, null, null);
                 if (cursor != null) {
@@ -222,7 +230,7 @@ public class SuntimesInfo
                     cursor.close();
                 }
             } catch (SecurityException e) {
-                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + CalculatorProviderContract.AUTHORITY + "! " + e);
+                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + AUTHORITY() + "! " + e);
             }
         }
         if (theme != null && theme.equals(THEME_DAYNIGHT)) {
@@ -254,7 +262,7 @@ public class SuntimesInfo
         if (resolver != null)
         {
             long dateMillis = (date != null ? date.getTimeInMillis() : Calendar.getInstance().getTimeInMillis());
-            Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + dateMillis );
+            Uri uri = Uri.parse("content://" + AUTHORITY() + "/" + CalculatorProviderContract.QUERY_SUN + "/" + dateMillis );
             try {
                 Cursor cursor = resolver.query(uri, new String[] { CalculatorProviderContract.COLUMN_SUN_ACTUAL_RISE, CalculatorProviderContract.COLUMN_SUN_ACTUAL_SET } , null, null, null);
                 if (cursor != null) {
@@ -266,7 +274,7 @@ public class SuntimesInfo
                     cursor.close();
                 }
             } catch (SecurityException e) {
-                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + CalculatorProviderContract.AUTHORITY + "! " + e);
+                Log.e(SuntimesInfo.class.getSimpleName(), "queryInfo: Unable to access " + AUTHORITY() + "! " + e);
             }
         }
         return sun;
@@ -417,7 +425,7 @@ public class SuntimesInfo
             ContentResolver resolver = context.getContentResolver();
             if (resolver != null)
             {
-                Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG);
+                Uri uri = Uri.parse("content://" + AUTHORITY() + "/" + CalculatorProviderContract.QUERY_CONFIG);
                 try {
                     Cursor cursor = resolver.query(uri, SuntimesOptions.projection, null, null, null);
                     if (cursor != null) {
@@ -427,7 +435,7 @@ public class SuntimesInfo
                         Log.e(SuntimesOptions.class.getSimpleName(), "queryInfo: null cursor! defaults will be used.");
                     }
                 } catch (SecurityException e) {
-                    Log.e(SuntimesOptions.class.getSimpleName(), "queryInfo: Unable to access " + CalculatorProviderContract.AUTHORITY + "! " + e);
+                    Log.e(SuntimesOptions.class.getSimpleName(), "queryInfo: Unable to access " + AUTHORITY() + "! " + e);
                 }
             }
             return options;
