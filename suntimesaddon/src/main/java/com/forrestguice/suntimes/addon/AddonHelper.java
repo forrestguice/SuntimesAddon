@@ -85,7 +85,7 @@ import java.util.TimeZone;
 @SuppressWarnings("WeakerAccess")
 public class AddonHelper
 {
-    public static String SUNTIMES_PACKAGE = AddonHelperInit.SUNTIMES_PACKAGE;
+    public static String SUNTIMES_PACKAGE = "com.forrestguice.suntimeswidget";
     public static final String ACTIVITY_MAIN = SUNTIMES_PACKAGE + ".SuntimesActivity";
     public static final String ACTIVITY_ALARMCLOCK = SUNTIMES_PACKAGE + ".alarmclock.ui.AlarmClockActivity";
     public static final String ACTIVITY_ACTIONS = SUNTIMES_PACKAGE + ".actions.ActionListActivity";
@@ -130,7 +130,7 @@ public class AddonHelper
         startActivity(context, intentForMainActivity());
     }
     public static Intent intentForMainActivity() {
-        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_MAIN, null, null, null, 0);
+        return createIntent(SuntimesInfo.SUNTIMES_PACKAGE, ACTIVITY_MAIN, null, null, null, 0);
     }
 
     /**
@@ -148,7 +148,7 @@ public class AddonHelper
         if (selectedAlarmID != null) {
             extras.putLong("selectedAlarm", selectedAlarmID);
         }
-        Intent intent = createIntent(SUNTIMES_PACKAGE, ACTIVITY_ALARMCLOCK, action, extras, null, 0);
+        Intent intent = createIntent(SuntimesInfo.SUNTIMES_PACKAGE, ACTIVITY_ALARMCLOCK, action, extras, null, 0);
         if (selectedAlarmID != null) {
             intent.setData(ContentUris.withAppendedId(Uri.parse("content://" + SuntimesAlarmsContract.AUTHORITY + "/alarms"), selectedAlarmID));
         }
@@ -202,7 +202,7 @@ public class AddonHelper
         Bundle extras = new Bundle();
         extras.putBoolean("noselect", false);
         extras.putString("selected", selected);
-        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_ACTIONS, null, extras, null, 0);
+        return createIntent(SuntimesInfo.SUNTIMES_PACKAGE, ACTIVITY_ACTIONS, null, extras, null, 0);
     }
 
     /**
@@ -228,7 +228,7 @@ public class AddonHelper
         Bundle extras = new Bundle();
         extras.putBoolean("noselect", false);
         extras.putString("selected", selected);
-        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_THEMES, null, extras, null, 0);
+        return createIntent(SuntimesInfo.SUNTIMES_PACKAGE, ACTIVITY_THEMES, null, extras, null, 0);
     }
 
     /**
@@ -252,7 +252,7 @@ public class AddonHelper
         Bundle extras = new Bundle();
         extras.putLong("selectedRowID", selected);
         extras.putBoolean("allowPick", allowPick);
-        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_PLACES, null, extras, null, 0);
+        return createIntent(SuntimesInfo.SUNTIMES_PACKAGE, ACTIVITY_PLACES, null, extras, null, 0);
     }
 
     /**
@@ -282,7 +282,7 @@ public class AddonHelper
         if (expanded != null) {
             extras.putBoolean("expanded", expanded);
         }
-        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_EVENTS, null, extras, null, 0);
+        return createIntent(SuntimesInfo.SUNTIMES_PACKAGE, ACTIVITY_EVENTS, null, extras, null, 0);
     }
     public static Intent addLocationExtraToEventsActivityIntent(@NonNull Intent intent, @Nullable String label, double latitude, double longitude, double altitude) {
         intent.putExtra("location_label", label);
@@ -316,7 +316,7 @@ public class AddonHelper
         if (recentColors != null) {
             extras.putIntegerArrayList("recentColors", recentColors);
         }
-        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_COLOR, Intent.ACTION_PICK, extras, data, 0);
+        return createIntent(SuntimesInfo.SUNTIMES_PACKAGE, ACTIVITY_COLOR, Intent.ACTION_PICK, extras, data, 0);
     }
 
     /**
@@ -329,7 +329,7 @@ public class AddonHelper
         return (suntimesInfo != null && suntimesInfo.appCode != null && suntimesInfo.appCode >= 66);    // access to WidgetList added v0.13.2 (66)
     }
     public static Intent intentForWidgetListActivity() {
-        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_WIDGETS, null, null, null, 0);
+        return createIntent(SuntimesInfo.SUNTIMES_PACKAGE, ACTIVITY_WIDGETS, null, null, null, 0);
     }
 
     /**
@@ -346,7 +346,7 @@ public class AddonHelper
         Bundle extras = new Bundle();
         extras.putInt(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetID);
         extras.putBoolean("ONTAP_LAUNCH_CONFIG", true);
-        return createIntent(SUNTIMES_PACKAGE, widgetConfigClassName, null, extras, null, Intent.FLAG_ACTIVITY_NEW_TASK);
+        return createIntent(SuntimesInfo.SUNTIMES_PACKAGE, widgetConfigClassName, null, extras, null, Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
 
@@ -370,7 +370,7 @@ public class AddonHelper
             extras.putString(PreferenceActivity.EXTRA_SHOW_FRAGMENT, fragment);
             extras.putBoolean(PreferenceActivity.EXTRA_NO_HEADERS, true);
         }
-        return createIntent(SUNTIMES_PACKAGE, ACTIVITY_SETTINGS, null, extras, null, 0);
+        return createIntent(SuntimesInfo.SUNTIMES_PACKAGE, ACTIVITY_SETTINGS, null, extras, null, 0);
     }
 
     public static void startSuntimesSettingsActivity_calendarIntegration(Context context, int appCode)

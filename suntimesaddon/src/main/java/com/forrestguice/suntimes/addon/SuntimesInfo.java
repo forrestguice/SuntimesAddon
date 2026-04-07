@@ -103,6 +103,11 @@ public class SuntimesInfo
         AUTHORITY = value + "." + CalculatorProviderContract.AUTHORITY_ID;
     }
 
+    public static String SUNTIMES_PACKAGE = "com.forrestguice.suntimeswidget";
+    public static void setSuntimesPackage(String value) {
+        SUNTIMES_PACKAGE = value;
+    }
+
     protected static final String[] projection = new String[] {
             COLUMN_CONFIG_PROVIDER_VERSION_CODE, COLUMN_CONFIG_APP_VERSION_CODE,
             COLUMN_CONFIG_PROVIDER_VERSION,      COLUMN_CONFIG_APP_VERSION,
