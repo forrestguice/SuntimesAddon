@@ -248,5 +248,6 @@
     <string name="def_verbose_talkback" translatable="false">false</string>
     <string name="def_object_height" translatable="false">1.8288</string>
     <string name="def_show_fields" translatable="false">00111111</string>
+    <string name="def_show_coordinates" translatable="false">true</string>
 
 </resources>

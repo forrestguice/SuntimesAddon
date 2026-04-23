@@ -33,6 +33,7 @@ import java.util.Calendar;
 import static com.forrestguice.suntimes.calculator.core.CalculatorProviderContract.COLUMN_CONFIG_LENGTH_UNITS;
 import static com.forrestguice.suntimes.calculator.core.CalculatorProviderContract.COLUMN_CONFIG_OBJECT_HEIGHT;
 import static com.forrestguice.suntimes.calculator.core.CalculatorProviderContract.COLUMN_CONFIG_OPTION_ALTITUDE;
+import static com.forrestguice.suntimes.calculator.core.CalculatorProviderContract.COLUMN_CONFIG_OPTION_COORDINATES;
 import static com.forrestguice.suntimes.calculator.core.CalculatorProviderContract.COLUMN_CONFIG_OPTION_FIELDS;
 import static com.forrestguice.suntimes.calculator.core.CalculatorProviderContract.COLUMN_CONFIG_OPTION_TALKBACK;
 import static com.forrestguice.suntimes.calculator.core.CalculatorProviderContract.COLUMN_CONFIG_OPTION_TIME_DATETIME;
@@ -351,6 +352,7 @@ public class SuntimesInfo
         public String length_units;
         public float object_height;
         public byte show_fields;
+        public boolean show_coordinates;
 
         public static final String UNITS_METRIC = "METRIC";
         public static final String UNITS_IMPERIAL = "IMPERIAL";
@@ -362,7 +364,8 @@ public class SuntimesInfo
         public static final int FIELD_NOON = 4;
         public static final int FIELD_GOLD = 5;
         public static final int FIELD_BLUE = 6;
-        public static final int NUM_FIELDS = 7;
+        public static final int FIELD_MIDNIGHT = 7;
+        public static final int NUM_FIELDS = 8;
 
         public SuntimesOptions(Context context) {
             initFromContext(context);
@@ -381,6 +384,7 @@ public class SuntimesInfo
             length_units = context.getString(R.string.def_length_units);
             object_height = Float.parseFloat(context.getString(R.string.def_object_height));
             show_fields = (byte)Integer.parseInt(context.getString(R.string.def_show_fields), 2);
+            show_coordinates = Boolean.parseBoolean(context.getString(R.string.def_show_coordinates));
         }
 
         public void initFromCursor(@NonNull Cursor cursor)
@@ -419,6 +423,9 @@ public class SuntimesInfo
 
             int i_show_fields = cursor.getColumnIndex(COLUMN_CONFIG_OPTION_FIELDS);    // 10
             show_fields = (byte)(i_show_fields >= 0 && (!cursor.isNull(i_show_fields)) ? cursor.getInt(i_show_fields) : show_fields);
+
+            int i_show_coordinates = cursor.getColumnIndex(COLUMN_CONFIG_OPTION_COORDINATES);    // 11
+            show_coordinates = (i_show_coordinates >= 0 && !cursor.isNull(i_show_coordinates)) ? (cursor.getInt(i_show_coordinates) == 1) : show_coordinates;
         }
 
         public static SuntimesOptions queryInfo(@NonNull Context context)
@@ -449,7 +456,7 @@ public class SuntimesInfo
                 COLUMN_CONFIG_OPTION_TIME_DATETIME, COLUMN_CONFIG_OPTION_ALTITUDE,
                 COLUMN_CONFIG_OPTION_WARNINGS, COLUMN_CONFIG_OPTION_TALKBACK,
                 COLUMN_CONFIG_LENGTH_UNITS, COLUMN_CONFIG_OBJECT_HEIGHT,
-                COLUMN_CONFIG_OPTION_FIELDS
+                COLUMN_CONFIG_OPTION_FIELDS, COLUMN_CONFIG_OPTION_COORDINATES
         };
 
         /**
@@ -469,6 +476,7 @@ public class SuntimesInfo
                     "time_showWeeks: " + time_showWeeks + "\n" +
                     "time_showDateTime: " + time_showDateTime + "\n" +
                     "use_altitude: " + use_altitude + "\n" +
+                    "show_coordinates: " + show_coordinates + "\n" +
                     "show_warnings: " + show_warnings + "\n" +
                     "verbose_talkback: " + verbose_talkback + "\n" +
                     "length units: " + length_units + "\n" +
