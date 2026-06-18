@@ -1,5 +1,15 @@
 ~
 
+### v0.5.0 (2026-06-18)
+* adds `BootCompletedReceiver`, `BootCompletedService`, and `Notification` helpers.
+* adds `crash report` notification / activity.
+* adds helper methods for the `Event List` activity.
+* adds support for nightly versions.
+* adds WorldMapBackgroundContract (0.1.0) (provides map imagery via addon).
+* updates SuntimesInfo; adds support for `show_coordinates` option; adds support for midnight field.
+* updates CalculatorProviderContract to 10 (0.7.1).
+* updates build; support for targetSdKVersion 34; update gradle-wrapper (8.7), updates agp version (8.5.2).
+
 ### v0.4.3 (2025-06-01)
 * adds 'targetVersion' project variable that filters build flavors (defaults to 33).
 * adds <queries> declaration to AndroidManifest.xml (api30, api33).
