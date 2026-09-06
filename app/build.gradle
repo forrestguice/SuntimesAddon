@@ -11,24 +11,36 @@ localization_plugin {
 }
 
 android {
+    namespace = "com.forrestguice.suntimes.addonexample"
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.forrestguice.suntimes.addonexample"
+        compileSdk 34
+        missingDimensionStrategy 'version', 'androidx'
+        missingDimensionStrategy 'api', 'api34'
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
         //noinspection MinSdkTooLow
         minSdkVersion 14
-        //noinspection ExpiredTargetSdkVersion,OldTargetApi
-        targetSdkVersion 28
-        versionCode 4
-        versionName "0.4.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        missingDimensionStrategy 'version', 'supportlib'
+        //noinspection EditedTargetSdkVersion,ExpiredTargetSdkVersion,OldTargetApi
+        targetSdkVersion 34
+        versionCode 5
+        versionName "0.5.1"
     }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     /*flavorDimensions "version"
     productFlavors {
         supportlib {
@@ -42,6 +54,7 @@ android {
             applicationIdSuffix ".androidx"
         }
     }*/
+
     lintOptions {
         disable 'MissingTranslation'
     }
@@ -50,20 +63,34 @@ android {
 dependencies {
     implementation project(":suntimesaddon")
 
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:support-annotations:27.1.1'
+    implementation 'androidx.core:core:1.6.0'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
+    // androidx
+    //androidxImplementation 'androidx.core:core:1.6.0'
+    //androidxImplementation 'com.google.android.material:material:1.6.1'
+    //androidxImplementation 'androidx.appcompat:appcompat:1.6.1'
+    //androidxImplementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // supportlib (legacy)
     //supportlibImplementation 'com.android.support:design:28.0.0'
     //supportlibImplementation 'com.android.support:appcompat-v7:28.0.0'
     //supportlibImplementation 'com.android.support.constraint:constraint-layout:1.1.3'
     //supportlibImplementation 'com.android.support:support-annotations:27.1.1'
 
-    //androidxImplementation 'com.google.android.material:material:1.0.0'
-    //androidxImplementation 'androidx.appcompat:appcompat:1.0.0'
-
     testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+
+    // androidx testing
+    //androidTestImplementation 'com.jraska:falcon:2.2.0'
+    //androidTestImplementation 'androidx.annotation:annotation:1.1.0'
+    //androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    //androidTestImplementation 'androidx.test:rules:1.2.0'
+    //androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // supportlib testing
     //androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     //androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     //androidTestImplementation 'com.android.support.test:runner:1.0.2'

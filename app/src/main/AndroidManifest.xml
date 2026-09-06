@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,7 +26,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".DismissChallengeActivity">
+        <activity android:name=".DismissChallengeActivity"
+            android:exported="true">
             <meta-data android:name="SuntimesDismissChallengeTitle" android:value="Addon Alarm Challenge" />
             <meta-data android:name="SuntimesDismissChallengeID" android:value="9000" />
             <intent-filter>
@@ -35,7 +37,8 @@
         </activity>
 
 
-        <activity android:name=".AlarmPickerActivity">
+        <activity android:name=".AlarmPickerActivity"
+            android:exported="true">
             <meta-data android:name="SuntimesEventPickerTitle" android:value="Addon Event Picker" />
             <intent-filter>
                 <action android:name="suntimes.action.PICK_EVENT" />

@@ -21,14 +21,11 @@ package com.forrestguice.suntimes.addonexample;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -44,6 +41,10 @@ import com.forrestguice.suntimes.alarm.SuntimesAlarmsContract;
 import com.forrestguice.suntimes.annotation.Nullable;
 import com.forrestguice.suntimes.themes.SuntimesThemeContract;
 import com.forrestguice.suntimes.themes.ThemeHelper;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity
         {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_action_suntimes);
+            actionBar.setHomeAsUpIndicator(com.forrestguice.suntimes.addon.R.drawable.ic_action_suntimes);
         }
 
         suntimesInfo.getOptions(this);
