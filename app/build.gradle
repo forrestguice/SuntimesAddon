@@ -1,4 +1,14 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'suntimes.localization.plugin'
+}
+
+localization_plugin {
+    baseNames = 'strings'
+    excludeLocales = 'en|en-rUS'
+    inputDir = layout.projectDirectory.dir('src/main/res').toString()
+    outputDir = "${buildDir}/generated/localization"
+}
 
 android {
     compileSdkVersion 28

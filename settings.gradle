@@ -1,2 +1,2 @@
 includeBuild("build-logic/localization")
-include ':suntimesaddon'
+include ':suntimesaddon', ':app'
