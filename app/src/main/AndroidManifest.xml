@@ -3,6 +3,7 @@
     package="com.forrestguice.suntimes.addonexample">
 
     <uses-permission android:name="suntimes.permission.READ_CALCULATOR" />  <!-- required to interact w/ Suntimes provider -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />  <!-- ... required to show crash notification -->
 
     <application
         android:allowBackup="true"
