@@ -83,3 +83,4 @@ lint/tmp/
 # lint/reports/
 .idea/misc.xml
 .idea/codeStyles/Project.xml
+/build-logic/localization/.idea
