@@ -213,6 +213,9 @@
                     </LinearLayout>
 
 
+                    <Button android:id="@+id/button_crash_notification"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Crash Notification" />
 
                 </LinearLayout>
             </ScrollView>

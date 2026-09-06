@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -87,6 +88,16 @@ public class MainActivity extends AppCompatActivity
         initAlarmViews();
         initThemeViews();
         selectTheme(suntimesInfo.appThemeOverride);
+
+        Button crashNotificationButton = (Button) findViewById(R.id.button_crash_notification);
+        if (crashNotificationButton != null) {
+            crashNotificationButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    throw new RuntimeException("Crash Test!");
+                }
+            });
+        }
     }
 
     @Override

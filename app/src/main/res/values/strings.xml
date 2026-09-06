@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SuntimesAddon Example</string>
+    <string name="app_support_url">https://github.com/forrestguice/SuntimesAddon/issues</string>
 </resources>
