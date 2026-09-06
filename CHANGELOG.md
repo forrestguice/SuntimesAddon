@@ -1,5 +1,9 @@
 ~
 
+### v0.5.1 (2026-09-06)
+* adds `build-logic/localization` gradle plugin.
+* updates test `app` module to androidx.
+
 ### v0.5.0 (2026-06-18)
 * adds `BootCompletedReceiver`, `BootCompletedService`, and `Notification` helpers.
 * adds `crash report` notification / activity.
