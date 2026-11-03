@@ -20,18 +20,19 @@ package com.forrestguice.suntimes.actions;
 
 /**
  * SuntimesActionsContract
- * @version 1 (0.1.0)
+ * @version 2 (0.1.1)
  *
  * CHANGES
  *   1 initial version
+ *   2 adds COLUMN_ACTION_PACKAGE
  */
 public interface SuntimesActionsContract
 {
     String AUTHORITY_ROOT = "suntimeswidget";
     String AUTHORITY_ID = "action.provider";
     String AUTHORITY = AUTHORITY_ROOT + "." + AUTHORITY_ID;
-    String VERSION_NAME = "v0.1.0";
-    int VERSION_CODE = 1;
+    String VERSION_NAME = "v0.1.1";
+    int VERSION_CODE = 2;
 
     String COLUMN_ACTION_PROVIDER_VERSION = "provider_version";                                       // String (provider version string)
     String COLUMN_ACTION_PROVIDER_VERSION_CODE = "provider_version_code";                             // int (provider version code)
@@ -43,6 +44,7 @@ public interface SuntimesActionsContract
     String COLUMN_ACTION_TAGS = "tags";                 // String; a|pipe|delimited|list|of|tags
 
     String COLUMN_ACTION_CLASS = "launch";              // String or null; fully qualified class name
+    String COLUMN_ACTION_PACKAGE = "package";           // String or null; package name
     String COLUMN_ACTION_TYPE = "type";                 // String; TYPE_*; ACTIVITY, BROADCAST, SERVICE
     String COLUMN_ACTION_ACTION = "action";             // String or null; e.g. android.action.view
     String COLUMN_ACTION_DATA = "data";                 // String or null; data uri
@@ -52,6 +54,10 @@ public interface SuntimesActionsContract
     String TAG_DEFAULT = "default";
     String TAG_SUNTIMES = "suntimes";
     String TAG_SUNTIMESALARMS = "suntimesalarms";
+    String TAG_CALENDAR = "calendar";
+    String TAG_LOCATION = "location";
+    String TAG_ALARM = "alarm";
+    String TAG_SETTINGS = "settings";
 
     String TYPE_ACTIVITY = "ACTIVITY";                  // LaunchType enum names
     String TYPE_BROADCAST = "BROADCAST";
@@ -63,7 +69,7 @@ public interface SuntimesActionsContract
     };
     String[] QUERY_ACTION_PROJECTION_FULL = new String[] { "_id",
             COLUMN_ACTION_NAME, COLUMN_ACTION_TITLE, COLUMN_ACTION_DESC, COLUMN_ACTION_COLOR, COLUMN_ACTION_TAGS,
-            COLUMN_ACTION_CLASS, COLUMN_ACTION_TYPE, COLUMN_ACTION_ACTION, COLUMN_ACTION_DATA, COLUMN_ACTION_MIMETYPE, COLUMN_ACTION_EXTRAS
+            COLUMN_ACTION_CLASS, COLUMN_ACTION_PACKAGE, COLUMN_ACTION_TYPE, COLUMN_ACTION_ACTION, COLUMN_ACTION_DATA, COLUMN_ACTION_MIMETYPE, COLUMN_ACTION_EXTRAS
     };
 
 }
