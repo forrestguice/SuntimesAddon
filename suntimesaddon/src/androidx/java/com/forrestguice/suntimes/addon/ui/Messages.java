@@ -111,6 +111,7 @@ public class Messages extends MessagesBase
 
         View snackbarView = snackbar.getView();
         snackbarView.setBackgroundColor(colors[2]);
+        snackbar.setBackgroundTint(colors[2]);
         snackbar.setActionTextColor(colors[1]);
 
         TextView snackbarText = getSnackBarText(snackbarView);
